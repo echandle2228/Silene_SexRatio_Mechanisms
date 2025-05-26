@@ -1,0 +1,365 @@
+---
+title: "Sex Ratios"
+author: "Emma"
+date: "2024-08-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+remove(list = ls())
+```
+
+
+Load Packages
+```{r}
+library(lme4)
+library(plyr)
+library(tidyverse)
+library(car)
+library(statmod)
+library(ggpubr)
+library(MuMIn)
+library(merTools)
+library(rcompanion)
+```
+
+
+
+Plots outside of demography plots
+```{r}
+setwd("C:/Users/moin2/OneDrive - University of Georgia/Research/2024/Programs")
+
+SR_2023 <- read.csv("Raw Data/Data/Sex_Ratio_2023.csv", header = TRUE)
+SR_2024 <- read.csv("Raw Data/Data/Sex_Ratio_2024.csv", header = TRUE)
+
+SR_all <- rbind(SR_2023, SR_2024) %>% 
+  mutate(sex_occ = case_when(
+    Sex == "F" ~ 0,
+    Sex == "H" ~ 1)) %>% 
+  mutate(State = if_else(
+    Site == "Latir", "NM", "CO" ))
+
+SR_all_2 <- SR_all %>% 
+  dplyr::select(Population, Sex, Elevation, sex_occ, State) %>% 
+  rename("Site" = "Population")
+
+```
+
+
+Demography plots
+```{r}
+SL1 <- read.csv("Raw Data/Demography Plots Sex Ratio/SL1-24-Sex.csv") %>% 
+  mutate(Site = "SL1")
+SL2 <- read.csv("Raw Data/Demography Plots Sex Ratio/SL2-24-Sex.csv") %>% 
+  mutate(Site = "SL2") 
+SL2$Tp <- NULL
+SN1 <- read.csv("Raw Data/Demography Plots Sex Ratio/SN1-24-Sex.csv") %>% 
+  mutate(Site = "SN1")
+SN2 <- read.csv("Raw Data/Demography Plots Sex Ratio/SN2-24-Sex.csv") %>% 
+  mutate(Site = "SN2")
+SN3 <- read.csv("Raw Data/Demography Plots Sex Ratio/SN3-24-Sex.csv") %>% 
+  mutate(Site = "SN3")
+SN4 <- read.csv("Raw Data/Demography Plots Sex Ratio/SN4-24-Sex.csv") %>% 
+  mutate(Site = "SN4")
+
+PH <- read.csv("Raw Data/Demography Plots Sex Ratio/PH_sex.csv") %>% 
+  mutate(sex_occ = case_when(
+    Sex == "F" ~ 0,
+    Sex == "H" ~ 1)) %>% 
+  subset(Plant_ID!="Mn" & Plant_ID!="Ph") %>% 
+  drop_na(sex_occ) %>% 
+  dplyr::select(Site, Sex, Elevation, sex_occ)
+
+SN_All <- rbind.fill(SL1, SL2, SN1, SN2, SN3, SN4)
+
+SN_All <- SN_All %>% mutate(Sex_fin = case_when(Sex == "H?" ~ "H",
+                                                  Sex == "F?" ~ "F"))%>% 
+  mutate(sex_occ = case_when(
+    Sex == "F" ~ 0,
+    Sex == "H" ~ 1))
+
+SN_ele <- SN_All %>% mutate(Elevation = case_when(Site == "SL1" ~ "12250",
+                                                    Site == "SL2" ~ "12362",
+                                                    Site == "SN1" ~ "11651",
+                                                    Site == "SN2" ~ "11867",
+                                                    Site == "SN3" ~ "11795",
+                                                    Site == "SN4" ~ "11605")) %>% 
+  drop_na(sex_occ) %>% 
+  dplyr::select(Site, Sex, Elevation, sex_occ)
+
+Dem_ele <- rbind(PH, SN_ele)
+
+Dem_ele <- Dem_ele %>% 
+  mutate(State = case_when(Site == "SL1" ~ "NM",
+                           Site == "SL2" ~ "NM",
+                           Site == "SN1" ~ "CO",
+                           Site == "SN2" ~ "CO",
+                           Site == "SN3" ~ "CO",
+                           Site == "SN4" ~ "CO",
+                           Site == "PH1" ~ "CO",
+                           Site == "PH2" ~ "CO",
+                           Site == "PH3" ~ "CO",
+                           Site == "PH4" ~ "CO",
+                           Site == "PH5" ~ "CO"))
+
+Dem_ele$Elevation <- as.numeric(Dem_ele$Elevation)
+
+All_Sex <- rbind(Dem_ele, SR_all_2)
+
+All_Sex$Elevation <- as.numeric(All_Sex$Elevation)
+```
+
+
+
+### Define model and check model assumptions
+```{r}
+# Define model
+elev.m <- glmer(sex_occ ~ Elevation  + (1|Population), family = "binomial", data = SR_all)
+
+
+# Check Residuals
+qqPlot(resid(elev.m))
+
+
+# Check for over dispersion
+resid.ssq <- sum(residuals(elev.m,type="pearson")^2)  
+resid.df <- nrow(subset(SR_all,!is.na(Elevation) & !is.na(sex_occ)))-length(coef(elev.m)) 
+resid.ssq/resid.df 
+
+
+summary(elev.m)
+Anova(elev.m)
+
+```
+
+
+### Plot data
+```{r}
+# Extract fitted values
+fitted <- predict(elev.m, type = "response", re.form = NA)
+
+
+# Add fitted values to the original data frame
+SR_all_elev <- SR_all %>% mutate(fitted = as.numeric(fitted)) %>% 
+  filter(fitted != "na")
+
+sex_bin <- SR_all %>% 
+  group_by(State, Population) %>% 
+  dplyr::summarise(mean_sex = mean(sex_occ, na.rm = T),
+            mean_ele = mean(Elevation, na.rm = T),
+            Count = n())
+
+# Visualize glm
+ggplot() +
+  geom_point(data = SR_all_elev, aes(x = Elevation, y = sex_occ), color = "darkgreen") +
+  geom_count(data = sex_bin, aes(x = mean_ele, y = mean_sex, size = Count, color = State)) +
+  geom_line(data = SR_all_elev, aes(x = Elevation, y = fitted), color = "#9ACD32", linewidth = 1) +
+  scale_color_manual(values = c("grey", "black")) +
+  labs(x = "Elevation", y = "Sex Ratio (Herm:Fem)") +
+  theme_classic()
+
+```
+
+
+# Latitude has boundary issues for now
+```{r}
+# Define model
+lat.m <- glmer(sex_occ ~ Latitude + (1|Site), family = "binomial", data = SR_all)
+
+
+# Check Residuals
+qqPlot(resid(lat.m))
+
+
+# Check for over dispersion
+resid.ssq <- sum(residuals(elev.m,type="pearson")^2)  
+resid.df <- nrow(subset(SR_all,!is.na(Latitude) & !is.na(sex_occ)))-length(coef(lat.m)) 
+resid.ssq/resid.df 
+
+
+summary(lat.m)
+Anova(lat.m)
+```
+
+
+
+# Demography Plots
+### Define model and check model assumptions
+```{r}
+# Define model
+dem_elev.m <- glmer(sex_occ ~ Elevation + (1|Site), family = "binomial", data = Dem_ele)
+
+
+# Check Residuals
+qqPlot(resid(dem_elev.m))
+
+
+# Check for over dispersion
+resid.ssq <- sum(residuals(dem_elev.m,type="pearson")^2)  
+resid.df <- nrow(subset(Dem_ele,!is.na(Elevation) & !is.na(sex_occ)))-length(coef(dem_elev.m)) 
+resid.ssq/resid.df 
+
+
+summary(dem_elev.m)
+Anova(dem_elev.m)
+
+```
+
+
+### Plot data
+```{r}
+# Extract fitted values
+fitted <- predict(dem_elev.m, type = "response", re.form = NA)
+
+
+# Add fitted values to the original data frame
+Dem_all_elev <- Dem_ele %>% mutate(fitted = as.numeric(fitted)) %>% 
+  filter(fitted != "na")
+
+
+
+sex_bin2 <- Dem_ele %>% 
+  group_by(State, Site) %>% 
+  dplyr::summarise(mean_sex = mean(sex_occ, na.rm = T),
+            mean_ele = mean(as.numeric(Elevation), na.rm = T),
+            Count = n())
+
+# Visualize glm
+ggplot() +
+  geom_point(data = Dem_all_elev, aes(x = Elevation, y = sex_occ), color = "darkgreen") +
+  geom_count(data = sex_bin2, aes(x = mean_ele, y = mean_sex, size = Count, color = State)) +
+  geom_line(data = Dem_all_elev, aes(x = Elevation, y = fitted), color = "#9ACD32", linewidth = 1) +
+  scale_color_manual(values = c("grey", "black")) +
+  labs(x = "Elevation", y = "Sex Ratio (Herm:Fem)") +
+  theme_classic()
+
+```
+
+
+
+# All Populations
+### Define model and check model assumptions for a generalized linear regression model
+```{r}
+# Define model
+All_ele.m <- glmer(sex_occ ~ Elevation + (1|Site), family = "binomial", data = All_Sex)
+
+
+# Check Residuals
+qqPlot(resid(All_ele.m))
+
+
+# Check for over dispersion
+resid.ssq <- sum(residuals(All_ele.m,type="pearson")^2)  
+resid.df <- nrow(subset(All_Sex,!is.na(Elevation) & !is.na(sex_occ)))-length(coef(All_ele.m)) 
+resid.ssq/resid.df 
+
+
+summary(All_ele.m)
+Anova(All_ele.m)
+
+```
+
+
+### Plot data
+```{r}
+# Extract fitted values
+fitted <- predict(All_ele.m, type = "response", re.form = NA)
+
+
+# Add fitted values to the original data frame
+All_Sex_elev <- All_Sex %>% mutate(fitted = as.numeric(fitted)) %>% 
+  filter(fitted != "na")
+
+
+sex_bin3 <- All_Sex %>% 
+  group_by(State, Site) %>% 
+  dplyr::summarise(mean_sex = mean(sex_occ, na.rm = T),
+            mean_ele = mean(as.numeric(Elevation), na.rm = T),
+            Count = n())
+
+
+
+# Visualize glm
+ggplot() +
+  geom_point(data = All_Sex_elev, aes(x = Elevation, y = sex_occ), color = "darkgreen") +
+  geom_count(data = sex_bin3, aes(x = mean_ele, y = mean_sex, size = Count, color = State)) +
+  geom_line(data = All_Sex_elev, aes(x = Elevation, y = fitted), color = "#9ACD32", linewidth = 1) +
+  scale_color_manual(values = c("grey", "black")) +
+  labs(x = "Elevation", y = "Sex Ratio (Herm:Fem)") +
+  theme_classic()
+
+```
+
+
+Quadratic Model
+```{r}
+
+# Define model
+All_ele_quad.m <- glmer(sex_occ ~ Elevation + I(Elevation^2) + (1|Site), family = "binomial", data = All_Sex)
+
+summary(All_ele_quad.m)
+Anova(All_ele_quad.m)
+
+
+# R-squared for both models
+r.squaredGLMM(All_ele.m, null.fit(All_ele.m, RE.keep = TRUE, evaluate = TRUE))
+r.squaredGLMM(All_ele_quad.m, null.fit(All_ele_quad.m, RE.keep = TRUE, evaluate = TRUE))
+
+# R-squared
+### Efron r-squared from rcompanion package
+
+Actual    = All_Sex$sex_occ
+Predicted = predict(All_ele_quad.m, type="response")
+Residuals = residuals(All_ele_quad.m)
+
+efronRSquared(residual = Residuals, 
+              predicted = Predicted, 
+              statistic = "EfronRSquared")
+
+# Extract fitted values
+fitted.quad <- predict(All_ele_quad.m, type = "response", re.form = NA)
+# Add fitted values to the original data frame
+All_Sex <- All_Sex %>% mutate(fitted.quad = as.numeric(fitted.quad)) %>% 
+  filter(fitted.quad != "na")
+
+
+# Find fitted values and 95% confidence interval
+All_Sex$prediction <- predictInterval(All_ele_quad.m, All_Sex, 
+                                          which = c("full"),
+                                          level = 0.95,
+                                          n.sims = 1000,
+                                          stat = c("mean"),
+                                          type = c("probability"),
+                                          include.resid.var = TRUE,
+                                          returnSims = FALSE,
+                                          seed = 2,
+                                          .parallel = FALSE,
+                                          .paropts = NULL,
+                                          fix.intercept.variance = FALSE,
+                                          ignore.fixed.terms = NULL)
+
+
+
+
+
+(ggplot() +
+  geom_point(data = All_Sex, aes(x = Elevation, y = sex_occ), color = "lightgrey") +
+  geom_count(data = sex_bin3, aes(x = mean_ele, y = mean_sex, size = Count, color = State)) +
+  geom_smooth(data = All_Sex, aes(x = Elevation, y = fitted.quad), color = "#9ACD32", linewidth = 1) +
+  scale_color_manual(values = c("black", "darkgrey")) +
+  labs(x = "Elevation", y = "Operational Sex Ratio") +
+  theme_classic() +
+  theme(axis.title.x = element_text(size = 14),
+        axis.title.y = element_text(size = 14),
+        title = element_text(size = 12)))
+
+
+
+```
+
+
+

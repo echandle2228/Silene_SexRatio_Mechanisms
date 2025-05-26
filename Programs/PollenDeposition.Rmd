@@ -1,0 +1,597 @@
+---
+title: "Pollen Deposition in CO"
+author: "Emma"
+date: "2025-01-14"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+remove(list = ls())
+```
+
+
+Load Packages
+```{r, warning=FALSE, message=FALSE}
+library(MASS)
+library(tidyverse)
+library(lme4)
+library(lmerTest)
+library(MuMIn)
+library(ggpubr)
+library(car)
+library(rsq)
+library(MuMIn)
+library(boot)
+library(emmeans)
+library(merTools)
+library(ggpubr)
+library(performance)
+library(plotrix)
+library(prevalence)
+```
+
+
+Load data
+```{r}
+meta <- read.csv("Raw Data/Data/Pollen_Deposition.csv", header = TRUE)
+data <- read.csv("Raw Data/Data/Pollen_Deposition_Data_all.csv", header = TRUE)
+
+sex_dat <- read.csv("Raw Data/Data/Sex_Ratio_2023.csv")
+```
+
+
+Format sex ratio data
+```{r}
+sex_ratio1 <- meta %>% 
+  select(Site:Sex, SR_Herm_A, SR_Herm_B, SR_Herm_C, SR_Herm_D) %>% 
+  pivot_longer(cols = starts_with(c("SR_Herm")),
+               names_to = c("Week"),
+               names_prefix = c("SR_Herm_"),
+               values_to = c("Herm_Count")) 
+  
+sex_ratio2 <- meta %>% 
+  select(c(Site:Sex, SR_Fem_A, SR_Fem_B, SR_Fem_C, SR_Fem_D)) %>% 
+  pivot_longer(cols = starts_with(c("SR_Fem")),
+               names_to = c("Week"),
+               names_prefix = c("SR_Fem_"),
+               values_to = c("Fem_Count")) 
+
+sex_ratio_all <- merge(sex_ratio1,sex_ratio2, 
+                       by = c("Site", "Population", "Plot","Plant.ID", "TP", "Sex", "Week"), 
+                       all.y = TRUE)
+
+sex_ratio_all <- sex_ratio_all %>% 
+  mutate(true_HermCount = if_else(Sex == "H", Herm_Count-1, Herm_Count)) %>% 
+  mutate(true_FemCount = if_else(Sex == "F", Fem_Count-1, Fem_Count)) %>% 
+  mutate(micro_SR = true_HermCount/(true_FemCount+true_HermCount),
+         density = (true_HermCount + true_FemCount + 1) / pi)
+
+
+
+```
+
+Format stigma data
+```{r}
+
+meta <- meta %>% mutate_if(is.numeric, as.character)
+  
+
+stigma1 <- meta %>% 
+  select(c(Site:Sex, starts_with("Stig"))) %>% 
+  pivot_longer(cols = starts_with(c("Stig")),
+               names_to = c("Week_Flower"),
+               names_prefix = c("Stig_"),
+               values_to = c("Tube_Number")) %>% 
+  separate_wider_position(Week_Flower, c(Week = 1, Flower = 1))
+
+notes <- meta %>% 
+  select(c(Plant.ID, ends_with("_Notes"))) %>% 
+  pivot_longer(cols = ends_with(c("_Notes")),
+               names_to = c("Week_Flower"),
+               values_to = c("Field_Notes"),
+               names_pattern = "(.*)_Notes") %>% 
+  separate_wider_position(Week_Flower, c(Week = 1, Flower = 1))
+
+stigma2 <- merge(stigma1, notes, by = c("Plant.ID", "Week", "Flower"), all.x = TRUE)
+
+```
+
+
+Combine dataframes
+```{r}
+stigma3 <- merge(stigma2, data, by = "Tube_Number", all.y = TRUE)
+
+
+stigma4 <- merge(stigma3, sex_ratio_all, 
+                 by = c("Site", "Population", "Plot", "Plant.ID", "TP", "Sex", "Week"), 
+                 all.x = TRUE)
+
+# Remove individuals with female and hermaphrodite mix 
+stigma5 <- stigma4 %>% filter(Sex != "mix")
+```
+
+
+Turn individual flower herbivory notes, pollen deposition, and female function into binomial data
+```{r}
+stigma6 <- stigma5 %>% 
+  mutate(herb = if_else(Field_Notes == "herb", 1, 0)) %>% 
+  mutate(Herbivory = if_else(herb == "0" | is.na(herb), "No Herbivory", "Herbivory")) %>% 
+  mutate(pollen_depo = if_else(Pollen_Number_1 == 0, 0, 1)) %>% 
+  mutate(female_func = if_else(Ovule_Number_1 == 0, 0, 1)) %>% 
+  mutate(Population = case_when(Population == "West Knoll" ~ "Low Hermaphrodite",
+                                Population == "East Krummholz" ~ "High Hermaphrodite"))
+```
+
+
+Site level sex ratios 
+```{r}
+# Site level sex ratio from micro sex ratio each time flowers were marked for stigma collection
+stigma6 %>% 
+  group_by(Population, Week) %>% 
+  summarise(sex_ratio = sum(true_HermCount) / sum(true_HermCount + true_FemCount))
+
+# Site level sex ratio from micro sex ratio - all observations
+(MeanMicro_SR <- stigma6 %>% 
+  group_by(Plant.ID, Population) %>% 
+  summarise(mean_SR = mean(true_HermCount/ (true_HermCount + true_FemCount))) %>% 
+  group_by(Population) %>% 
+  na.omit() %>% 
+  summarise(sex_ratio = mean(mean_SR)))
+
+# Graph showing the distribution of micro sex ratio
+(na_counts <- stigma6 %>%
+  filter(is.na(micro_SR)) %>%
+  group_by(Sex, Population) %>%
+  summarise(na_count = n(), .groups = "drop") %>%
+  mutate(micro_SR = 1.1)) # Use Inf to place NA bars outside the histogram range
+
+stigma6 %>% group_by(Plant.ID, Population, Sex) %>%  
+  summarise(mean_SR = mean(true_HermCount/ (true_HermCount + true_FemCount))) %>% 
+  ggplot(aes(x = mean_SR, fill = Sex)) +
+  geom_vline(data = MeanMicro_SR, aes(xintercept=sex_ratio), 
+             linetype="dashed", size = 1) +
+  geom_histogram(position = "dodge", na.rm = FALSE, binwidth = 0.05) +
+  geom_col(data = na_counts, aes(x = micro_SR, y = na_count, fill = Sex), 
+           position = "dodge", width = 0.05, inherit.aes = FALSE, 
+           alpha = 0.5) +
+  labs(x = "Micro Sex Ratio", y = "Count") +
+  theme_classic() +
+  scale_fill_manual(values = c("#7A378B", "#66CD00"))+
+  facet_wrap(~ Population, ncol = 1) +
+  annotate("text", x = 1.1, y = -2, label = "NA")
+
+
+
+# Site level sex ratio from surveys and confidence intervals
+sex_dat %>% 
+  filter(Smut != "Y" &
+         Population == "West Knoll" | Population == "East Krummholz") %>% 
+  group_by(Population) %>% 
+  summarise(n = length(Sex), x = sum(str_count(Sex, "H")))
+
+propCI(x = 85, 200, method = "all", level = 0.95, sortby = "level") #West Knoll
+
+propCI(x = 149, n = 200, method = "all", level = 0.95, sortby = "level") #East Krummholz
+  
+
+# Total observations
+stigma6 %>% 
+  drop_na(Stigma_Length) %>% 
+  group_by(Sex, Population) %>% 
+  summarise(n = n_distinct(Plant.ID))
+```
+
+
+## How does herbivory differ between the two sexes?
+```{r}
+herbivory.m <- glmer(herb ~ Sex * Population + (1|Plant.ID), data = stigma6, family = "binomial") 
+
+summary(herbivory.m)
+Anova(herbivory.m)
+
+emmeans(herbivory.m, specs = pairwise ~ Sex|Population, adjust="tukey", type = "response")
+
+
+ggplot(stigma6, aes(x = Herbivory, fill = Sex)) +
+  geom_bar() +
+  theme_classic()+
+  facet_wrap(vars(Population))+
+  scale_fill_manual(values = c("#7A378B", "#66CD00"))
+```
+
+
+Remove observations with herbivory on the stigma or ovary
+```{r}
+# Remove observations with herbivory of stigmas
+stigma_all <- stigma6 %>% filter(Stigma_Herbivory != 1 | Ovule_Herbivory != 1)
+```
+
+
+
+## How do floral traits differ between sexes and individuals?
+### Stigma Length
+```{r}
+# Stigma length
+q1_stig.m <- lmer(Stigma_Length ~ Sex * Population + (1|Plant.ID), data = stigma_all)
+
+summary(q1_stig.m)
+Anova(q1_stig.m)
+ranova(q1_stig.m)
+
+
+(stig_plot <- ggplot(stigma_all, aes(x = Sex, y = Stigma_Length, fill = Sex)) +
+  geom_violin(alpha = 0.25) +
+  geom_boxplot(width = 0.2) +
+  ylab("Stigma Length (mm)") +
+  theme_classic()+  
+  scale_fill_manual(values = c("#7A378B", "#66CD00")) +
+  theme(legend.position = "none"))
+  
+```
+
+
+## Female Function
+### All together
+```{r}
+qA_ovule_all.m <- glmer.nb(Ovule_Number_1 ~ Sex * Population * Stigma_Length + (1|Plant.ID), 
+                           data = stigma_all, verbose = TRUE)
+
+summary(qA_ovule_all.m)
+Anova(qA_ovule_all.m)
+
+
+check_overdispersion(qA_ovule_all.m)
+
+
+RE_ovule_all.m <- MASS::glm.nb(Ovule_Number_1 ~ Sex * Population * Stigma_Length, 
+                         data = stigma_all, trace = TRUE)
+anova(qA_ovule_all.m, RE_ovule_all.m)
+
+
+ggplot(stigma_all, aes(x = Stigma_Length, y = Ovule_Number_1)) +
+  geom_jitter() +
+  geom_smooth(method = "glm", se = T, 
+        method.args = list(family = "poisson"), colour = c("#008B00")) +
+  theme_classic()+  
+  labs(y = "Total Ovule Number", x = "Stigma Length")
+```
+
+
+### Separate binomial and number
+```{r}
+# Female function
+# Ovule production binary
+q1_ovule_binom.m <- glmer(female_func ~ Sex * Population * Stigma_Length + (1|Plant.ID), data = stigma_all, family = "binomial")
+
+summary(q1_ovule_binom.m)
+Anova(q1_ovule_binom.m)
+
+RE_ovule_binom.m <- glm(female_func ~ Sex * Population * Stigma_Length, data = stigma_all, family = "binomial")
+anova(q1_ovule_binom.m, RE_ovule_binom.m)
+
+
+emmeans(q1_ovule_binom.m, specs = pairwise ~ Sex|Population, type = "response")
+
+stigma_all$ovule_binom_predict <- predictInterval(q1_ovule_binom.m, 
+                                                  stigma_all,
+                                                  which = "full",
+                                                  level = 0.95,
+                                                  n.sims = 1000,
+                                                  stat = "mean",
+                                                  type = "probability",
+                                                  include.resid.var = TRUE,
+                                                  returnSims = FALSE,
+                                                  seed = 2,
+                                                  .parallel = FALSE,
+                                                  .paropts = NULL,
+                                                  fix.intercept.variance = FALSE,
+                                                  ignore.fixed.terms = NULL)
+
+
+(ov_plot1 <- ggplot(stigma_all, aes(x = Stigma_Length, y = female_func, color = Sex, fill = Sex)) +  
+  geom_jitter(height = 0.15) +
+  geom_smooth(method = "glm", se = T, 
+        method.args = list(family = "binomial"), linetype = "dashed") +
+  theme_classic()+  
+  ylab("Mean Female Function \n(Likelihood of Ovule Production)") +
+  scale_color_manual(values = c("#7A378B", "#66CD00"))+
+  scale_fill_manual(values = c("#7A378B", "#66CD00"))+
+  facet_wrap(vars(Population)) +
+  theme(legend.position = "none"))
+
+
+# Are there functional males?
+(ov_plot2 <- stigma_all %>% 
+  select(Population, Sex, Plant.ID, female_func) %>% 
+  mutate(Sex = if_else(Sex == "F", "Female", "Hermaphrodite")) %>% 
+  na.omit(female_func) %>% 
+    group_by(Population, Sex, Plant.ID) %>%  
+  mutate(mean_female_func = mean(female_func, na.rm = TRUE),
+         Number = log(n())) %>%
+  ungroup() %>%
+  mutate(Plant.ID = factor(Plant.ID, levels = 
+                             unique(Plant.ID[order(mean_female_func)]))) %>%
+  ggerrorplot(x="Plant.ID", y="female_func",
+              color="Sex", palette=c("#7A378B", "#66CD00"),
+              desc_stat = "mean_se",
+              position = position_dodge(0.3),
+              size = 0.05,
+              xlab="Individual Plants", 
+              ylab="Mean Female Function \n(Likelihood of Ovule Production)",
+              facet.by = c("Sex", "Population")) +
+  geom_point(aes(x=Plant.ID, y=mean_female_func, 
+                 size = Number, color = Sex), alpha = 0.1) +
+  labs(size = "Log Sample") +
+  theme(axis.text.x = element_blank(), 
+        axis.ticks.x = element_blank(),
+        legend.position = "right"))
+
+
+stigma_all %>% 
+  drop_na(female_func) %>% 
+  group_by(Sex, Population, Plant.ID) %>% 
+  mutate(mean_female_func = mean(female_func, na.rm = TRUE)) %>% 
+  filter(mean_female_func == 0) %>% 
+  summarise(n = n())
+
+```
+
+### Ovule Number
+```{r}
+# Ovule Number
+ovule1 <- stigma_all %>% filter(female_func == 1)
+
+q1_ovule_num.m <- glmer.nb(Ovule_Number_1 ~ Sex * Population * Stigma_Length + (1|Plant.ID), 
+                           data = ovule1, verbose = TRUE)
+
+summary(q1_ovule_num.m)
+Anova(q1_ovule_num.m)
+
+check_overdispersion(q1_ovule_num.m)
+
+
+RE_ovule_num.m <- MASS::glm.nb(Ovule_Number_1 ~ Sex * Population* Stigma_Length, 
+                         data = ovule1, trace = TRUE)
+anova(q1_ovule_num.m, RE_ovule_num.m)
+
+
+ggplot(ovule1, aes(x = Sex, y = Ovule_Number_1, fill = Sex)) +
+  geom_violin(alpha = 0.25) +
+  geom_boxplot(width = 0.15) +
+  theme_classic()+  
+  ylab("Ovule Number") +
+  scale_fill_manual(values = c("#7A378B", "#66CD00"))+
+  facet_wrap(vars(Population)) +
+  theme(legend.position = "none")
+
+
+```
+
+Floral Trait multipanel figure
+```{r}
+ggarrange(ggarrange(stig_plot, ov_plot1, ncol = 2, nrow = 1, labels = c("A", "B")), 
+          ov_plot2, nrow = 2, labels = c("", "C"), heights = c(1, 1.5))
+
+
+```
+
+### Is there a correlation between stigma length and ovule number?
+```{r}
+
+ggplot(stigma_all, aes(x = Stigma_Length, y = Ovule_Number_1, color = Sex)) +
+  geom_jitter(width = 0.25) +
+  geom_smooth(method = "lm", se = T) +
+  theme_classic()+ 
+  labs(x = "Stigma Length", y = "Ovule Number") +
+  scale_color_manual(values = c("#7A378B", "#66CD00"))+
+  facet_wrap(vars(Population)) +
+  theme(legend.position = "none")
+  
+```
+
+
+
+
+## How do floral traits, sex, and micro sex ratio impact pollination?
+### Total Pollen Deposition - pollen deposition all-together (not split into binary and number)
+```{r}
+qA_pollen_all_SL.m <- glmer.nb(Pollen_Number_1 ~ (Stigma_Length + true_HermCount) * Sex * Population + (1|Plant.ID), data = stigma_all, verbose = TRUE)
+
+summary(qA_pollen_all_SL.m)
+Anova(qA_pollen_all_SL.m)
+
+check_overdispersion(qA_pollen_all_SL.m)
+
+RE_pollen_all_SL.m <- glm(Pollen_Number_1 ~ (Stigma_Length + true_HermCount) * Sex * Population, data = stigma_all, family = "poisson")
+
+anova(qA_pollen_all_SL.m, RE_pollen_all_SL.m)
+
+
+# Figures
+(pollen_stig_plot3 <- ggplot(stigma_all, aes(x = Stigma_Length, y = log(Pollen_Number_1), group = Sex, color = Sex)) +
+  geom_point(position = "dodge", alpha = 0.5) +
+  geom_smooth(method = "glm", se = T, 
+        method.args = list(family = "poisson")) +
+  labs(x = "Stigma Length (mm)", y = "Log Total Pollen Number")+
+  theme_classic()+
+  facet_wrap(vars(Population)) +
+  scale_color_manual(values = c("#7A378B", "#66CD00")))
+
+
+(pollen_stig_plot4 <- ggplot(stigma_all, aes(x = true_HermCount, y = log(Pollen_Number_1), group = Sex, color = Sex)) +
+  geom_point(position = "dodge", alpha = 0.5) +
+  geom_smooth(method = "glm", se = T, 
+        method.args = list(family = "poisson"), linetype = "dashed") +
+  labs(x = "Micro Hermaphrodite Count", y = "Log Total Pollen Number")+
+  theme_classic()+
+  facet_wrap(vars(Population), scales="free_x") +
+  scale_color_manual(values = c("#7A378B", "#66CD00")))
+
+ggarrange(pollen_stig_plot3, pollen_stig_plot4, nrow = 2, ncol = 1, labels = c("A", "B"),
+          common.legend = TRUE, legend = "right")
+
+```
+
+
+
+### Pollen Deposition Binomial
+```{r}
+q2_pollen_depo_SL.m <- glmer(pollen_depo ~ (Stigma_Length + true_HermCount) * Sex * Population + (1|Plant.ID), data = stigma_all, family = "binomial")
+
+summary(q2_pollen_depo_SL.m)
+Anova(q2_pollen_depo_SL.m)
+
+
+
+RE_pollen_depo_SL.m <- glm(pollen_depo ~ (Stigma_Length + true_HermCount) * Sex * Population, data = stigma_all, family = "binomial")
+anova(q2_pollen_depo_SL.m, RE_pollen_depo_SL.m)
+
+
+emmeans(q2_pollen_depo_SL.m, specs = pairwise ~ Sex|Population, type = "response")
+emmeans(q2_pollen_depo_SL.m, specs = pairwise ~ Sex|Stigma_Length, type = "response")
+
+
+(pollen_stig_plot1 <- ggplot(stigma_all, aes(x = Stigma_Length, y = pollen_depo, group = Sex, color = Sex)) +
+  geom_jitter(width = 0.3, height = 0.025, alpha = 0.5) +
+  geom_smooth(method = "glm", method.args = list(c("binomial"))) +
+  labs(x = "Stigma Length (mm)", y = "Probability of\n Pollen Deposition")+
+  theme_classic()+
+  facet_wrap(vars(Population))+
+  scale_color_manual(values = c("#7A378B", "#66CD00"))+
+  theme(legend.position = "none"))
+
+(pollen_msr_plot1 <- ggplot(stigma_all, aes(x = micro_SR, y = pollen_depo, group = Sex, color = Sex)) +
+  geom_jitter(width = 0.3, height = 0.025, alpha = 0.5) +
+  geom_smooth(method = "glm", method.args = list(c("binomial"))) +
+  labs(x = "Micro Hermaphrodite Count", y = "Probability of\n Pollen Deposition")+
+  theme_classic()+
+  facet_wrap(vars(Population))+
+  scale_color_manual(values = c("#7A378B", "#66CD00"))+
+  theme(legend.position = "none"))
+
+
+```
+
+
+
+Combined figure for stigma length and mic--
+```{r}
+ggarrange(pollen_stig_plot1, pollen_msr_plot1, nrow = 2, ncol = 1, labels = c("A", "B"),
+          common.legend = TRUE, legend = "right")
+
+```
+
+### Pollen Deposition Count given pollen was deposited on the stigma
+```{r}
+# Pollen number
+pollen1 <- stigma_all %>% filter(pollen_depo == 1)
+
+q2_pollen_num_SL.m <- glmer.nb(Pollen_Number_1 ~ (Stigma_Length + micro_SR) * Sex * Population + (1|Plant.ID), data = pollen1, verbose = TRUE)
+
+summary(q2_pollen_num_SL.m)
+Anova(q2_pollen_num_SL.m)
+
+check_overdispersion(q2_pollen_num_SL.m)
+
+
+RE_pollen_num_SL.m <- glm(Pollen_Number_1 ~ Stigma_Length * Sex * Population, data = pollen1, family = "poisson")
+anova(q2_pollen_num_SL.m, RE_pollen_num_SL.m)
+
+(pollen_stig_plot2 <- ggplot(pollen1, aes(x = Stigma_Length, y = log(Pollen_Number_1), group = Sex, color = Sex)) +
+  geom_jitter(width = 0.25, alpha = 0.5) +
+  geom_smooth(method = "glm", se = T, 
+        method.args = list(family = "poisson")) +
+  labs(x = "Stigma Length (mm)", y = "Log Pollen Number\n when Deposited")+
+  theme_classic()+
+  facet_wrap(vars(Population)) +
+  scale_color_manual(values = c("#7A378B", "#66CD00"))+
+  theme(legend.position = "right"))
+
+
+```
+
+
+Pollen Deposition multi-panel figure
+```{r}
+ggarrange(ggarrange(pollen_stig_plot1, pollen_msr_plot1, nrow = 1, ncol = 2, labels = c("A", "B")), 
+          pollen_stig_plot2, nrow = 2, ncol = 1, labels = c("", "C"), widths = c(0.5, 1))
+```
+
+
+Plant Density
+```{r}
+
+mean_dens <- stigma_all %>% 
+  group_by(Population) %>% 
+  summarise(dens_mean = mean(density),
+            n = n(),
+            dens_se = sd(density) / (sqrt(n)))
+
+(density_plot2 <- ggplot(data = mean_dens, aes(x = Population, y = dens_mean)) +
+  geom_bar(stat = "summary", fun = "mean", position = position_dodge()) +
+  geom_errorbar(aes(ymin = dens_mean - dens_se, ymax = dens_mean + dens_se), 
+                position = position_dodge(0.9), width = 0.25) +
+  labs(x = "Population", y = "Density") +
+  theme_classic() +
+  theme(legend.title = element_blank(),
+        legend.position="none",
+        axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)))
+
+
+mean_MSR <- stigma_all %>% 
+  filter(!micro_SR == "NaN") %>% 
+  group_by(Population) %>% 
+  summarise(MSR_mean = mean(micro_SR),
+            n = n(),
+            MSR_se = sd(micro_SR) / (sqrt(n)))
+
+(density_plot2 <- ggplot(data = mean_MSR, aes(x = Population, y = MSR_mean)) +
+  geom_bar(stat = "summary", fun = "mean", position = position_dodge()) +
+  geom_errorbar(aes(ymin = MSR_mean - MSR_se, ymax = MSR_mean + MSR_se), 
+                position = position_dodge(0.9), width = 0.25) +
+  labs(x = "Population", y = "Micro Sex Ratio") +
+  theme_classic() +
+  theme(legend.title = element_blank(),
+        legend.position="none",
+        axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)))
+
+
+# Average density and hermaphrodite number across individual plants
+mean_ID <- stigma_all %>% 
+  group_by(Population, Sex, Plant.ID) %>% 
+  summarise(mean_density = mean(density),
+            mean_herm = mean(true_HermCount),
+            mean_SR = mean(micro_SR))
+
+(density_plot1 <- ggplot(stigma_all, aes(x = density, y = pollen_depo, group = Sex, color = Sex)) +
+  geom_jitter(width = 0.3, height = 0.025, alpha = 0.5) +
+  geom_smooth(method = "glm", method.args = list(c("binomial"))) +
+  labs(x = "Density", y = "Probability of\n Pollen Deposition")+
+  theme_classic()+
+  facet_wrap(vars(Population), scales = "free")+
+  scale_color_manual(values = c("#7A378B", "#66CD00"))+
+  theme(legend.position = "none"))
+
+(density_plot1 <- ggplot(mean_ID, aes(x = mean_density, y = mean_SR, group = Sex, color = Sex)) +
+  geom_jitter(height = 0.1, alpha = 0.5) +
+  geom_smooth(method = "glm", method.args = list(family = "poisson")) +
+  labs(x = "Micro Density", y = "Micro Sex Ratio")+
+  theme_classic()+
+  facet_wrap(vars(Population), scales = "free")+
+  scale_color_manual(values = c("#7A378B", "#66CD00"))+
+  theme(legend.position = "none"))
+
+
+ggarrange(density_plot2, density_plot1, nrow = 1, ncol = 2, labels = c("A", "B"), widths = c(0.5, 1))
+
+
+```
+
+
+
