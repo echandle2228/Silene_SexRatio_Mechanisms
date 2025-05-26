@@ -375,10 +375,10 @@ ggplot(ovule1, aes(x = Sex, y = Ovule_Number_1, fill = Sex)) +
 
 Floral Trait multipanel figure
 ```{r}
-ggarrange(ggarrange(stig_plot, ov_plot1, ncol = 2, nrow = 1, labels = c("A", "B")), 
+FloralTrait_Panel <- ggarrange(ggarrange(stig_plot, ov_plot1, ncol = 2, nrow = 1, labels = c("A", "B")), 
           ov_plot2, nrow = 2, labels = c("", "C"), heights = c(1, 1.5))
 
-
+ggsave("Figures/FloralTrait_Panel.png", width = 8, height = 6, units = "in")
 ```
 
 ### Is there a correlation between stigma length and ovule number?
@@ -401,7 +401,7 @@ ggplot(stigma_all, aes(x = Stigma_Length, y = Ovule_Number_1, color = Sex)) +
 ## How do floral traits, sex, and micro sex ratio impact pollination?
 ### Total Pollen Deposition - pollen deposition all-together (not split into binary and number)
 ```{r}
-qA_pollen_all_SL.m <- glmer.nb(Pollen_Number_1 ~ (Stigma_Length + true_HermCount) * Sex * Population + (1|Plant.ID), data = stigma_all, verbose = TRUE)
+qA_pollen_all_SL.m <- glmer.nb(Pollen_Number_1 ~ (Stigma_Length + true_HermCount + density) * Sex * Population + (1|Plant.ID), data = stigma_all, verbose = TRUE)
 
 summary(qA_pollen_all_SL.m)
 Anova(qA_pollen_all_SL.m)
@@ -442,14 +442,14 @@ ggarrange(pollen_stig_plot3, pollen_stig_plot4, nrow = 2, ncol = 1, labels = c("
 
 ### Pollen Deposition Binomial
 ```{r}
-q2_pollen_depo_SL.m <- glmer(pollen_depo ~ (Stigma_Length + true_HermCount) * Sex * Population + (1|Plant.ID), data = stigma_all, family = "binomial")
+q2_pollen_depo_SL.m <- glmer(pollen_depo ~ (Stigma_Length + true_HermCount + density) * Sex * Population + (1|Plant.ID), data = stigma_all, family = "binomial")
 
 summary(q2_pollen_depo_SL.m)
 Anova(q2_pollen_depo_SL.m)
 
 
 
-RE_pollen_depo_SL.m <- glm(pollen_depo ~ (Stigma_Length + true_HermCount) * Sex * Population, data = stigma_all, family = "binomial")
+RE_pollen_depo_SL.m <- glm(pollen_depo ~ (Stigma_Length + true_HermCount + density) * Sex * Population, data = stigma_all, family = "binomial")
 anova(q2_pollen_depo_SL.m, RE_pollen_depo_SL.m)
 
 
