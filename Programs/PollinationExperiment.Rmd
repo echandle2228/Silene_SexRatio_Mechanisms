@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 remove(list = ls())
 set.seed(459813)
+# setwd(dir = "Programs/")
 ```
 
 
@@ -98,9 +99,11 @@ data_all$viable_seed <- round(data_all$Fruit * data_all$Seed_number * data_all$G
 
 ```
 
-Subset dataframe to just include treatments that fruited and remove mix sex
+Subset dataframe to just include treatments that fruited and remove mix sex. Remove female flower that set fruit in the no pollen treatment.
 ```{r}
-data_all <- data_all %>% filter(Sex != "mix") %>% 
+data_all <- data_all %>% 
+  filter(Sex != "mix") %>% 
+  filter(!(Treatment == "No Pollen" & Sex == "F" & Fruit == 1)) %>% 
   mutate(Fruit_char = case_when(Fruit == 1 ~ "Fruit",
                                 Fruit == 0 ~ "No Fruit"),
          Population = case_when(Population == "West Knoll" ~ "Low Hermaphrodite",
@@ -120,7 +123,7 @@ data_all$Treatment <- as.factor(data_all$Treatment)
 data_all$Sex <- as.factor(data_all$Sex)
   
 
-fruit.m <- glm(Fruit ~ Sex * Treatment + Sex:(true_FemCount + true_HermCount) + Treatment:(true_FemCount + true_HermCount) + true_FemCount + true_HermCount + Population, data = data_all, family = "binomial")
+fruit.m <- glm(Fruit ~ Sex * Treatment+ Sex:(true_FemCount + true_HermCount) + Treatment:(true_FemCount + true_HermCount) + true_FemCount + true_HermCount + Population, data = data_all, family = "binomial")
 
 summary(fruit.m)
 Anova(fruit.m)
@@ -138,7 +141,7 @@ mean_fr <- data_all %>%
 (fruit_plot1 <- ggplot(data = data_all, aes(x = Treatment, fill = fct_rev(Fruit_char))) +
   geom_bar(position = "fill") +
   labs(x = "Pollination Treatment", 
-       y = "Fruit Set Proportion") +
+       y = "Fruit Set\n Proportion") +
   theme_classic() +
   scale_fill_manual(values = c("grey", "black")) +
   facet_wrap(~ Sex) +
@@ -158,7 +161,7 @@ plot(predict)
 Micro_figure <- predict %>% 
   filter(!(facet == "F" & group == "Selfed") & !(facet == "F" & group == "No Pollen"))
 
-(fruit_plot2 <- ggplot(data = Micro_figure, 
+(fruit_plot2_test <- ggplot(data = Micro_figure, 
                        aes(x = x, y = predicted, color = group, fill = group)) +
   geom_line(size = 1) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = 0.2) +
@@ -166,20 +169,20 @@ Micro_figure <- predict %>%
   theme_classic()+
   scale_fill_manual(values = c("black", "#00008B", "#9ACD32", "#EEC900")) +
   scale_color_manual(values = c("black", "#00008B", "#9ACD32", "#EEC900"))+
-  facet_wrap(~facet)+
   theme(legend.title = element_blank()))
 
 
-(fruit_plot2 <- ggplot(data = Micro_figure, 
+(fruit_microSR <- ggplot(data = Micro_figure, 
                        aes(x = x, y = predicted, color = facet, fill = facet)) +
   geom_line(size = 1) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = 0.2) +
-  labs(x = "Number of Surrounding Hermaphrodites", y = "Fruit Production") +
+  labs(x = "Number of Surrounding Hermaphrodites", y = "Fruit Set\n Proportion") +
   theme_classic()+
   scale_fill_manual(values = c("#7A378B", "#66CD00")) +
   scale_color_manual(values = c("#7A378B", "#66CD00"))+
-  facet_wrap(~group)+
+  facet_wrap(~group, nrow = 1)+
   theme(legend.title = element_blank()))
+
 
 
 # Effect of micro sex ratio on pollen limitation
@@ -253,6 +256,8 @@ mean_sd <- data_seeds %>%
         legend.position="top",
         axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)))
 
+ggsave(seed_plot, filename = "Figures/Seed_Supp.png", dpi = 300, width = 6, height = 4, units = "in")
+
 (seed_plot2 <- ggplot(data = data_all, aes(x = true_HermCount, y = Seed_number, color = Sex)) +
   geom_point(position = "dodge", alpha = 0.5) +
   geom_smooth(method = "glm", se = T, 
@@ -296,6 +301,7 @@ mean_germ <- data_seeds %>%
         legend.position="none",
         axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)))
 
+ggsave(germ_plot, filename = "Figures/Germ_Supp.png", dpi = 300, width = 6, height = 4, units = "in")
 
 # Average germination rate for each treatment
 data_seeds %>% group_by(Treatment) %>% 
@@ -377,9 +383,9 @@ alpha <- c(1,1,1,1,0.2,1,1,1,1,1,1,1,0.2,1)
 
 Pollen experiment multi-panel figure
 ```{r}
-(PolExp_plot <- ggarrange(fruit_plot1, vs_plot, nrow = 2, ncol = 1, labels = c("A", "B")))
+(PolExp_plot <- ggarrange(fruit_plot1, fruit_microSR, vs_plot, nrow = 3, ncol = 1, labels = c("A", "B", "C")))
 
-ggsave(filename = "Figures/PolExp_MainFigure.png", dpi = 300)
+ggsave(filename = "Figures/PolExp_MainFigure.png", dpi = 300, width = 6, height = 7.5, units = "in")
 
 ```
 

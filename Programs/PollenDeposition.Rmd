@@ -266,7 +266,8 @@ ggplot(stigma_all, aes(x = Stigma_Length, y = Ovule_Number_1)) +
 ```{r}
 # Female function
 # Ovule production binary
-q1_ovule_binom.m <- glmer(female_func ~ Sex * Stigma_Length + Population + (1|Plant.ID), data = stigma_all, family = "binomial")
+###### Do I include micro sex ratio considering the pollination experiment results?
+q1_ovule_binom.m <- glmer(female_func ~ Sex * Stigma_Length + Herm_Count + Fem_Count + Population + (1|Plant.ID), data = stigma_all, family = "binomial")
 
 summary(q1_ovule_binom.m)
 Anova(q1_ovule_binom.m)
