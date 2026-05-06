@@ -1,0 +1,529 @@
+"Site","Population","Plot","Plant.ID","TP","Sex","Week","Tube_Number","Flower","Field_Notes","Date_Mounted","Stigma_Length","Pollen_Number_1","Pollen_Number_2","Deformed_Pollen","Ovule_Number_1","Ovule_Number_2","Ovule_issue","Notes","Stigma_Herbivory","Ovule_Herbivory","Observer","Herm_Count","Fem_Count","true_HermCount","true_FemCount","micro_SR","density","herb","Herbivory","pollen_depo","female_func"
+"Niwot","High Hermaphrodite","101","101","YH","H","A","101-1","1",NA,"9/5/2024",8,1,NA,0,31,NA,"","",0,0,"Ashley",5,3,4,3,0.571428571428571,2.54647908947033,NA,"No Florivory",1,1
+"Niwot","High Hermaphrodite","101","101","YH","H","A","101-2","2",NA,"9/5/2024",7,0,NA,0,35,NA,"","",0,0,"Ashley",5,3,4,3,0.571428571428571,2.54647908947033,NA,"No Florivory",0,1
+"Niwot","High Hermaphrodite","102","102","YD","H","A","102","1",NA,"9/6/2024",5,0,NA,0,0,NA,"","small black dots visible, 25 clear small ovules (half size)?",0,0,"Emma",1,0,0,0,NA,0.318309886183791,NA,"No Florivory",0,0
+"Niwot","High Hermaphrodite","202","202","GS","F","B","336","1","herb","9/17/2024",1,0,NA,0,27,NA,"","",0,0,"Ashley",0,1,0,0,NA,0.318309886183791,1,"Florivory",0,1
+"Niwot","High Hermaphrodite","202","202","GS","F","B","337","2","shrivled","9/17/2024",2,0,NA,0,6,NA,"","4 aborted",0,0,"Ashley",0,1,0,0,NA,0.318309886183791,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","202","202","GS","F","B","338","3","","9/17/2024",6,0,NA,5,33,NA,"","",0,0,"Ashley",0,1,0,0,NA,0.318309886183791,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","202","202","GS","F","C","361","1","herb","9/24/2024",2,0,NA,0,0,NA,"Faint","32 degenerated ovules, faint and organge, herbivory, half all stigmas gone",1,0,"",0,1,0,0,NA,0.318309886183791,1,"Florivory",0,0
+"Niwot","High Hermaphrodite","203","203","GS","F","B","262","3","","9/14/2024",4,0,NA,0,27,NA,"","",0,0,"Ashley",0,1,0,0,NA,0.318309886183791,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","203","203","GS","F","B","258","1","","9/14/2024",6,34,NA,8,25,NA,"","",0,0,"Ashley",0,1,0,0,NA,0.318309886183791,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","203","203","GS","F","B","259","2","closed","9/14/2024",6,0,NA,0,21,NA,"","",0,0,"Ashley",0,1,0,0,NA,0.318309886183791,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","203","203","GS","F","C","304","2","closed","9/18/2024",4,NA,NA,NA,33,NA,"","herbivory, no stigmas",1,0,"",0,1,0,0,NA,0.318309886183791,0,"No Florivory",NA,1
+"Niwot","High Hermaphrodite","203","203","GS","F","C","303","1","closed","9/18/2024",4,0,NA,0,21,NA,"","ovary and stigmas blackened",0,0,"",0,1,0,0,NA,0.318309886183791,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","203","203","GS","F","C","305","3","herb","9/18/2024",3,NA,NA,NA,30,NA,"","herbivory, no stigmas",1,0,"",0,1,0,0,NA,0.318309886183791,1,"Florivory",NA,1
+"Niwot","High Hermaphrodite","204","204","YH","H","B","84","1","","9/17/2024",3,0,NA,0,20,NA,"","",0,0,"Emma",3,2,2,2,0.5,1.59154943091895,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","204","204","YH","H","B","86","3","","9/17/2024",3,2,NA,0,14,NA,"Faint","herbivory 1 half stigma, ovules faint",0,0,"Emma",3,2,2,2,0.5,1.59154943091895,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","204","204","YH","H","B","85","2","","9/17/2024",3,0,NA,0,0,NA,"","",0,0,"Emma",3,2,2,2,0.5,1.59154943091895,0,"No Florivory",0,0
+"Niwot","High Hermaphrodite","204","204b","GH","F","B","88","1","","9/17/2024",6,12,NA,10,19,NA,"","herbivory 1 half stigma ",0,0,"Emma",3,3,3,2,0.6,1.90985931710274,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","204","204b","GH","F","B","165","2","herb","9/17/2024",3,4,NA,8,26,NA,"","herbivory, half of all stigmas",1,0,"Emma",3,3,3,2,0.6,1.90985931710274,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","204","204b","GH","F","B","169","3","herb","9/17/2024",5,8,NA,6,25,NA,"","herbivory, helf of 2 stigmas",0,0,"Emma",3,3,3,2,0.6,1.90985931710274,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","206","206","GD","F","B","163","1","","9/17/2024",6,13,NA,2,27,NA,"","",0,0,"Emma",2,2,2,1,0.666666666666667,1.27323954473516,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","206","206","GD","F","B","186","2","","9/17/2024",6,19,NA,6,26,NA,"","",0,0,"Emma",2,2,2,1,0.666666666666667,1.27323954473516,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","206","206","GD","F","C","320","2","closed","9/24/2024",5,0,NA,0,16,NA,"Degraded","pistil degenerating, blackened",0,0,"",0,1,0,0,NA,0.318309886183791,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","206","206","GD","F","C","311","1","herb","9/24/2024",3,0,NA,0,0,NA,"","herbivory, half of all stigmas gone, 8 degenerated ovules",1,0,"",0,1,0,0,NA,0.318309886183791,1,"Florivory",0,0
+"Niwot","High Hermaphrodite","206","206","GD","F","C","321","3","closed","9/24/2024",4,0,NA,0,29,NA,"Degraded","pistil degenerating, blackened",0,0,"",0,1,0,0,NA,0.318309886183791,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","206","206","GD","F","D","488","2","closed","9/24/2024",3,0,NA,0,0,NA,"","19 degenerated ovules, fungus on slide too",0,0,"",0,1,0,0,NA,0.318309886183791,0,"No Florivory",0,0
+"Niwot","High Hermaphrodite","209","209","GD","F","B","168","1","closed","9/17/2024",4,4,NA,1,18,NA,"Degraded","degrading, concentrated in center of ovary",0,0,"Ashley",1,1,1,0,1,0.636619772367581,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","209","209","GD","F","B","184","2","herb","9/17/2024",1,3,NA,1,35,NA,"","some herbivory on stigma",0,0,"Ashley",1,1,1,0,1,0.636619772367581,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","209","209","GD","F","B","176","3","closed","9/17/2024",3,3,NA,3,0,NA,"","25 diminutive ovules",1,0,"Emma",1,1,1,0,1,0.636619772367581,0,"No Florivory",1,0
+"Niwot","High Hermaphrodite","210","210","YH","H","B","252","1","herb","9/11/2024",1,0,NA,0,0,NA,"","herbivory",1,1,"Ashley",1,0,0,0,NA,0.318309886183791,1,"Florivory",0,0
+"Niwot","High Hermaphrodite","210","210","YH","H","B","253","2","herb","9/11/2024",0,NA,NA,NA,18,NA,"","herbivory, no stigma",1,0,"Ashley",1,0,0,0,NA,0.318309886183791,1,"Florivory",NA,1
+"Niwot","High Hermaphrodite","213","213","YS","H","B","375","1","herb","9/17/2024",3,0,NA,0,0,NA,"","20 aborted ovules",0,0,"Ashley",5,1,4,1,0.8,1.90985931710274,1,"Florivory",0,0
+"Niwot","High Hermaphrodite","213","213","YS","H","B","326","2","","9/17/2024",4,1,NA,0,0,NA,"","bottom ovary ripped, but certain there are no ovules, herbivory , half of all stigmas",1,0,"Emma",5,1,4,1,0.8,1.90985931710274,0,"No Florivory",1,0
+"Niwot","High Hermaphrodite","214","214","YD","H","B","205","1","herb","9/17/2024",0,NA,NA,NA,0,NA,"Missing","herbivory, half ovary and all stigmas gone, certain no ovules",1,1,"Emma",3,0,2,0,1,0.954929658551372,1,"Florivory",NA,0
+"Niwot","High Hermaphrodite","215","215","GC","F","B","312","2","closed","9/17/2024",4,0,NA,0,25,NA,"","degraded stigmas",1,0,"Emma",4,1,4,0,1,1.59154943091895,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","215","215","GC","F","B","209","1","closed","9/17/2024",2,0,NA,0,3,NA,"","3 giant ovules, herbivory all of 1 stigma and 2 half stigmas gone",1,0,"Emma",4,1,4,0,1,1.59154943091895,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","216","216","YD","H","B","278","1","closed","9/14/2024",4,0,NA,0,39,NA,"","",0,0,"Ashley",3,0,2,0,1,0.954929658551372,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","216","216","YD","H","B","279","2","closed","9/14/2024",4,3,NA,0,36,NA,"","",0,0,"Ashley",3,0,2,0,1,0.954929658551372,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","216","216","YD","H","B","282","3","herb","9/14/2024",4,0,NA,0,29,NA,"","",0,0,"Ashley",3,0,2,0,1,0.954929658551372,1,"Florivory",0,1
+"Niwot","High Hermaphrodite","216","216","YD","H","C","307","1","herb","9/18/2024",2,1,NA,0,4,NA,"Faint","Ovules faint/hard to see, herbivory, half of all stigmas gone",1,0,"",3,0,2,0,1,0.954929658551372,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","216","216","YD","H","C","308","2","","9/18/2024",4,0,NA,1,22,NA,"","",0,0,"",3,0,2,0,1,0.954929658551372,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","216","216","YD","H","C","309","3","","9/18/2024",6,8,NA,6,39,NA,"","",0,0,"",3,0,2,0,1,0.954929658551372,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","216","216","YD","H","D","487","3","herb","9/24/2024",3,0,NA,0,30,NA,"Degraded","pistil degenerating/blackened, herbivory half of 2 stigmas gone",0,0,"",2,0,1,0,1,0.636619772367581,1,"Florivory",0,1
+"Niwot","High Hermaphrodite","217","217","YC","H","B","352","1","herb","9/17/2024",1,0,NA,0,0,NA,"","",0,0,"Ashley",2,0,1,0,1,0.636619772367581,1,"Florivory",0,0
+"Niwot","High Hermaphrodite","218x","218x","YH","H","B","257","1","herb","9/14/2024",3,4,NA,0,25,NA,"","",0,0,"Ashley",4,1,3,1,0.75,1.59154943091895,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","219","219","GD","F","B","327","1","","9/17/2024",5,0,NA,0,19,NA,"","",0,0,"Emma",1,4,1,3,0.25,1.59154943091895,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","221","221","GD","F","B","299","3","decay","9/17/2024",3,0,NA,0,0,NA,"","",0,0,"Ashley",1,1,1,0,1,0.636619772367581,0,"No Florivory",0,0
+"Niwot","High Hermaphrodite","221","221","GD","F","B","297","1","","9/14/2024",4,0,NA,1,36,NA,"","",0,0,"Ashley",1,1,1,0,1,0.636619772367581,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","221","221","GD","F","B","298","2","closed","9/14/2024",3,0,NA,0,28,NA,"","",0,0,"Ashley",1,1,1,0,1,0.636619772367581,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","222","222","GS","F","B","333","1","","9/17/2024",8,3,NA,0,29,NA,"","",0,0,"Ashley",1,2,1,1,0.5,0.954929658551372,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","222","222","GS","F","B","334","2","herb","9/17/2024",3,1,NA,0,27,NA,"","",0,0,"Ashley",1,2,1,1,0.5,0.954929658551372,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","222","222","GS","F","B","335","3","","9/17/2024",7,27,NA,1,30,NA,"Faint","Ovules faint/hard to see",0,0,"Ashley",1,2,1,1,0.5,0.954929658551372,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","222","222","GS","F","C","351","2","","9/24/2024",6,3,NA,0,14,NA,"","",0,0,"",1,1,1,0,1,0.636619772367581,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","222","222","GS","F","C","350","1","","9/24/2024",5,1,NA,0,18,NA,"Degraded","pistil degenerating, blackened",0,0,"",1,1,1,0,1,0.636619772367581,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","222","222","GS","F","C","360","3","closed","9/24/2024",3,0,NA,0,17,NA,"","herbivory, half all stigmas gone",1,0,"",1,1,1,0,1,0.636619772367581,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","222","222","GS","F","D","489","1","","9/24/2024",5,20,NA,4,21,NA,"","",0,0,"",0,1,0,0,NA,0.318309886183791,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","222","222","GS","F","D","493","3","herb","9/24/2024",2,0,NA,0,20,NA,"","herbivory half of all stigmas gone",1,0,"",0,1,0,0,NA,0.318309886183791,1,"Florivory",0,1
+"Niwot","High Hermaphrodite","222","222","GS","F","D","492","2","herb","9/24/2024",1,0,NA,0,0,NA,"","18 diminutive ovules",0,0,"",0,1,0,0,NA,0.318309886183791,1,"Florivory",0,0
+"Niwot","High Hermaphrodite","223","223","GD","F","B","316","2","closed","9/17/2024",4,0,NA,0,17,NA,"Degraded","ovary degraded, black spots, herbivory half stigmas",1,0,"Emma",11,3,11,2,0.846153846153846,4.45633840657307,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","223","223","GD","F","B","315","1","herb","9/17/2024",0,NA,NA,NA,19,NA,"","herbivory, stigmas gone",1,0,"Emma",11,3,11,2,0.846153846153846,4.45633840657307,1,"Florivory",NA,1
+"Niwot","High Hermaphrodite","226","226","YS","H","B","319","3","","9/17/2024",4,0,NA,0,0,NA,"","23 diminutive ovules",0,0,"Emma",10,1,9,1,0.9,3.5014087480217,0,"No Florivory",0,0
+"Niwot","High Hermaphrodite","226","226","YS","H","B","218","2","herb","9/11/2024",4,0,NA,2,30,NA,"","",0,0,"Ashley",10,1,9,1,0.9,3.5014087480217,1,"Florivory",0,1
+"Niwot","High Hermaphrodite","226","226","YS","H","B","317","1","","9/17/2024",6,0,NA,0,48,NA,"","4 stigmas",0,0,"Emma",10,1,9,1,0.9,3.5014087480217,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","226","226","YS","H","C","331","1","","9/24/2024",5,0,NA,0,0,NA,"Faint","12 diminutive ovules, faint",0,0,"",6,2,5,2,0.714285714285714,2.54647908947033,0,"No Florivory",0,0
+"Niwot","High Hermaphrodite","226","226","YS","H","C","340","2","herb","9/24/2024",1,1,NA,1,0,NA,"Faint","herbivory, half of all stigmas gone, 8 diminutive, faint ovules",1,0,"",6,2,5,2,0.714285714285714,2.54647908947033,1,"Florivory",1,0
+"Niwot","High Hermaphrodite","226","226","YS","H","C","341","3","","9/24/2024",0.5,0,NA,0,0,NA,"","very small stigmas there, changed length from 0 to 0.5",0,0,"",6,2,5,2,0.714285714285714,2.54647908947033,0,"No Florivory",0,0
+"Niwot","High Hermaphrodite","226","226b","GS","F","B","323","2","","9/17/2024",4,6,NA,2,25,NA,"","",0,0,"Emma",10,1,10,0,1,3.5014087480217,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","226","226b","GS","F","B","322","1","","9/17/2024",5,0,NA,0,26,NA,"","",0,0,"Emma",10,1,10,0,1,3.5014087480217,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","226","226b","GS","F","B","324","3","","9/17/2024",3,0,NA,0,31,NA,"Degraded","ovary degraded/blackened",0,0,"Emma",10,1,10,0,1,3.5014087480217,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","227","227","GS","F","B","286","3","","9/14/2024",7,15,NA,5,43,NA,"","",0,0,"Ashley",0,1,0,0,NA,0.318309886183791,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","227","227","GS","F","B","285","2","","9/14/2024",6,16,NA,2,31,NA,"","",0,0,"Ashley",0,1,0,0,NA,0.318309886183791,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","227","227","GS","F","B","284","1","","9/14/2024",7,11,NA,3,26,NA,"","",0,0,"Ashley",0,1,0,0,NA,0.318309886183791,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","228","228","GD","F","B","292","1","herb","9/14/2024",1,0,NA,0,39,NA,"","some herbivory",1,0,"Ashley",3,2,3,1,0.75,1.59154943091895,1,"Florivory",0,1
+"Niwot","High Hermaphrodite","228","228","GD","F","B","293","2","herb","9/14/2024",3,0,NA,0,34,NA,"","some herbivory on tips",1,0,"Ashley",3,2,3,1,0.75,1.59154943091895,1,"Florivory",0,1
+"Niwot","High Hermaphrodite","229","229","YS","H","B","353","1","herb","9/17/2024",2,1,NA,0,42,NA,"","",0,0,"Ashley",1,0,0,0,NA,0.318309886183791,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","229","229","YS","H","B","354","2","herb","9/17/2024",3,2,NA,0,44,NA,"","",0,0,"Ashley",1,0,0,0,NA,0.318309886183791,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","229","229","YS","H","C","371","1","closed","9/24/2024",4,4,NA,2,28,NA,"","ovules smaller",0,0,"",1,0,0,0,NA,0.318309886183791,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","230","230","YC","H","B","263","1","","9/14/2024",4,5,NA,2,23,NA,"","",0,0,"Ashley",2,1,1,1,0.5,0.954929658551372,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","231","231","GH","F","B","349","1","closed","9/17/2024",3,0,NA,0,33,NA,"","",0,0,"Ashley",2,2,2,1,0.666666666666667,1.27323954473516,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","232","232","YS","H","B","264","1","herb","9/14/2024",NA,NA,NA,NA,NA,NA,"Missing","Herbivory, half of the ovary and all of stigmas gone",1,1,"",4,1,3,1,0.75,1.59154943091895,1,"Florivory",NA,NA
+"Niwot","High Hermaphrodite","232","232","YS","H","B","265","2","","9/14/2024",3,0,NA,0,7,NA,"Faint","Small and faint ovules!",0,0,"Ashley",4,1,3,1,0.75,1.59154943091895,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","232","232","YS","H","B","266","3","","9/14/2024",4,4,NA,5,1,NA,"","6 small ovules, likely aborted",0,0,"Ashley",4,1,3,1,0.75,1.59154943091895,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","232","232","YS","H","C","306","1","herb","9/18/2024",1,0,NA,0,NA,NA,"","herbivory, half of all stigmas gone, ovary wall opaque",1,0,"",2,0,1,0,1,0.636619772367581,1,"Florivory",0,NA
+"Niwot","High Hermaphrodite","233","233","GD","F","C","380","1","herb","9/24/2024",1,0,NA,0,36,NA,"","herbivory, stigmas gone",1,0,"",0,1,0,0,NA,0.318309886183791,1,"Florivory",0,1
+"Niwot","High Hermaphrodite","234","234","GH","F","B","247","2","","9/11/2024",5,2,NA,0,27,NA,"","",0,0,"Ashley",0,2,0,1,0,0.636619772367581,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","234","234","GH","F","B","246","1","","9/11/2024",5,38,NA,9,18,NA,"","Very big ovules with variable sizes",0,0,"Ashley",0,2,0,1,0,0.636619772367581,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","235","235","YD","H","B","249","3","decay","9/11/2024",5,10,NA,2,1,NA,"","",0,0,"Ashley",7,0,6,0,1,2.22816920328654,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","235","235","YD","H","B","248","1","herb","9/11/2024",0,NA,NA,NA,NA,NA,"","mangled, herbivory",0,1,"Ashley",7,0,6,0,1,2.22816920328654,1,"Florivory",NA,NA
+"Niwot","High Hermaphrodite","237","237","YD","H","B","328","1","","9/17/2024",4,0,NA,0,22,NA,"","4 stigmas",0,0,"Emma",4,2,3,2,0.6,1.90985931710274,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","237","237b","GC","F","B","232","2","herb","9/11/2024",3,4,NA,0,16,NA,"","",0,0,"Ashley",4,2,4,1,0.8,1.90985931710274,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","237","237b","GC","F","B","229","1","herb","9/11/2024",4,2,NA,0,21,NA,"","",0,0,"Ashley",4,2,4,1,0.8,1.90985931710274,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","238","238","YS","H","B","277","1","","9/14/2024",3,2,NA,1,28,NA,"","",0,0,"Ashley",1,0,0,0,NA,0.318309886183791,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","241","241","YH","H","B","269","2","","9/14/2024",3,4,NA,0,0,NA,"","11 diminutive ovules",0,0,"Ashley",1,0,0,0,NA,0.318309886183791,0,"No Florivory",1,0
+"Niwot","High Hermaphrodite","241","241","YH","H","B","272","3","","9/14/2024",4,0,NA,0,24,NA,"","",0,0,"Ashley",1,0,0,0,NA,0.318309886183791,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","241","241","YH","H","B","268","1","","9/14/2024",3,0,NA,0,0,NA,"","",0,0,"Ashley",1,0,0,0,NA,0.318309886183791,0,"No Florivory",0,0
+"Niwot","High Hermaphrodite","243","243","GS","F","B","193","3","closed","9/17/2024",3,0,NA,0,26,NA,"","herbivory on half of all stigmas",1,0,"Emma",5,1,5,0,1,1.90985931710274,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","243","243","GS","F","B","194","2","","9/17/2024",4,0,NA,0,35,NA,"Degraded","degraded/black on ovules",0,0,"Emma",5,1,5,0,1,1.90985931710274,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","243","243","GS","F","B","185","1","closed","9/17/2024",6,11,NA,3,33,NA,"","",0,0,"Emma",5,1,5,0,1,1.90985931710274,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","243","243","GS","F","C","330","1","","9/24/2024",4,0,NA,0,20,NA,"","4 stigmas",0,0,"",3,1,3,0,1,1.27323954473516,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","251","251","YC","H","B","202","1","herb","9/17/2024",0,NA,NA,NA,0,NA,"","herbivory no stigmas",1,0,"Emma",4,0,3,0,1,1.27323954473516,1,"Florivory",NA,0
+"Niwot","High Hermaphrodite","251","251","YC","H","B","204","3","","9/17/2024",3,0,NA,0,21,NA,"","",0,0,"Emma",4,0,3,0,1,1.27323954473516,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","251","251","YC","H","B","203","2","decay","9/17/2024",2,1,NA,0,0,NA,"","ovary ripped, 23 degenerated/diminutive ovules",0,0,"Emma",4,0,3,0,1,1.27323954473516,0,"No Florivory",1,0
+"Niwot","High Hermaphrodite","252","252","GC","F","B","206","1","herb","9/17/2024",0,NA,NA,NA,13,NA,"Missing","herbivory, half ovary and all stigmas gone",1,1,"Emma",2,2,2,1,0.666666666666667,1.27323954473516,1,"Florivory",NA,1
+"Niwot","High Hermaphrodite","261","261","YH","H","B","313","1","herb","9/17/2024",0,NA,NA,NA,17,NA,"Degraded","herbivory, stigmas gone, ovary degraded/blackened",1,0,"Emma",5,1,4,1,0.8,1.90985931710274,1,"Florivory",NA,1
+"Niwot","High Hermaphrodite","263","263","YC","H","B","348","2","herb","9/17/2024",1,NA,NA,NA,NA,NA,"Missing","Herbivory, half of the ovary and all of stigmas gone",1,1,"Ashley",5,1,4,1,0.8,1.90985931710274,1,"Florivory",NA,NA
+"Niwot","High Hermaphrodite","263","263","YC","H","B","347","1","herb","9/17/2024",0,0,NA,0,0,NA,"","herbivory, stigmas gone",1,0,"Ashley",5,1,4,1,0.8,1.90985931710274,1,"Florivory",0,0
+"Niwot","High Hermaphrodite","271","271","GD","F","B","275","2","","9/14/2024",2,0,NA,0,29,NA,"","some herbivory",1,0,"Ashley",2,1,2,0,1,0.954929658551372,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","271","271","GD","F","B","276","3","","9/14/2024",5,1,NA,1,30,NA,"","",0,0,"Ashley",2,1,2,0,1,0.954929658551372,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","271","271","GD","F","B","274","1","","9/14/2024",6,0,NA,0,0,NA,"","14 aborted ovules",0,0,"Ashley",2,1,2,0,1,0.954929658551372,0,"No Florivory",0,0
+"Niwot","High Hermaphrodite","275","275","YD","H","B","178","1","herb","9/17/2024",0,NA,NA,NA,23,NA,"Missing","herbivory, all stigmas and upper part of ovary",1,1,"Emma",1,4,0,4,0,1.59154943091895,1,"Florivory",NA,1
+"Niwot","High Hermaphrodite","275","275","YD","H","B","191","3","","9/11/2024",3,18,NA,2,5,NA,"Degraded","21 silohettes when through lighting, black/degraded",0,0,"Ashley",1,4,0,4,0,1.59154943091895,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","275","275","YD","H","B","177","2","herb","9/17/2024",5,1,NA,1,21,NA,"Degraded","ovary degraded, black spots",0,0,"Emma",1,4,0,4,0,1.59154943091895,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","294","294","YS","H","B","339","1","herb","9/17/2024",2,1,NA,0,32,NA,"","",0,0,"Ashley",5,0,4,0,1,1.59154943091895,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","294","294","YS","H","B","343","3","","9/17/2024",5,1,NA,1,32,NA,"","",0,0,"Ashley",5,0,4,0,1,1.59154943091895,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","294","294","YS","H","B","342","2","herb","9/17/2024",3,2,NA,2,35,NA,"","",0,0,"Ashley",5,0,4,0,1,1.59154943091895,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","294","294b","YH","H","B","345","2","herb","9/17/2024",2,53,NA,1,0,NA,"Missing","Ovary ripped",0,1,"Ashley",5,0,4,0,1,1.59154943091895,1,"Florivory",1,0
+"Niwot","High Hermaphrodite","294","294b","YH","H","B","346","3","","9/17/2024",2,1,NA,0,27,NA,"Faint","Ovules, small and faint, need through lighting",0,0,"Ashley",5,0,4,0,1,1.59154943091895,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","294","294b","YH","H","B","344","1","herb","9/17/2024",3,4,NA,0,30,NA,"Faint","Ovules, small and faint, need through lighting",0,0,"Ashley",5,0,4,0,1,1.59154943091895,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","294","294b","YH","H","C","370","1","herb","9/24/2024",1,1,NA,1,0,NA,"","herbivory, half of all stigmas gone, 19 diminutive ovules, up an objective to see",1,0,"",5,0,4,0,1,1.59154943091895,1,"Florivory",1,0
+"Niwot","High Hermaphrodite","296","296","YC","H","B","273","1","herb","9/14/2024",1,2,NA,1,29,NA,"","some herbivory",1,0,"Ashley",4,0,3,0,1,1.27323954473516,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","297","297","YS","H","B","256","2","herb","9/14/2024",4,6,NA,1,35,NA,"","",0,0,"Ashley",1,0,0,0,NA,0.318309886183791,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","297","297","YS","H","B","255","1","herb","9/11/2024",5,12,NA,5,25,NA,"","",0,0,"Ashley",1,0,0,0,NA,0.318309886183791,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","297","297","YS","H","C","302","1","herb","9/18/2024",3,3,NA,0,31,NA,"","herbivory, half of one stigma gone",0,0,"",1,0,0,0,NA,0.318309886183791,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","49","49","RH","F","A","113-2","2",NA,"9/5/2024",8,24,NA,6,20,NA,"","",0,0,"Ashley",2,2,2,1,0.666666666666667,1.27323954473516,NA,"No Florivory",1,1
+"Niwot","High Hermaphrodite","49","49","RH","F","A","113-1","1",NA,"9/5/2024",8,6,NA,0,19,NA,"","A lot of phlox (spikey) pollen",0,0,"Emma",2,2,2,1,0.666666666666667,1.27323954473516,NA,"No Florivory",1,1
+"Niwot","High Hermaphrodite","50","50","RD","F","B","288","2","","9/14/2024",5,0,NA,1,22,NA,"","",0,0,"Ashley",3,1,3,0,1,1.27323954473516,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","50","50","RD","F","B","287","1","herb","9/14/2024",1,0,NA,2,10,NA,"","",0,0,"Ashley",3,1,3,0,1,1.27323954473516,1,"Florivory",0,1
+"Niwot","High Hermaphrodite","50","50b","YD","H","B","289","1","herb","9/14/2024",2,0,NA,0,0,NA,"","",0,0,"Ashley",3,1,2,1,0.666666666666667,1.27323954473516,1,"Florivory",0,0
+"Niwot","High Hermaphrodite","56","56","YH","H","B","208","2","","9/17/2024",3,0,NA,0,29,NA,"","",0,0,"Emma",4,0,3,0,1,1.27323954473516,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","56","56","YH","H","B","207","1","","9/17/2024",5,22,NA,4,36,NA,"","",0,0,"Emma",4,0,3,0,1,1.27323954473516,0,"No Florivory",1,1
+"Niwot","High Hermaphrodite","58","58","YH","H","B","314","1","closed","9/17/2024",3,0,NA,0,0,NA,"","",0,0,"Emma",2,0,1,0,1,0.636619772367581,0,"No Florivory",0,0
+"Niwot","High Hermaphrodite","62","62","RC","F","A","90","1",NA,"9/5/2024",7,0,NA,0,24,NA,"","A lot of phlox (spikey) pollen and smaller round pollen",0,0,"Emma",2,3,2,2,0.5,1.59154943091895,NA,"No Florivory",0,1
+"Niwot","High Hermaphrodite","63","63","YD","H","B","296","1","herb","9/14/2024",4,0,NA,0,17,NA,"","",0,0,"Ashley",1,1,0,1,0,0.636619772367581,1,"Florivory",0,1
+"Niwot","High Hermaphrodite","64","64","RC","F","A","97","1",NA,"9/5/2024",8,66,NA,8,36,NA,"","",0,0,"Ashley",3,1,3,0,1,1.27323954473516,NA,"No Florivory",1,1
+"Niwot","High Hermaphrodite","65","65","RS","F","A","87-2","2",NA,"9/5/2024",8,5,NA,1,37,NA,"","",0,0,"Ashley",5,2,5,1,0.833333333333333,2.22816920328654,NA,"No Florivory",1,1
+"Niwot","High Hermaphrodite","65","65","RS","F","A","87-1","1",NA,"9/5/2024",6,22,NA,12,15,NA,"","A lot of donut pollen",0,0,"Emma",5,2,5,1,0.833333333333333,2.22816920328654,NA,"No Florivory",1,1
+"Niwot","High Hermaphrodite","65","65","RS","F","A","87-3","3",NA,"9/5/2024",3,0,NA,0,22,NA,"","",0,0,"Emma",5,2,5,1,0.833333333333333,2.22816920328654,NA,"No Florivory",0,1
+"Niwot","High Hermaphrodite","66","66","RH","F","A","89-2","2",NA,"9/5/2024",7,39,NA,3,31,NA,"","",0,0,"Ashley",1,2,1,1,0.5,0.954929658551372,NA,"No Florivory",1,1
+"Niwot","High Hermaphrodite","66","66","RH","F","A","89-3","3",NA,"9/5/2024",6,4,NA,0,15,NA,"Missing","Some ovules missing",0,1,"Emma",1,2,1,1,0.5,0.954929658551372,NA,"No Florivory",1,1
+"Niwot","High Hermaphrodite","66","66","RH","F","A","89-1","1",NA,"9/5/2024",6,0,NA,0,28,NA,"","",0,0,"Emma",1,2,1,1,0.5,0.954929658551372,NA,"No Florivory",0,1
+"Niwot","High Hermaphrodite","66","66","RH","F","B","294","1","","9/14/2024",6,0,NA,0,33,NA,"","",0,0,"Ashley",1,1,1,0,1,0.636619772367581,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","66","66","RH","F","B","295","2","herb","9/14/2024",4,0,NA,0,29,NA,"","",0,0,"Ashley",1,1,1,0,1,0.636619772367581,1,"Florivory",0,1
+"Niwot","High Hermaphrodite","66","66","RH","F","C","310","1","","9/24/2024",4,0,NA,0,19,NA,"","",0,0,"",1,1,1,0,1,0.636619772367581,0,"No Florivory",0,1
+"Niwot","High Hermaphrodite","68","68","YD","H","A","121-1","1",NA,"9/6/2024",4,1,NA,0,0,NA,"","small black dots visible, 15 clear small ovules (half size)?",0,0,"Emma",1,1,0,1,0,0.636619772367581,NA,"No Florivory",1,0
+"Niwot","High Hermaphrodite","68","68","YD","H","A","121-2","2",NA,"9/6/2024",3,0,NA,0,0,NA,"","small black dots visible, 13 clear small ovules (half size)?",0,0,"Emma",1,1,0,1,0,0.636619772367581,NA,"No Florivory",0,0
+"Niwot","High Hermaphrodite","69","69","YH","H","A","129","1",NA,"9/5/2024",NA,NA,NA,NA,0,NA,"","Small black dots visible",0,0,"Emma",4,2,3,2,0.6,1.90985931710274,NA,"No Florivory",NA,0
+"Niwot","High Hermaphrodite","69","69","YH","H","B","283","1","","9/14/2024",2,0,NA,0,0,NA,"","",0,0,"Ashley",2,0,1,0,1,0.636619772367581,0,"No Florivory",0,0
+"Niwot","High Hermaphrodite","70","70b","RC","F","A","106","1",NA,"9/5/2024",6,6,NA,7,28,NA,"","A lot of phlox (spikey) pollen",0,0,"Emma",1,1,1,0,1,0.636619772367581,NA,"No Florivory",1,1
+"Niwot","High Hermaphrodite","71","71","YC","H","A","83-1","1",NA,"8/27/2024",5,0,NA,0,15,NA,"","",0,0,"Ashley",2,1,1,1,0.5,0.954929658551372,NA,"No Florivory",0,1
+"Niwot","High Hermaphrodite","71","71","YC","H","A","83-2","2",NA,"9/5/2024",4,0,NA,0,37,NA,"","",0,0,"Ashley",2,1,1,1,0.5,0.954929658551372,NA,"No Florivory",0,1
+"Niwot","High Hermaphrodite","72","72","RH","F","A","105-1","1",NA,"9/5/2024",6,5,NA,0,52,NA,"","A lot of phlox (spikey) pollen and smaller round pollen",0,0,"Emma",1,3,1,2,0.333333333333333,1.27323954473516,NA,"No Florivory",1,1
+"Niwot","High Hermaphrodite","72","72","RH","F","A","105-3","3",NA,"9/5/2024",6,0,NA,0,23,NA,"","",0,0,"Ashley",1,3,1,2,0.333333333333333,1.27323954473516,NA,"No Florivory",0,1
+"Niwot","High Hermaphrodite","72","72","RH","F","A","105-2","2",NA,"9/5/2024",5,2,NA,0,53,NA,"","",0,0,"Ashley",1,3,1,2,0.333333333333333,1.27323954473516,NA,"No Florivory",1,1
+"Niwot","High Hermaphrodite","74","74","RS","F","A","125-3","3",NA,"9/6/2024",6,2,NA,0,38,NA,"","",0,0,"Emma",4,1,4,0,1,1.59154943091895,NA,"No Florivory",1,1
+"Niwot","High Hermaphrodite","74","74","RS","F","A","125-2","2",NA,"9/6/2024",6,5,NA,2,36,NA,"","A lot of phlox (spikey) pollen",0,0,"Emma",4,1,4,0,1,1.59154943091895,NA,"No Florivory",1,1
+"Niwot","High Hermaphrodite","74","74","RS","F","A","125-1","1",NA,"9/6/2024",5,1,NA,1,0,NA,"Degenerate","small black dots visible, 11 clear small ovules (half size)?",0,0,"Emma",4,1,4,0,1,1.59154943091895,NA,"No Florivory",1,0
+"Niwot","High Hermaphrodite","75","75","YS","H","A","81-1","1",NA,"8/27/2024",3,1,1,0,10,9,"Degenerate","Ovules appear degenerated",0,0,"Ashley and Emma",2,0,1,0,1,0.636619772367581,NA,"No Florivory",1,1
+"Niwot","High Hermaphrodite","75","75","YS","H","A","81-2","2",NA,"8/27/2024",3,0,0,1,33,37,"","",0,0,"Ashley and Emma",2,0,1,0,1,0.636619772367581,NA,"No Florivory",0,1
+"Niwot","High Hermaphrodite","75","75","YS","H","A","81-3","3",NA,"8/27/2024",1,0,0,0,29,23,"","Herbivory?",1,0,"Ashley and Emma",2,0,1,0,1,0.636619772367581,NA,"No Florivory",0,1
+"Niwot","High Hermaphrodite","76","76","YH","H","A","82-2","2",NA,"8/27/2024",6,35,23,12,27,22,"","",0,0,"Ashley and Emma",1,0,0,0,NA,0.318309886183791,NA,"No Florivory",1,1
+"Niwot","High Hermaphrodite","76","76","YH","H","A","82-3","3",NA,"8/27/2024",6,0,0,0,36,32,"","",0,0,"Ashley and Emma",1,0,0,0,NA,0.318309886183791,NA,"No Florivory",0,1
+"Niwot","High Hermaphrodite","76","76","YH","H","A","82-1","1",NA,"8/27/2024",5,35,32,3,28,26,"","",0,0,"Ashley and Emma",1,0,0,0,NA,0.318309886183791,NA,"No Florivory",1,1
+"Niwot","High Hermaphrodite","81","81","YD","H","B","267","1","herb","9/14/2024",NA,NA,NA,NA,NA,NA,"","herb",0,1,"",2,0,1,0,1,0.636619772367581,1,"Florivory",NA,NA
+"Niwot","High Hermaphrodite","87","87","YS","H","A","137-1","1",NA,"9/5/2024",5,0,NA,0,30,NA,"","One stigma half - herb",0,0,"Emma",2,1,1,1,0.5,0.954929658551372,NA,"No Florivory",0,1
+"Niwot","High Hermaphrodite","87","87","YS","H","A","137-2","2",NA,"9/5/2024",3,0,NA,0,0,NA,"","One stigma half - herb, part of ovary missing",0,1,"Emma",2,1,1,1,0.5,0.954929658551372,NA,"No Florivory",0,0
+"Niwot","High Hermaphrodite","90","90","YD","H","B","300","2","herb","9/17/2024",2,0,NA,0,31,NA,"","",0,0,"Ashley",1,1,0,1,0,0.636619772367581,1,"Florivory",0,1
+"Niwot","High Hermaphrodite","90","90","YD","H","B","290","1","herb","9/17/2024",0,0,NA,0,33,NA,"","herbivory of stigmas",1,0,"Ashley",1,1,0,1,0,0.636619772367581,1,"Florivory",0,1
+"Niwot","High Hermaphrodite","90","90","YD","H","B","170","3","herb","9/17/2024",3,8,NA,1,33,NA,"","",0,0,"Ashley",1,1,0,1,0,0.636619772367581,1,"Florivory",1,1
+"Niwot","High Hermaphrodite","94","94","YS","H","A","94","1",NA,"9/5/2024",NA,NA,NA,NA,30,NA,"","",0,0,"Emma",1,0,0,0,NA,0.318309886183791,NA,"No Florivory",NA,1
+"Niwot","High Hermaphrodite","95","95","RD","F","A","91","1",NA,"9/6/2024",4,15,NA,3,26,NA,"","donut pollen,",0,0,"Emma",2,1,2,0,1,0.954929658551372,NA,"No Florivory",1,1
+"Niwot","High Hermaphrodite","96","96","YS","H","A","96-1","1",NA,"9/5/2024",4,0,NA,0,0,NA,"Degraded","Degraded - Is the ovary there",0,1,"Ashley",3,3,2,3,0.4,1.90985931710274,NA,"No Florivory",0,0
+"Niwot","High Hermaphrodite","96","96","YS","H","A","96-2","2",NA,"9/5/2024",3,1,NA,0,0,NA,"","",0,0,"Ashley",3,3,2,3,0.4,1.90985931710274,NA,"No Florivory",1,0
+"Niwot","High Hermaphrodite","99","99","RC","F","A","99","1",NA,"9/5/2024",7,1,NA,0,36,NA,"","",0,0,"Emma",0,1,0,0,NA,0.318309886183791,NA,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","1","1","YC","H","B","9","1","","9/6/2024",6,3,NA,0,34,NA,"","",0,0,"Ashley",6,2,5,2,0.714285714285714,2.54647908947033,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","1","1","YC","H","B","11","3","","9/6/2024",3,4,NA,0,40,NA,"","",0,0,"Ashley",6,2,5,2,0.714285714285714,2.54647908947033,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","1","1","YC","H","B","10","2","","9/6/2024",3,6,NA,0,0,NA,"","No ovules at all!",0,0,"Ashley",6,2,5,2,0.714285714285714,2.54647908947033,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","1","1","YC","H","C","355","1","","9/17/2024",5,9,NA,0,24,NA,"","",0,0,"Ashley",5,1,4,1,0.8,1.90985931710274,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","1","1","YC","H","C","357","3","","9/17/2024",3,13,NA,1,0,NA,"","8 possible aborted ovules",0,0,"Ashley",5,1,4,1,0.8,1.90985931710274,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","1","1","YC","H","C","356","2","decay","9/17/2024",0,NA,NA,NA,NA,NA,"Missing","herbivory, stigmas and half of ovary gone, 6 aborted ovules",1,1,"Ashley",5,1,4,1,0.8,1.90985931710274,0,"No Florivory",NA,NA
+"Niwot","Low Hermaphrodite","10","10","RD","H","B","36","2","","9/10/2024",3,1,NA,0,30,NA,"","",0,0,"Ashley",6,3,5,3,0.625,2.86478897565412,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","10","10","RD","H","B","35","1","","9/10/2024",3,0,NA,0,23,NA,"","",0,0,"Ashley",6,3,5,3,0.625,2.86478897565412,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","10","10","RD","H","B","37","3","","9/10/2024",3,0,NA,0,27,NA,"","",0,0,"Ashley",6,3,5,3,0.625,2.86478897565412,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","10","10","RD","H","C","386","2","","9/18/2024",3,2,NA,0,10,NA,"Faint","Ovules faint/hard to see",0,0,"Ashley",8,2,7,2,0.777777777777778,3.18309886183791,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","10","10","RD","H","C","387","3","","9/18/2024",3,2,NA,0,19,NA,"Faint","Ovules faint/hard to see",0,0,"Ashley",8,2,7,2,0.777777777777778,3.18309886183791,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","10","10","RD","H","C","385","1","","9/18/2024",3,9,NA,1,18,NA,"","",0,0,"Ashley",8,2,7,2,0.777777777777778,3.18309886183791,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","10","10","RD","H","D","246","2","","9/11/2024",5,38,NA,9,18,NA,"","Very big ovules with variable sizes",0,0,"Ashley",4,1,3,1,0.75,1.59154943091895,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","10","10","RD","H","D","510","1","","9/24/2024",1,12,NA,2,0,NA,"","",0,0,"",4,1,3,1,0.75,1.59154943091895,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","10","10b","GD","F","B","40","3","herb","9/10/2024",2,0,NA,0,23,NA,"","",0,0,"Ashley",6,3,6,2,0.75,2.86478897565412,1,"Florivory",0,1
+"Niwot","Low Hermaphrodite","10","10b","GD","F","B","38","1","","9/10/2024",7,20,NA,8,27,NA,"","",0,0,"Ashley",6,3,6,2,0.75,2.86478897565412,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","10","10b","GD","F","B","39","2","","9/10/2024",6,0,NA,0,26,NA,"","",0,0,"Ashley",6,3,6,2,0.75,2.86478897565412,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","10","10b","GD","F","C","389","2","","9/18/2024",3,0,NA,0,13,NA,"Faint","Ovules faint/hard to see",0,0,"Ashley",8,2,8,1,0.888888888888889,3.18309886183791,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","10","10b","GD","F","C","388","1","","9/18/2024",3,4,NA,1,26,NA,"","",0,0,"Ashley",8,2,8,1,0.888888888888889,3.18309886183791,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","10","10b","GD","F","D","513","3","decay","9/24/2024",2,1,NA,0,0,NA,"","herbivory, one stigma missing, 8 diminutive faint ovules",0,0,"",4,1,4,0,1,1.59154943091895,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","10","10b","GD","F","D","512","2","","9/24/2024",4,2,NA,0,0,NA,"Degraded","8 degernerate diminutive ovules",0,1,"",4,1,4,0,1,1.59154943091895,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","10","10b","GD","F","D","511","1","decay","9/24/2024",2,0,NA,0,0,NA,"","",0,0,"",4,1,4,0,1,1.59154943091895,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","11","11b","YS","H","B","43","3","","9/10/2024",3,15,NA,3,38,NA,"","",0,0,"Ashley",28,12,27,12,0.692307692307692,12.7323954473516,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","11","11b","YS","H","B","42","2","female flower?","9/10/2024",4,0,NA,0,33,NA,"","",0,0,"Ashley",28,12,27,12,0.692307692307692,12.7323954473516,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","11","11b","YS","H","B","41","1","female flower?","9/10/2024",5,0,NA,0,30,NA,"","",0,0,"Ashley",28,12,27,12,0.692307692307692,12.7323954473516,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","12","12","YD","H","B","46","3","","9/10/2024",4,0,NA,0,54,NA,"","",0,0,"Ashley",27,13,26,13,0.666666666666667,12.7323954473516,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","12","12","YD","H","B","44","1","","9/10/2024",4,60,NA,4,0,NA,"Degenerate","1 severely undersized ovule",0,0,"Ashley",27,13,26,13,0.666666666666667,12.7323954473516,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","12","12","YD","H","B","45","2","","9/10/2024",4,15,NA,0,0,NA,"","",0,0,"Ashley",27,13,26,13,0.666666666666667,12.7323954473516,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","13","13","YH","H","B","49","3","","9/10/2024",3,7,NA,7,21,NA,"","",0,0,"Ashley",17,16,16,16,0.5,10.5042262440651,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","13","13","YH","H","B","48","2","","9/10/2024",2,0,NA,0,0,NA,"","",0,0,"Ashley",17,16,16,16,0.5,10.5042262440651,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","13","13","YH","H","B","47","1","","9/10/2024",2,0,NA,0,0,NA,"Missing","Ovary broken/ missing bottom half",0,1,"Ashley",17,16,16,16,0.5,10.5042262440651,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","13","13","YH","H","C","392","1","","9/18/2024",2,0,NA,0,0,NA,"","",0,0,"Ashley",16,8,15,8,0.652173913043478,7.63943726841098,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","13","13","YH","H","C","394","3","","9/18/2024",2,0,NA,0,22,NA,"","",0,0,"Ashley",16,8,15,8,0.652173913043478,7.63943726841098,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","13","13","YH","H","C","393","2","","9/18/2024",2,0,NA,2,0,NA,"","17 aborted ovules, whole pistil diminutive",0,0,"Ashley",16,8,15,8,0.652173913043478,7.63943726841098,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","13","13","YH","H","D","515","2","decay","9/24/2024",1,3,NA,0,0,NA,"","Small anther around ovary, 10 diminutive ovules",0,0,"",5,3,4,3,0.571428571428571,2.54647908947033,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","13","13","YH","H","D","381","3","","9/24/2024",2,0,NA,0,0,NA,"","25 diminutive ovules",0,0,"",5,3,4,3,0.571428571428571,2.54647908947033,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","13","13","YH","H","D","514","1","","9/24/2024",2,0,NA,0,22,NA,"","",0,0,"",5,3,4,3,0.571428571428571,2.54647908947033,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","14","14","RH","F","B","52","3","shrivled","9/10/2024",3,0,NA,0,0,NA,"","",0,0,"Ashley",5,8,5,7,0.416666666666667,4.13802852038928,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","14","14","RH","F","B","50","1","","9/10/2024",6,11,NA,5,5,NA,"Faint","Ovules appear faint",0,0,"Ashley",5,8,5,7,0.416666666666667,4.13802852038928,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","14","14","RH","F","B","51","2","","9/10/2024",6,0,NA,0,24,NA,"","",0,0,"Ashley",5,8,5,7,0.416666666666667,4.13802852038928,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","14","14","RH","F","C","396","2","","9/18/2024",4,0,NA,0,3,NA,"Faint","Ovules faint/hard to see",0,0,"Ashley",3,5,3,4,0.428571428571429,2.54647908947033,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","14","14","RH","F","C","395","1","","9/18/2024",6,26,NA,1,27,NA,"","",0,0,"Ashley",3,5,3,4,0.428571428571429,2.54647908947033,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","15","15","YS","H","B","52","1","","9/10/2024",3,0,NA,0,0,NA,"","",0,0,"Ashley",5,5,4,5,0.444444444444444,3.18309886183791,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","15","15","YS","H","B","55","3","","9/10/2024",3,6,NA,1,0,NA,"","",0,0,"Ashley",5,5,4,5,0.444444444444444,3.18309886183791,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","15","15","YS","H","B","54","2","","9/10/2024",4,9,NA,0,34,NA,"","",0,0,"Ashley",5,5,4,5,0.444444444444444,3.18309886183791,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","15","15","YS","H","C","399","3","decay","9/18/2024",2,7,NA,2,0,NA,"","Definitely 0 ovules, but ovary also ripped.",0,0,"Ashley",4,3,3,3,0.5,2.22816920328654,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","15","15","YS","H","C","398","2","","9/18/2024",3,20,NA,2,0,NA,"","",0,0,"Ashley",4,3,3,3,0.5,2.22816920328654,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","15","15","YS","H","C","397","1","female?","9/18/2024",6,7,NA,0,24,NA,"","",0,0,"Ashley",4,3,3,3,0.5,2.22816920328654,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","16","16","RD","F","B","56","1","","9/10/2024",5,3,NA,1,43,NA,"","",0,0,"Ashley",6,4,6,3,0.666666666666667,3.18309886183791,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","16","16","RD","F","B","58","3","","9/10/2024",4,2,NA,0,38,NA,"","",0,0,"Ashley",6,4,6,3,0.666666666666667,3.18309886183791,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","16","16","RD","F","B","57","2","","9/10/2024",5,0,NA,0,32,NA,"Degraded","Ovary appears to be degrading",0,0,"Ashley",6,4,6,3,0.666666666666667,3.18309886183791,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","16","16","RD","F","C","2","2","","9/18/2024",3,0,NA,0,16,NA,"","",0,0,"Ashley",6,4,6,3,0.666666666666667,3.18309886183791,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","16","16","RD","F","C","1","1","","9/18/2024",5,0,NA,0,32,NA,"","",0,0,"Ashley",6,4,6,3,0.666666666666667,3.18309886183791,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","17","17","YC","H","B","60","2","closed","9/10/2024",6,13,NA,3,36,NA,"","",0,0,"Ashley",5,3,4,3,0.571428571428571,2.54647908947033,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","17","17","YC","H","B","61","3","closed","9/10/2024",4,6,NA,1,32,NA,"","",0,0,"Ashley",5,3,4,3,0.571428571428571,2.54647908947033,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","17","17","YC","H","B","59","1","closed","9/10/2024",5,26,NA,3,32,NA,"","",0,0,"Ashley",5,3,4,3,0.571428571428571,2.54647908947033,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","17","17","YC","H","C","3","1","","9/18/2024",4,49,NA,11,22,NA,"","",0,0,"Ashley",5,4,4,4,0.5,2.86478897565412,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","18","18","YH","H","B","64","3","","9/10/2024",3,0,NA,0,35,NA,"","",0,0,"Emma",3,9,2,9,0.181818181818182,3.81971863420549,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","18","18","YH","H","B","63","2","","9/10/2024",3,3,NA,0,21,NA,"","",0,0,"Emma",3,9,2,9,0.181818181818182,3.81971863420549,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","18","18","YH","H","B","62","1","","9/10/2024",3,1,NA,1,23,NA,"","",0,0,"Ashley",3,9,2,9,0.181818181818182,3.81971863420549,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","18","18","YH","H","C","4","1","","9/18/2024",2,46,NA,5,0,NA,"","Ovary ripped, but certain it had 0",0,0,"Ashley",4,7,3,7,0.3,3.5014087480217,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","18","18","YH","H","C","6","3","","9/18/2024",2,10,NA,0,0,NA,"","26 aborted ovules",0,0,"Ashley",4,7,3,7,0.3,3.5014087480217,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","18","18","YH","H","C","5","2","","9/18/2024",3,21,NA,0,0,NA,"","13 aborted ovules",0,0,"Ashley",4,7,3,7,0.3,3.5014087480217,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","18","18","YH","H","D","390","1","closed","9/24/2024",3,0,NA,0,0,NA,"","ovary shrivled",0,1,"",3,3,2,3,0.4,1.90985931710274,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","18","18","YH","H","D","391","2","closed","9/24/2024",4,3,NA,0,3,NA,"Faint","19 diminutive faint ovules",0,0,"",3,3,2,3,0.4,1.90985931710274,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","19","19b","GD","F","B","67","3","shrivled","9/10/2024",5,2,NA,1,0,NA,"","",0,0,"Emma",6,4,6,3,0.666666666666667,3.18309886183791,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","19","19b","GD","F","B","66","2","shrivled","9/10/2024",5,0,NA,0,31,NA,"Degraded","ovary degrading?",0,0,"Emma",6,4,6,3,0.666666666666667,3.18309886183791,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","19","19b","GD","F","B","65","1","","9/10/2024",5,0,NA,0,6,NA,"","1 undersized ovule",0,0,"Emma",6,4,6,3,0.666666666666667,3.18309886183791,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","2","2","RD","F","B","16","2","","9/6/2024",6,2,NA,2,28,NA,"","",0,0,"Ashley",14,12,14,11,0.56,8.27605704077856,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","2","2","RD","F","B","15","1","","9/6/2024",5,11,NA,2,20,NA,"","",0,0,"Ashley",14,12,14,11,0.56,8.27605704077856,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","2","2","RD","F","B","17","3","","9/6/2024",6,0,NA,0,30,NA,"","",0,0,"Ashley",14,12,14,11,0.56,8.27605704077856,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","2","2","RD","F","C","365","3","","9/17/2024",5,4,NA,1,35,NA,"","",0,0,"Ashley",13,11,13,10,0.565217391304348,7.63943726841098,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","2","2","RD","F","C","363","1","","9/17/2024",3,3,NA,1,23,NA,"","",0,0,"Ashley",13,11,13,10,0.565217391304348,7.63943726841098,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","2","2","RD","F","C","364","2","","9/17/2024",3,0,NA,0,37,NA,"","",0,0,"Ashley",13,11,13,10,0.565217391304348,7.63943726841098,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","2","2","RD","F","D","506","3","closed","9/24/2024",3,0,NA,0,26,NA,"","",0,0,"",7,7,7,6,0.538461538461538,4.45633840657307,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","2","2","RD","F","D","505","2","closed","9/24/2024",3,0,NA,0,29,NA,"","",0,0,"",7,7,7,6,0.538461538461538,4.45633840657307,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","2","2","RD","F","D","504","1","closed","9/24/2024",3,0,NA,0,19,NA,"","",0,0,"",7,7,7,6,0.538461538461538,4.45633840657307,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","20","20","RH","F","B","69","2","shrivled","9/10/2024",4,1,NA,0,0,NA,"","",0,0,"Emma",5,5,5,4,0.555555555555556,3.18309886183791,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","20","20","RH","F","B","68","1","shrivled","9/10/2024",5,0,NA,0,0,NA,"","",0,0,"Emma",5,5,5,4,0.555555555555556,3.18309886183791,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","21","21","YH","H","B","71","2","","9/10/2024",2,0,NA,0,16,NA,"","",0,0,"Emma",5,4,4,4,0.5,2.86478897565412,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","21","21","YH","H","B","70","1","","9/10/2024",2,0,NA,0,4,NA,"","",0,0,"Emma",5,4,4,4,0.5,2.86478897565412,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","21","21","YH","H","B","72","3","","9/10/2024",2,0,NA,0,6,NA,"","",0,0,"Emma",5,4,4,4,0.5,2.86478897565412,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","21","21","YH","H","C","7","1","closed","9/18/2024",1,25,NA,0,0,NA,"","",0,0,"Ashley",4,1,3,1,0.75,1.59154943091895,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","22","22","RH","F","B","74","2","","9/10/2024",5,0,NA,0,34,NA,"","",0,0,"Emma",4,3,4,2,0.666666666666667,2.22816920328654,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","22","22","RH","F","B","75","3","","9/10/2024",2,0,NA,0,8,NA,"","",0,0,"Ashley",4,3,4,2,0.666666666666667,2.22816920328654,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","22","22","RH","F","C","172","3","","9/18/2024",3,0,NA,0,0,NA,"","16 diminutive ovules",0,0,"Ashley",4,1,4,0,1,1.59154943091895,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","22","22","RH","F","C","164","2","","9/18/2024",2,0,NA,0,0,NA,"","15 diminutive ovules, probably aborted",0,0,"Ashley",4,1,4,0,1,1.59154943091895,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","22","22","RH","F","C","8","1","","9/18/2024",3,0,NA,0,0,NA,"","33 diminutive aborted ovules visible",0,0,"Ashley",4,1,4,0,1,1.59154943091895,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","22","22","RH","F","D","402","3","closed","9/24/2024",4,NA,NA,NA,0,NA,"","dry stigma. not completely in solution",0,0,"",2,1,2,0,1,0.954929658551372,0,"No Florivory",NA,0
+"Niwot","Low Hermaphrodite","22","22","RH","F","D","401","2","closed","9/24/2024",2,0,NA,0,0,NA,"","6 diminutive ovules",0,0,"",2,1,2,0,1,0.954929658551372,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","22","22","RH","F","D","400","1","closed","9/24/2024",2,0,NA,0,0,NA,"","24 diminutive ovules, faint, up an objective",0,0,"",2,1,2,0,1,0.954929658551372,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","23","23","YD","H","B","76","1","","9/10/2024",3,32,NA,4,27,NA,"","",0,0,"Ashley",5,1,4,1,0.8,1.90985931710274,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","23","23","YD","H","B","78","3","","9/10/2024",3,0,NA,0,38,NA,"","",0,0,"Ashley",5,1,4,1,0.8,1.90985931710274,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","23","23","YD","H","B","77","2","","9/10/2024",3,3,NA,0,55,NA,"","",0,0,"Ashley",5,1,4,1,0.8,1.90985931710274,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","23","23","YD","H","C","180","1","","9/18/2024",2,8,NA,1,0,NA,"Missing","Ovary ripped at the bottom",0,1,"Ashley",5,1,4,1,0.8,1.90985931710274,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","23","23","YD","H","C","196","3","","9/18/2024",3,17,NA,1,8,NA,"","",0,0,"Ashley",5,1,4,1,0.8,1.90985931710274,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","23","23","YD","H","C","188","2","","9/18/2024",2,10,NA,1,0,NA,"","",0,0,"Ashley",5,1,4,1,0.8,1.90985931710274,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","23","23","YD","H","D","403","1","","9/24/2024",6,8,NA,1,36,NA,"","",0,0,"",3,1,2,1,0.666666666666667,1.27323954473516,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","24","24","YS","H","B","80","2","","9/10/2024",3,0,NA,0,27,NA,"","",0,0,"Ashley",9,4,8,4,0.666666666666667,4.13802852038928,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","24","24","YS","H","B","167","3","","9/10/2024",3,0,NA,0,29,NA,"","",0,0,"Ashley",9,4,8,4,0.666666666666667,4.13802852038928,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","24","24","YS","H","B","162","1","","9/10/2024",3,1,NA,1,31,NA,"Faint","smaller ovules/clear without throughlight on microscope",0,0,"Ashley",9,4,8,4,0.666666666666667,4.13802852038928,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","24","24","YS","H","C","171","2","","9/18/2024",4,3,NA,1,0,NA,"","",0,0,"Ashley",7,4,6,4,0.6,3.5014087480217,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","24","24","YS","H","C","187","3","","9/18/2024",3,1,NA,1,0,NA,"","",0,0,"Ashley",7,4,6,4,0.6,3.5014087480217,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","24","24","YS","H","C","195","1","","9/18/2024",1,4,NA,1,0,NA,"","",0,0,"Ashley",7,4,6,4,0.6,3.5014087480217,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","24","24","YS","H","D","406","3","","9/24/2024",3,0,NA,0,0,NA,"","",0,0,"",5,4,4,4,0.5,2.86478897565412,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","24","24","YS","H","D","404","1","closed","9/24/2024",1,0,NA,0,0,NA,"","16 degenerate diminutive ovules, ",0,0,"",5,4,4,4,0.5,2.86478897565412,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","24","24","YS","H","D","405","2","closed","9/24/2024",1,0,NA,0,0,NA,"","9 diminutive faint ovules",0,0,"",5,4,4,4,0.5,2.86478897565412,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","25","25","RC","F","B","175","2","","9/11/2024",5,0,NA,0,21,NA,"","",0,0,"Ashley",7,3,7,2,0.777777777777778,3.18309886183791,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","25","25","RC","F","B","166","1","","9/10/2024",5,1,NA,1,33,NA,"","",0,0,"Ashley",7,3,7,2,0.777777777777778,3.18309886183791,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","25","25","RC","F","B","92","3","","9/11/2024",4,7,NA,0,17,NA,"","",0,0,"Ashley",7,3,7,2,0.777777777777778,3.18309886183791,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","25","25","RC","F","C","179","1","","9/18/2024",2,0,NA,0,0,NA,"","19 diminutive ovules",0,0,"Ashley",8,1,8,0,1,2.86478897565412,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","25","25","RC","F","C","211","3","closed","9/18/2024",3,0,NA,0,0,NA,"","16 diminutive ovules",0,0,"Ashley",8,1,8,0,1,2.86478897565412,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","25","25","RC","F","C","210","2","","9/18/2024",2,0,NA,0,7,NA,"Missing","Ovary ripped open",0,1,"Ashley",8,1,8,0,1,2.86478897565412,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","25","25","RC","F","D","409","3","closed","9/24/2024",3,0,NA,0,0,NA,"","19 diminutive ovules, up an objective",0,0,"",5,2,5,1,0.833333333333333,2.22816920328654,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","25","25","RC","F","D","408","2","closed","9/24/2024",3,0,NA,0,0,NA,"","19 diminutive ovules, up an objective",0,0,"",5,2,5,1,0.833333333333333,2.22816920328654,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","25","25","RC","F","D","407","1","closed","9/24/2024",3,0,NA,0,0,NA,"","23 diminutive ovules, up an objective",0,0,"",5,2,5,1,0.833333333333333,2.22816920328654,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","26","26","RS","F","B","95","3","","9/11/2024",6,86,NA,19,42,NA,"","",0,0,"Ashley",6,2,6,1,0.857142857142857,2.54647908947033,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","26","26","RS","F","B","93","1","","9/11/2024",6,5,NA,0,37,NA,"","",0,0,"Ashley",6,2,6,1,0.857142857142857,2.54647908947033,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","26","26","RS","F","B","181","2","","9/11/2024",7,109,NA,45,39,NA,"","",0,0,"Ashley",6,2,6,1,0.857142857142857,2.54647908947033,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","26","26","RS","F","C","221","2","","9/18/2024",2,0,NA,0,22,NA,"","",0,0,"Ashley",4,2,4,1,0.8,1.90985931710274,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","26","26","RS","F","C","220","1","","9/18/2024",4,0,NA,0,25,NA,"","",0,0,"Ashley",4,2,4,1,0.8,1.90985931710274,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","26","26","RS","F","D","411","2","closed","9/24/2024",4,0,NA,0,19,NA,"","pistil degenerating , blackened",0,0,"",3,1,3,0,1,1.27323954473516,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","26","26","RS","F","D","410","1","closed","9/24/2024",4,1,NA,0,17,NA,"","",0,0,"",3,1,3,0,1,1.27323954473516,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","27","27","YS","H","B","183","3","","9/11/2024",3,5,NA,0,30,NA,"Faint","Small and faint ovules",0,0,"Ashley",9,5,8,5,0.615384615384615,4.45633840657307,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","27","27","YS","H","B","190","1","","9/11/2024",3,0,NA,0,20,NA,"Missing","Ovary ripped in half",0,1,"Ashley",9,5,8,5,0.615384615384615,4.45633840657307,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","27","27","YS","H","B","174","2","","9/11/2024",4,2,NA,0,29,NA,"","",0,0,"Ashley",9,5,8,5,0.615384615384615,4.45633840657307,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","27","27","YS","H","C","231","2","shrivled","9/18/2024",3,0,NA,0,21,NA,"","",0,0,"Ashley",7,2,6,2,0.75,2.86478897565412,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","27","27","YS","H","C","230","1","","9/18/2024",2,9,NA,0,0,NA,"","",0,0,"Ashley",7,2,6,2,0.75,2.86478897565412,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","27","27","YS","H","C","240","3","shrivled","9/18/2024",3,9,NA,0,18,NA,"","",0,0,"Ashley",7,2,6,2,0.75,2.86478897565412,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","27","27","YS","H","D","420","1","closed","9/24/2024",2,2,NA,1,0,NA,"","19 degenerate ovules",0,0,"",7,4,6,4,0.6,3.5014087480217,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","27","27","YS","H","D","430","3","","9/24/2024",4,2,NA,1,19,NA,"","",0,0,"",7,4,6,4,0.6,3.5014087480217,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","27","27","YS","H","D","421","2","closed","9/24/2024",3,0,NA,0,0,NA,"","14 degenerate ovules",0,0,"",7,4,6,4,0.6,3.5014087480217,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","28","28","YC","H","B","183","1","","9/11/2024",3,5,NA,0,30,NA,"Faint","Small and faint ovules",0,0,"Ashley",15,10,14,10,0.583333333333333,7.95774715459477,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","28","28","YC","H","B","100","3","","9/11/2024",2,0,NA,0,28,NA,"","",0,0,"Ashley",15,10,14,10,0.583333333333333,7.95774715459477,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","28","28","YC","H","B","98","2","","9/11/2024",2,3,NA,0,25,NA,"","",0,0,"Ashley",15,10,14,10,0.583333333333333,7.95774715459477,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","28","28","YC","H","C","241","1","","9/18/2024",2,79,NA,8,0,NA,"","",0,0,"Ashley",9,4,8,4,0.666666666666667,4.13802852038928,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","28","28","YC","H","C","251","3","closed","9/18/2024",3,15,NA,0,0,NA,"","",0,0,"Ashley",9,4,8,4,0.666666666666667,4.13802852038928,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","28","28","YC","H","C","250","2","","9/18/2024",2,129,NA,0,0,NA,"","",0,0,"Ashley",9,4,8,4,0.666666666666667,4.13802852038928,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","28","28b","RH","F","B","104","3","shrivled","9/11/2024",5,2,NA,7,25,NA,"","",0,0,"Ashley",21,9,21,8,0.724137931034483,9.54929658551372,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","28","28b","RH","F","B","197","1","","9/11/2024",6,6,NA,1,36,NA,"","",0,0,"Ashley",21,9,21,8,0.724137931034483,9.54929658551372,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","28","28b","RH","F","B","103","2","","9/11/2024",6,23,NA,10,32,NA,"","",0,0,"Ashley",21,9,21,8,0.724137931034483,9.54929658551372,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","28","28b","RH","F","C","270","3","closed","9/18/2024",2,NA,NA,NA,0,NA,"","29 diminutive ovules, mold or anther smut on the stigmas",0,0,"Ashley",10,7,10,6,0.625,5.41126806512444,0,"No Florivory",NA,0
+"Niwot","Low Hermaphrodite","28","28b","RH","F","C","260","1","","9/18/2024",2,0,NA,0,NA,NA,"","fell on floor/ dried tissue/ no liquid",0,1,"Ashley",10,7,10,6,0.625,5.41126806512444,0,"No Florivory",0,NA
+"Niwot","Low Hermaphrodite","28","28b","RH","F","C","261","2","closed","9/18/2024",2,0,NA,0,25,NA,"Missing","Ovary ripped open, 23 smaller and faint",0,1,"Ashley",10,7,10,6,0.625,5.41126806512444,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","28","28b","RH","F","D","441","3","","9/24/2024",4,0,NA,0,27,NA,"Degraded","ovary degenerated/blackened ",0,0,"",7,3,7,2,0.777777777777778,3.18309886183791,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","28","28b","RH","F","D","431","1","closed","9/24/2024",4,0,NA,0,17,NA,"","",0,0,"",7,3,7,2,0.777777777777778,3.18309886183791,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","28","28b","RH","F","D","440","2","closed","9/24/2024",3,0,NA,0,0,NA,"","12 diminutive ovules",0,0,"",7,3,7,2,0.777777777777778,3.18309886183791,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","29","29","YC","H","B","110","3","closed","9/11/2024",4,6,NA,0,35,NA,"","",0,0,"Ashley",14,16,13,16,0.448275862068966,9.54929658551372,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","29","29","YC","H","B","108","1","closed","9/11/2024",4,8,NA,3,35,NA,"","",0,0,"Ashley",14,16,13,16,0.448275862068966,9.54929658551372,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","29","29","YC","H","B","109","2","closed","9/11/2024",3,5,NA,1,0,NA,"","",0,0,"Ashley",14,16,13,16,0.448275862068966,9.54929658551372,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","29","29b","RC","F","B","192","1","","9/11/2024",4,2,NA,0,30,NA,"","",0,0,"Ashley",14,18,14,17,0.451612903225806,10.1859163578813,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","29","29b","RC","F","B","200","2","","9/11/2024",5,10,NA,4,41,NA,"","",0,0,"Ashley",14,18,14,17,0.451612903225806,10.1859163578813,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","29","29b","RC","F","B","107","3","shrivled","9/11/2024",4,0,NA,0,47,NA,"","",0,0,"Ashley",14,18,14,17,0.451612903225806,10.1859163578813,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","3","3","YD","H","B","20","3","decay, undeveloped","9/6/2024",2,9,NA,2,0,NA,"","Some pollen on the ovary",0,0,"Ashley",19,8,18,8,0.692307692307692,8.59436692696235,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","3","3","YD","H","B","18","1","","9/6/2024",3,0,NA,0,22,NA,"","",0,0,"Ashley",19,8,18,8,0.692307692307692,8.59436692696235,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","3","3","YD","H","B","19","2","","9/6/2024",3,21,NA,9,56,NA,"","small ovules",0,0,"Ashley",19,8,18,8,0.692307692307692,8.59436692696235,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","3","3","YD","H","C","367","2","","9/17/2024",2,0,NA,0,0,NA,"","30 aborted, diminutive ovules",0,0,"Ashley",15,7,14,7,0.666666666666667,7.0028174960434,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","3","3","YD","H","C","366","1","closed","9/17/2024",1,3,NA,0,29,NA,"Diminutive","Ovary diminutive (used a higher objective), herbivory half stigma gone",1,0,"Ashley",15,7,14,7,0.666666666666667,7.0028174960434,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","30","30","YS","H","B","112","2","","9/11/2024",3,0,NA,0,34,NA,"","",0,0,"Ashley",14,3,13,3,0.8125,5.41126806512444,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","30","30","YS","H","B","199","3","","9/11/2024",3,0,NA,0,30,NA,"","",0,0,"Ashley",14,3,13,3,0.8125,5.41126806512444,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","30","30","YS","H","B","111","1","","9/11/2024",2,2,NA,0,0,NA,"","",0,0,"Ashley",14,3,13,3,0.8125,5.41126806512444,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","30","30","YS","H","C","281","3","","9/18/2024",2,1,NA,0,0,NA,"","",0,0,"Ashley",17,3,16,3,0.842105263157895,6.36619772367581,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","30","30","YS","H","C","280","2","","9/18/2024",2,0,NA,0,0,NA,"","13 diminutive ovules",0,0,"Ashley",17,3,16,3,0.842105263157895,6.36619772367581,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","30","30","YS","H","C","271","1","","9/18/2024",2,37,NA,4,0,NA,"","19 diminutive ovules",0,0,"Ashley",17,3,16,3,0.842105263157895,6.36619772367581,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","30","30","YS","H","D","460","3","","9/24/2024",2,24,NA,0,0,NA,"","",0,0,"",11,3,10,3,0.769230769230769,4.45633840657307,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","30","30","YS","H","D","451","2","closed","9/24/2024",2,0,NA,0,0,NA,"","33 diminutive ovules",0,0,"",11,3,10,3,0.769230769230769,4.45633840657307,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","30","30","YS","H","D","450","1","closed","9/24/2024",1,0,NA,0,0,NA,"","",0,0,"",11,3,10,3,0.769230769230769,4.45633840657307,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","30","30b","RD","F","B","114","1","","9/11/2024",3,0,NA,0,41,NA,"","",0,0,"Ashley",14,3,14,2,0.875,5.41126806512444,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","30","30b","RD","F","B","116","3","","9/11/2024",3,0,NA,1,31,NA,"","",0,0,"Ashley",14,3,14,2,0.875,5.41126806512444,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","30","30b","RD","F","B","115","2","","9/11/2024",3,3,NA,0,52,NA,"","",0,0,"Ashley",14,3,14,2,0.875,5.41126806512444,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","30","30b","RD","F","C","301","2","closed","9/18/2024",2,0,NA,0,0,NA,"","",0,0,"Ashley",14,3,14,2,0.875,5.41126806512444,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","30","30b","RD","F","C","412","3","closed","9/18/2024",2,0,NA,0,16,NA,"Faint","small faint ovules, best in back light",0,0,"Ashley",14,3,14,2,0.875,5.41126806512444,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","30","30b","RD","F","C","291","1","herb","9/18/2024",1,NA,NA,NA,34,NA,"","stigma herbivory",1,0,"Ashley",14,3,14,2,0.875,5.41126806512444,1,"Florivory",NA,1
+"Niwot","Low Hermaphrodite","31","31","RC","F","B","117","1","","9/11/2024",5,5,NA,0,26,NA,"","",0,0,"Ashley",13,4,13,3,0.8125,5.41126806512444,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","31","31","RC","F","B","118","2","","9/11/2024",6,15,NA,3,28,NA,"","",0,0,"Ashley",13,4,13,3,0.8125,5.41126806512444,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","31","31","RC","F","B","119","3","","9/11/2024",6,120,NA,43,24,NA,"","",0,0,"Ashley",13,4,13,3,0.8125,5.41126806512444,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","31","31","RC","F","C","413","1","","9/18/2024",4,8,NA,0,NA,NA,"Degraded","not clear in ovary, maybe decaying",0,0,"Ashley",10,5,10,4,0.714285714285714,4.77464829275686,0,"No Florivory",1,NA
+"Niwot","Low Hermaphrodite","31","31","RC","F","C","414","2","","9/18/2024",4,11,NA,5,10,NA,"Faint","somewhat small and faint",0,0,"Ashley",10,5,10,4,0.714285714285714,4.77464829275686,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","31","31","RC","F","D","471","3","","9/24/2024",5,1,NA,0,31,NA,"","",0,0,"",8,5,8,4,0.666666666666667,4.13802852038928,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","31","31","RC","F","D","461","1","","9/24/2024",4,0,NA,0,24,NA,"","",0,0,"",8,5,8,4,0.666666666666667,4.13802852038928,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","31","31","RC","F","D","470","2","closed","9/24/2024",2,0,NA,0,0,NA,"","15 diminutive ovules",0,0,"",8,5,8,4,0.666666666666667,4.13802852038928,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","32","32","YH","H","B","122","3","","9/11/2024",4,0,NA,0,10,NA,"","degraded/black on ovules",0,0,"Ashley",12,7,11,7,0.611111111111111,6.04788783749202,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","32","32","YH","H","B","191","2","","9/11/2024",3,18,NA,2,5,NA,"Degraded","21 silohettes when through lighting, black/degraded",0,0,"Ashley",12,7,11,7,0.611111111111111,6.04788783749202,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","32","32","YH","H","B","120","1","","9/11/2024",4,3,NA,0,27,NA,"","",0,0,"Ashley",12,7,11,7,0.611111111111111,6.04788783749202,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","32","32","YH","H","C","415","1","","9/18/2024",4,2,NA,1,0,NA,"","",0,0,"Ashley",14,5,13,5,0.722222222222222,6.04788783749202,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","32","32","YH","H","C","417","3","decay","9/18/2024",2,2,NA,0,0,NA,"","8 diminutive ovules",0,0,"Ashley",14,5,13,5,0.722222222222222,6.04788783749202,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","32","32","YH","H","C","416","2","","9/18/2024",4,11,NA,2,18,NA,"","Ovary wall seem thick, not opaque",0,0,"Ashley",14,5,13,5,0.722222222222222,6.04788783749202,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","32","32b","RH","F","B","124","2","","9/11/2024",5,2,NA,3,25,NA,"","",0,0,"Ashley",16,13,16,12,0.571428571428571,9.23098669932993,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","32","32b","RH","F","B","173","3","","9/11/2024",4,0,NA,0,21,NA,"","",0,0,"Ashley",16,13,16,12,0.571428571428571,9.23098669932993,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","32","32b","RH","F","B","123","1","","9/11/2024",5,38,NA,1,33,NA,"","",0,0,"Ashley",16,13,16,12,0.571428571428571,9.23098669932993,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","32","32b","RH","F","C","419","2","","9/18/2024",6,2,NA,1,34,NA,"","",0,0,"Ashley",13,6,13,5,0.722222222222222,6.04788783749202,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","32","32b","RH","F","C","422","3","","9/18/2024",3,0,NA,0,33,NA,"","",0,0,"Ashley",13,6,13,5,0.722222222222222,6.04788783749202,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","32","32b","RH","F","C","418","1","herb","9/18/2024",5,0,NA,0,23,NA,"","",0,0,"Ashley",13,6,13,5,0.722222222222222,6.04788783749202,1,"Florivory",0,1
+"Niwot","Low Hermaphrodite","33","33","RD","F","B","126","1","","9/11/2024",6,13,NA,4,24,NA,"Faint","Faint, counted clouds for ovules",0,0,"Ashley",12,2,12,1,0.923076923076923,4.45633840657307,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","33","33","RD","F","B","127","2","","9/11/2024",4,10,NA,2,0,NA,"","",0,0,"Ashley",12,2,12,1,0.923076923076923,4.45633840657307,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","33","33","RD","F","B","128","3","","9/11/2024",6,1,NA,1,27,NA,"","",0,0,"Ashley",12,2,12,1,0.923076923076923,4.45633840657307,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","33","33","RD","F","C","423","1","","9/18/2024",5,0,NA,1,0,NA,"","25 diminutive ovules",0,0,"Ashley",10,2,10,1,0.909090909090909,3.81971863420549,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","33","33","RD","F","C","424","2","","9/18/2024",6,9,NA,8,15,NA,"Degraded","ovary degenerated/blackened, herbivory 2 half stigmas gone",0,0,"Emma",10,2,10,1,0.909090909090909,3.81971863420549,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","33","33","RD","F","C","425","3","","9/18/2024",4,1,NA,0,18,NA,"","",0,0,"Emma",10,2,10,1,0.909090909090909,3.81971863420549,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","34","34","YC","H","B","131","3","","9/11/2024",2,24,NA,1,0,NA,"","",0,0,"Ashley",13,11,12,11,0.521739130434783,7.63943726841098,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","34","34","YC","H","B","198","1","","9/11/2024",3,0,NA,0,0,NA,"","",0,0,"Ashley",13,11,12,11,0.521739130434783,7.63943726841098,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","34","34","YC","H","B","130","2","","9/11/2024",2,0,NA,0,45,NA,"Faint","Faint, small ovules, obvious in through lighting",0,0,"Ashley",13,11,12,11,0.521739130434783,7.63943726841098,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","34","34","YC","H","C","427","2","","9/18/2024",3,0,NA,0,17,NA,"Faint","faint degenerated ovules, only backlight visible",0,0,"Emma",10,9,9,9,0.5,6.04788783749202,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","34","34","YC","H","C","426","1","","9/18/2024",3,0,NA,0,12,NA,"Faint","faint degenerated ovules, only backlight visible",0,0,"Emma",10,9,9,9,0.5,6.04788783749202,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","34","34b","RC","F","B","132","1","","9/11/2024",4,0,NA,0,40,NA,"Faint","Faint, small ovules, obvious in through lighting",0,0,"Ashley",13,4,13,3,0.8125,5.41126806512444,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","34","34b","RC","F","B","133","2","","9/11/2024",4,0,NA,0,37,NA,"Faint","Faint, small ovules, obvious in through lighting",0,0,"Ashley",13,4,13,3,0.8125,5.41126806512444,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","34","34b","RC","F","B","134","3","","9/11/2024",5,0,NA,2,19,NA,"","",0,0,"Ashley",13,4,13,3,0.8125,5.41126806512444,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","34","34b","RC","F","C","428","1","closed","9/18/2024",2,0,NA,0,0,NA,"","",0,0,"Emma",10,8,10,7,0.588235294117647,5.72957795130823,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","34","34b","RC","F","C","429","2","closed","9/18/2024",3,0,NA,0,27,NA,"Faint","slightly faint",0,0,"Emma",10,8,10,7,0.588235294117647,5.72957795130823,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","34x","34x","YD","H","B","138","1","","9/11/2024",3,0,NA,0,32,NA,"Faint","Faint, small ovules, obvious in through lighting",0,0,"Ashley",9,7,8,7,0.533333333333333,5.09295817894065,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","34x","34x","YD","H","B","139","2","","9/11/2024",3,4,NA,0,34,NA,"","",0,0,"Ashley",9,7,8,7,0.533333333333333,5.09295817894065,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","34x","34x","YD","H","B","140","3","","9/11/2024",3,2,NA,0,34,NA,"","",0,0,"Ashley",9,7,8,7,0.533333333333333,5.09295817894065,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","34x","34x","YD","H","C","436","2","","9/18/2024",5,0,NA,0,35,NA,"Degraded","ovary blackened ",0,0,"Emma",7,4,6,4,0.6,3.5014087480217,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","34x","34x","YD","H","C","435","1","","9/18/2024",2,0,NA,0,15,NA,"Faint","faint degenerated ovules, only backlight visible",0,0,"Emma",7,4,6,4,0.6,3.5014087480217,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","34x","34x","YD","H","C","437","3","","9/18/2024",3,1,NA,0,0,NA,"","20 faint diminutive ovules",0,0,"Emma",7,4,6,4,0.6,3.5014087480217,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","34x","34x","YD","H","D","481","2","","9/24/2024",5,2,NA,0,21,NA,"","",0,0,"",4,3,3,3,0.5,2.22816920328654,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","34x","34x","YD","H","D","480","1","","9/24/2024",7,14,NA,5,31,NA,"","",0,0,"",4,3,3,3,0.5,2.22816920328654,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","35","35","RH","F","B","136","2","","9/11/2024",5,4,NA,2,35,NA,"","",0,0,"Ashley",10,4,10,3,0.769230769230769,4.45633840657307,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","35","35","RH","F","B","182","3","","9/11/2024",4,0,NA,0,39,NA,"","",0,0,"Ashley",10,4,10,3,0.769230769230769,4.45633840657307,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","35","35","RH","F","B","135","1","","9/11/2024",4,1,NA,0,43,NA,"","",0,0,"Ashley",10,4,10,3,0.769230769230769,4.45633840657307,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","35","35","RH","F","C","432","1","","9/18/2024",2,0,NA,0,6,NA,"Faint","faint degenerated ovules, only backlight visible",0,0,"Emma",8,2,8,1,0.888888888888889,3.18309886183791,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","35","35","RH","F","C","434","3","","9/18/2024",1,0,NA,0,36,NA,"","no herbivory",0,0,"Emma",8,2,8,1,0.888888888888889,3.18309886183791,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","35","35","RH","F","C","433","2","","9/18/2024",3,0,NA,0,16,NA,"","ovary blackened, herbivory, tip of one stigma gone",0,0,"Emma",8,2,8,1,0.888888888888889,3.18309886183791,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","35x","35x","RC","F","B","141","1","","9/11/2024",6,5,NA,0,25,NA,"","",0,0,"Ashley",10,8,10,7,0.588235294117647,5.72957795130823,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","35x","35x","RC","F","B","143","3","","9/11/2024",7,8,NA,2,32,NA,"","",0,0,"Emma",10,8,10,7,0.588235294117647,5.72957795130823,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","35x","35x","RC","F","B","142","2","","9/11/2024",6,7,NA,2,32,NA,"","",0,0,"Emma",10,8,10,7,0.588235294117647,5.72957795130823,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","35x","35x","RC","F","C","442","3","","9/18/2024",7,26,NA,17,35,NA,"","",0,0,"Emma",6,5,6,4,0.6,3.5014087480217,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","35x","35x","RC","F","C","439","2","","9/18/2024",5,7,NA,1,37,NA,"","",0,0,"Emma",6,5,6,4,0.6,3.5014087480217,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","35x","35x","RC","F","C","438","1","","9/18/2024",3,0,NA,0,0,NA,"Degraded","whole pistil blackened, degenerated, 16 diminutive ovules",0,0,"Emma",6,5,6,4,0.6,3.5014087480217,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","36","36","YS","H","B","144","1","","9/11/2024",4,8,NA,0,18,NA,"","",0,0,"Emma",12,7,11,7,0.611111111111111,6.04788783749202,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","36","36","YS","H","B","146","3","","9/11/2024",6,2,NA,0,8,NA,"Degraded","black/degreaded ovules",0,0,"Emma",12,7,11,7,0.611111111111111,6.04788783749202,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","36","36","YS","H","B","145","2","","9/11/2024",5,1,NA,0,0,NA,"Degraded","shrivled up ovary",0,1,"Emma",12,7,11,7,0.611111111111111,6.04788783749202,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","36","36","YS","H","C","443","1","","9/18/2024",3,1,NA,0,0,NA,"","",0,0,"Emma",7,4,6,4,0.6,3.5014087480217,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","36","36","YS","H","C","444","2","","9/18/2024",2,0,NA,0,0,NA,"","pistil shriveled",0,0,"Emma",7,4,6,4,0.6,3.5014087480217,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","36","36","YS","H","C","445","3","closed","9/18/2024",5,5,NA,5,25,NA,"","",0,0,"Emma",7,4,6,4,0.6,3.5014087480217,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","36","36","YS","H","D","490","1","","9/24/2024",6,17,NA,11,20,NA,"","",0,0,"",4,1,3,1,0.75,1.59154943091895,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","37","37","YH","H","B","147","1","","9/11/2024",2,1,NA,0,0,NA,"","",0,0,"Emma",5,3,4,3,0.571428571428571,2.54647908947033,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","37","37b","RH","F","B","148","1","","9/11/2024",7,2,NA,0,22,NA,"","",0,0,"Emma",7,4,7,3,0.7,3.5014087480217,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","37","37b","RH","F","B","149","2","","9/11/2024",7,0,NA,0,25,NA,"","",0,0,"Emma",7,4,7,3,0.7,3.5014087480217,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","37","37b","RH","F","B","150","3","","9/11/2024",7,0,NA,0,25,NA,"","",0,0,"Emma",7,4,7,3,0.7,3.5014087480217,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","37","37b","RH","F","C","447","2","decay","9/18/2024",5,0,NA,0,0,NA,"","17 degenerated ovules, herbivory, tip of one stigma gone, ",0,0,"Emma",5,3,5,2,0.714285714285714,2.54647908947033,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","37","37b","RH","F","C","446","1","","9/18/2024",3,1,NA,0,26,NA,"","",0,0,"Emma",5,3,5,2,0.714285714285714,2.54647908947033,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","38","38","RC","F","B","151","1","","9/11/2024",6,1,NA,0,13,NA,"","",0,0,"Emma",6,8,6,7,0.461538461538462,4.45633840657307,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","38","38","RC","F","B","153","3","","9/11/2024",6,18,NA,4,40,NA,"","",0,0,"Ashley",6,8,6,7,0.461538461538462,4.45633840657307,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","38","38","RC","F","B","152","2","","9/11/2024",5,0,NA,0,0,NA,"","12 aborted ovules",0,0,"Emma",6,8,6,7,0.461538461538462,4.45633840657307,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","39","39","YC","H","B","155","2","","9/11/2024",2,0,NA,0,24,NA,"","",0,0,"Ashley",4,7,3,7,0.3,3.5014087480217,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","39","39","YC","H","B","156","3","","9/11/2024",3,0,NA,0,18,NA,"","",0,0,"Ashley",4,7,3,7,0.3,3.5014087480217,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","39","39","YC","H","B","154","1","","9/11/2024",6,8,NA,8,16,NA,"","",0,0,"Ashley",4,7,3,7,0.3,3.5014087480217,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","39","39","YC","H","C","452","2","closed","9/18/2024",2,1,NA,0,0,NA,"","6 diminutive ovules",0,0,"Emma",3,3,2,3,0.4,1.90985931710274,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","39","39","YC","H","C","449","1","closed","9/18/2024",2,0,NA,0,0,NA,"","",0,0,"Emma",3,3,2,3,0.4,1.90985931710274,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","4","4","RS","F","B","14","3","","9/6/2024",7,3,NA,0,15,NA,"","",0,0,"Ashley",6,2,6,1,0.857142857142857,2.54647908947033,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","4","4","RS","F","B","13","2","","9/6/2024",8,26,NA,1,31,NA,"","Some phlox",0,0,"Ashley",6,2,6,1,0.857142857142857,2.54647908947033,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","4","4","RS","F","B","12","1","","9/6/2024",7,0,NA,0,13,NA,"","",0,0,"Ashley",6,2,6,1,0.857142857142857,2.54647908947033,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","4","4","RS","F","C","362","3","","9/17/2024",4,2,NA,1,27,NA,"","",0,0,"Ashley",7,2,7,1,0.875,2.86478897565412,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","4","4","RS","F","C","359","2","","9/17/2024",4,3,NA,1,NA,NA,"","Ovary wall seem thick, not opaque",0,0,"Ashley",7,2,7,1,0.875,2.86478897565412,0,"No Florivory",1,NA
+"Niwot","Low Hermaphrodite","4","4","RS","F","C","358","1","","9/17/2024",4,2,NA,0,28,NA,"","",0,0,"Ashley",7,2,7,1,0.875,2.86478897565412,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","4","4","RS","F","D","502","2","herb","9/24/2024",2,0,NA,0,0,NA,"","ovary shrivled",0,0,"",5,3,5,2,0.714285714285714,2.54647908947033,1,"Florivory",0,0
+"Niwot","Low Hermaphrodite","4","4","RS","F","D","501","1","closed","9/24/2024",3,0,NA,0,12,NA,"","",0,0,"",5,3,5,2,0.714285714285714,2.54647908947033,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","4","4","RS","F","D","503","3","closed","9/24/2024",4,0,NA,0,0,NA,"","pistil degenerating, blackened, 11 diminutive ovules",0,0,"",5,3,5,2,0.714285714285714,2.54647908947033,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","40","40","YD","H","B","159","3","","9/11/2024",3,0,NA,0,27,NA,"Faint","Very faint ovules ",0,0,"Ashley",14,3,13,3,0.8125,5.41126806512444,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","40","40","YD","H","B","158","2","","9/11/2024",2,0,NA,0,6,NA,"Faint","Very faint ovules ",0,0,"Ashley",14,3,13,3,0.8125,5.41126806512444,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","40","40","YD","H","B","157","1","","9/11/2024",3,0,NA,0,35,NA,"","",0,0,"Ashley",14,3,13,3,0.8125,5.41126806512444,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","40","40","YD","H","C","455","3","closed","9/18/2024",4,3,NA,0,31,NA,"","",0,0,"Emma",7,3,6,3,0.666666666666667,3.18309886183791,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","40","40","YD","H","C","454","2","","9/18/2024",2,8,NA,1,0,NA,"Faint","8 faint misshapen ovules breaking out of ovary",0,0,"Emma",7,3,6,3,0.666666666666667,3.18309886183791,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","40","40","YD","H","C","453","1","","9/18/2024",0,NA,NA,NA,0,NA,"","herbivory, no stigmas",1,0,"Emma",7,3,6,3,0.666666666666667,3.18309886183791,0,"No Florivory",NA,0
+"Niwot","Low Hermaphrodite","40","40","YD","H","D","491","1","","9/24/2024",1,2,NA,0,0,NA,"","13 degenerated diminutive ovules",0,0,"",7,4,6,4,0.6,3.5014087480217,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","41","41","YH","H","B","213","3","","9/11/2024",3,0,NA,0,33,NA,"","",0,0,"Ashley",16,3,15,3,0.833333333333333,6.04788783749202,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","41","41","YH","H","B","212","2","","9/11/2024",4,0,NA,0,30,NA,"","",0,0,"Ashley",16,3,15,3,0.833333333333333,6.04788783749202,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","41","41","YH","H","B","160","1","","9/11/2024",3,0,NA,1,19,NA,"Faint","Very faint ovules ",0,0,"Ashley",16,3,15,3,0.833333333333333,6.04788783749202,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","41","41","YH","H","C","456","1","","9/18/2024",2,3,NA,0,0,NA,"Faint","7 diminutive ovules, faint",0,0,"Emma",13,1,12,1,0.923076923076923,4.45633840657307,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","41","41","YH","H","C","458","3","","9/18/2024",2,0,NA,0,0,NA,"","pistil shriveled",0,0,"Emma",13,1,12,1,0.923076923076923,4.45633840657307,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","41","41","YH","H","C","457","2","no stigmas","9/18/2024",0,NA,NA,NA,39,NA,"Missing","no stigma, ovary ripped open",0,1,"Emma",13,1,12,1,0.923076923076923,4.45633840657307,0,"No Florivory",NA,1
+"Niwot","Low Hermaphrodite","41","41","YH","H","C","457","2","no stigmas","9/18/2024",1,0,NA,0,0,NA,"","25 diminutive ovules, up an objective",0,0,"Emma",13,1,12,1,0.923076923076923,4.45633840657307,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","41","41","YH","H","C","458","3","","9/18/2024",2,13,NA,0,0,NA,"Faint","24 diminutive ovules, faint, up an objective",0,0,"Emma",13,1,12,1,0.923076923076923,4.45633840657307,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","41x","41x","RC","F","B","215","2","","9/11/2024",5,8,NA,7,0,NA,"","",0,0,"Ashley",13,5,13,4,0.764705882352941,5.72957795130823,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","41x","41x","RC","F","B","214","1","","9/11/2024",5,0,NA,1,8,NA,"","",0,0,"Ashley",13,5,13,4,0.764705882352941,5.72957795130823,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","41x","41x","RC","F","B","216","3","","9/11/2024",5,1,NA,0,17,NA,"","",0,0,"Ashley",13,5,13,4,0.764705882352941,5.72957795130823,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","41x","41x","RC","F","C","459","1","","9/18/2024",3,1,NA,0,0,NA,"Faint","20 degenerated/diminutive ovules,faint",0,0,"Emma",6,3,6,2,0.75,2.86478897565412,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","41x","41x","RC","F","C","459","1","","9/18/2024",5,3,NA,0,0,NA,"","16 diminutive ovules, herbivory-half stigmas gone",1,0,"Emma",6,3,6,2,0.75,2.86478897565412,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","41x","41x","RC","F","C","462","2","closed","9/18/2024",2,0,NA,0,0,NA,"Faint","18 degenerated/diminutive ovules,faint",0,0,"Emma",6,3,6,2,0.75,2.86478897565412,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","42","42","RH","F","B","217","1","","9/11/2024",5,11,NA,4,18,NA,"","",0,0,"Ashley",16,6,16,5,0.761904761904762,7.0028174960434,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","42","42","RH","F","B","218","2","","9/11/2024",4,0,NA,2,30,NA,"","",0,0,"Ashley",16,6,16,5,0.761904761904762,7.0028174960434,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","42","42","RH","F","B","219","3","","9/11/2024",4,13,NA,7,34,NA,"","",0,0,"Ashley",16,6,16,5,0.761904761904762,7.0028174960434,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","42","42","RH","F","C","463","1","","9/18/2024",2,0,NA,0,39,NA,"","",0,0,"Emma",15,6,15,5,0.75,6.6845076098596,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","42","42","RH","F","D","500","1","","9/24/2024",3,0,NA,0,25,NA,"Degraded","pistil degenerated/blackened, herbivory half of two stigmas gone, ",0,0,"",7,5,7,4,0.636363636363636,3.81971863420549,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","44","44","YC","H","B","224","3","","9/11/2024",2,25,NA,2,0,NA,"","",0,0,"Ashley",11,4,10,4,0.714285714285714,4.77464829275686,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","44","44","YC","H","B","223","2","","9/11/2024",3,43,NA,4,29,NA,"","",0,0,"Ashley",11,4,10,4,0.714285714285714,4.77464829275686,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","44","44","YC","H","B","222","1","","9/11/2024",4,0,NA,0,8,NA,"","Unclear if there were more, but 8 were obvious",0,0,"Ashley",11,4,10,4,0.714285714285714,4.77464829275686,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","44","44","YC","H","C","464","1","closed","9/18/2024",1,10,NA,0,0,NA,"Missing","5 degenerated/diminutive ovules, ovary ripped at bottom",0,1,"Emma",13,4,12,4,0.75,5.41126806512444,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","44","44","YC","H","C","465","2","closed","9/18/2024",3,7,NA,1,32,NA,"","",0,0,"Emma",13,4,12,4,0.75,5.41126806512444,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","44","44","YC","H","C","466","3","closed","9/18/2024",2,7,NA,0,27,NA,"","",0,0,"Emma",13,4,12,4,0.75,5.41126806512444,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","45","45","YH","H","B","226","2","","9/11/2024",4,18,NA,0,1,NA,"","",0,0,"Ashley",4,5,3,5,0.375,2.86478897565412,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","45","45","YH","H","B","227","3","","9/11/2024",2,24,NA,7,0,NA,"","",0,0,"Ashley",4,5,3,5,0.375,2.86478897565412,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","45","45","YH","H","B","225","1","","9/11/2024",3,4,NA,0,0,NA,"","",0,0,"Ashley",4,5,3,5,0.375,2.86478897565412,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","45","45","YH","H","C","457","1","","9/18/2024",0,NA,NA,NA,39,NA,"Missing","no stigma, ovary ripped open",0,1,"Emma",3,3,2,3,0.4,1.90985931710274,0,"No Florivory",NA,1
+"Niwot","Low Hermaphrodite","45","45","YH","H","C","458","2","closed","9/18/2024",2,0,NA,0,0,NA,"","pistil shriveled",0,0,"Emma",3,3,2,3,0.4,1.90985931710274,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","45","45","YH","H","C","458","2","closed","9/18/2024",2,13,NA,0,0,NA,"Faint","24 diminutive ovules, faint, up an objective",0,0,"Emma",3,3,2,3,0.4,1.90985931710274,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","45","45","YH","H","C","457","1","","9/18/2024",1,0,NA,0,0,NA,"","25 diminutive ovules, up an objective",0,0,"Emma",3,3,2,3,0.4,1.90985931710274,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","45","45","YH","H","D","483","1","","9/24/2024",1,0,NA,0,0,NA,"","18 degenerated/diminutive ovules,faint",0,0,"",2,2,1,2,0.333333333333333,1.27323954473516,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","46","46","YD","H","B","229","2","","9/11/2024",4,2,NA,0,21,NA,"","",0,0,"Ashley",10,2,9,2,0.818181818181818,3.81971863420549,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","46","46","YD","H","B","228","1","","9/11/2024",3,2,NA,0,26,NA,"","",0,0,"Ashley",10,2,9,2,0.818181818181818,3.81971863420549,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","46","46","YD","H","B","232","3","","9/11/2024",3,4,NA,0,16,NA,"","",0,0,"Ashley",10,2,9,2,0.818181818181818,3.81971863420549,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","47","47","YD","H","B","236","1","","9/11/2024",2,0,NA,0,0,NA,"","",0,0,"Ashley",11,10,10,10,0.5,6.6845076098596,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","47","47","YD","H","B","238","3","","9/11/2024",2,0,NA,0,0,NA,"","",0,0,"Ashley",11,10,10,10,0.5,6.6845076098596,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","47","47","YD","H","B","237","2","","9/11/2024",3,0,NA,0,29,NA,"","",0,0,"Ashley",11,10,10,10,0.5,6.6845076098596,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","47","47","YD","H","C","477","3","closed","9/18/2024",2,0,NA,0,0,NA,"Faint","5 diminutive ovules, faint",0,0,"Emma",9,8,8,8,0.5,5.41126806512444,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","47","47","YD","H","C","472","2","","9/18/2024",2,1,NA,0,0,NA,"Faint","12 diminutive ovules, faint",0,0,"Emma",9,8,8,8,0.5,5.41126806512444,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","47","47","YD","H","C","459","1","shrivled","9/18/2024",5,3,NA,0,0,NA,"","16 diminutive ovules, herbivory-half stigmas gone",1,0,"Emma",9,8,8,8,0.5,5.41126806512444,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","47","47","YD","H","C","459","1","shrivled","9/18/2024",3,1,NA,0,0,NA,"Faint","20 degenerated/diminutive ovules,faint",0,0,"Emma",9,8,8,8,0.5,5.41126806512444,0,"No Florivory",1,0
+"Niwot","Low Hermaphrodite","47","47b","RC","F","B","233","1","","9/11/2024",5,4,NA,2,19,NA,"","",0,0,"Ashley",5,8,5,7,0.416666666666667,4.13802852038928,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","47","47b","RC","F","B","235","3","","9/11/2024",5,1,NA,0,21,NA,"","",0,0,"Ashley",5,8,5,7,0.416666666666667,4.13802852038928,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","47","47b","RC","F","B","234","2","","9/11/2024",5,6,NA,5,17,NA,"","",0,0,"Ashley",5,8,5,7,0.416666666666667,4.13802852038928,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","47","47b","RC","F","C","476","3","","9/18/2024",6,3,NA,1,35,NA,"","",0,0,"Emma",6,7,6,6,0.5,4.13802852038928,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","47","47b","RC","F","C","475","1","closed","9/18/2024",3,0,NA,0,0,NA,"Faint","20 degenerated/diminutive ovules,faint",0,0,"Emma",6,7,6,6,0.5,4.13802852038928,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","47","47b","RC","F","C","474","2","closed","9/18/2024",2,0,NA,0,0,NA,"Faint","23 diminutive ovules, faint",0,0,"Emma",6,7,6,6,0.5,4.13802852038928,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","47","47b","RC","F","D","485","2","","9/24/2024",6,19,NA,12,9,NA,"","herbivory one stigma gone, ",0,0,"",6,3,6,2,0.75,2.86478897565412,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","47","47b","RC","F","D","484","1","close","9/24/2024",2,0,NA,0,0,NA,"","",0,0,"",6,3,6,2,0.75,2.86478897565412,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","48","48","YH","H","B","245","3","no anthers","9/10/2024",3,1,NA,1,43,NA,"","",0,0,"Ashley",8,5,7,5,0.583333333333333,4.13802852038928,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","48","48","YH","H","B","244","2","","9/10/2024",3,0,NA,0,24,NA,"","",0,0,"Ashley",8,5,7,5,0.583333333333333,4.13802852038928,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","48","48","YH","H","B","243","1","","9/11/2024",3,2,NA,0,13,NA,"Degenerate","shrivled ovary, maybe aborted on the smaller side",0,1,"Ashley",8,5,7,5,0.583333333333333,4.13802852038928,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","48","48","YH","H","C","482","3","","9/18/2024",1,0,NA,0,0,NA,"","10 diminutive ovules",0,0,"",10,5,9,5,0.642857142857143,4.77464829275686,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","48","48","YH","H","C","478","1","closed","9/18/2024",2,0,NA,0,0,NA,"","27 diminutive ovules, almost full ovules but on higher objective and still small",0,0,"Emma",10,5,9,5,0.642857142857143,4.77464829275686,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","48","48","YH","H","C","479","2","","9/18/2024",1,0,NA,0,0,NA,"","25 diminutive ovules, almost full ovules but on higher objective and still small",0,0,"",10,5,9,5,0.642857142857143,4.77464829275686,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","48","48","YH","H","D","486","1","herb","9/24/2024",1,0,NA,0,0,NA,"","23 diminutive ovules",0,0,"",6,2,5,2,0.714285714285714,2.54647908947033,1,"Florivory",0,0
+"Niwot","Low Hermaphrodite","48","48b","RD","F","B","242","2","","9/11/2024",5,0,NA,0,35,NA,"","",0,0,"Ashley",8,4,8,3,0.727272727272727,3.81971863420549,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","48","48b","RD","F","B","239","1","","9/11/2024",3,0,NA,0,0,NA,"Degraded","small and shrivled ovary",0,1,"Ashley",8,4,8,3,0.727272727272727,3.81971863420549,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","5","5","RH","F","B","22","2","","9/6/2024",7,4,NA,0,24,NA,"","Clump of phlox",0,0,"Ashley",2,3,2,2,0.5,1.59154943091895,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","5","5","RH","F","B","23","3","","9/6/2024",7,2,NA,1,37,NA,"","",0,0,"Ashley",2,3,2,2,0.5,1.59154943091895,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","5","5","RH","F","B","21","1","","9/6/2024",6,0,NA,0,25,NA,"","",0,0,"Ashley",2,3,2,2,0.5,1.59154943091895,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","5","5","RH","F","C","368","1","","9/17/2024",3,0,NA,0,32,NA,"","",0,0,"Ashley",1,2,1,1,0.5,0.954929658551372,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","6","6","RS","F","B","24","1","","9/6/2024",6,0,NA,0,0,NA,"","",0,0,"Ashley",1,2,1,1,0.5,0.954929658551372,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","6","6","RS","F","B","25","2","","9/6/2024",6,0,NA,1,17,NA,"","",0,0,"Ashley",1,2,1,1,0.5,0.954929658551372,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","6","6","RS","F","B","26","3","","9/6/2024",5,0,NA,0,3,NA,"","",0,0,"Ashley",1,2,1,1,0.5,0.954929658551372,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","6","6","RS","F","C","369","1","","9/17/2024",4,0,NA,0,0,NA,"","15 aborted ovules",0,0,"Ashley",4,2,4,1,0.8,1.90985931710274,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","6","6","RS","F","C","33","3","","9/10/2024",3,0,NA,0,0,NA,"","Black dots visible in ovary",0,0,"Ashley",4,2,4,1,0.8,1.90985931710274,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","6","6","RS","F","C","372","2","closed","9/17/2024",2,0,NA,1,0,NA,"","18 small ovules that appear aborted, but leaning toward being okay",0,0,"Ashley",4,2,4,1,0.8,1.90985931710274,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","7","7","YS","F","B","28","2","","9/6/2024",5,0,NA,0,30,NA,"","",0,0,"Ashley",0,3,0,2,0,0.954929658551372,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","7","7","YS","F","B","29","3","","9/6/2024",5,0,NA,0,20,NA,"","",0,0,"Ashley",0,3,0,2,0,0.954929658551372,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","7","7","YS","F","B","27","1","","9/6/2024",6,0,NA,0,34,NA,"","",0,0,"Ashley",0,3,0,2,0,0.954929658551372,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","7","7","YS","F","C","374","1","","9/17/2024",4,0,NA,0,23,NA,"","",0,0,"Ashley",0,3,0,2,0,0.954929658551372,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","7","7","YS","F","C","375","2","closed","9/17/2024",3,0,NA,0,0,NA,"","20 aborted ovules",0,0,"Ashley",0,3,0,2,0,0.954929658551372,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","7","7","YS","F","C","376","3","closed","9/17/2024",2,0,NA,0,31,NA,"","",0,0,"Ashley",0,3,0,2,0,0.954929658551372,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","7","7","YS","F","D","509","3","closed","9/24/2024",3,0,NA,0,30,NA,"","",0,0,"",0,3,0,2,0,0.954929658551372,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","7","7","YS","F","D","508","2","closed","9/24/2024",4,0,NA,0,18,NA,"","",0,0,"",0,3,0,2,0,0.954929658551372,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","7","7","YS","F","D","507","1","closed","9/24/2024",5,0,NA,0,33,NA,"","",0,0,"",0,3,0,2,0,0.954929658551372,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","8","8","RH","F","B","32","3","","9/10/2024",6,0,NA,0,26,NA,"","",0,0,"Ashley",1,5,1,4,0.2,1.90985931710274,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","8","8","RH","F","B","30","1","","9/6/2024",4,7,NA,4,23,NA,"","",0,0,"Ashley",1,5,1,4,0.2,1.90985931710274,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","8","8","RH","F","B","31","2","","9/6/2024",2,0,NA,0,52,NA,"","",0,0,"Ashley",1,5,1,4,0.2,1.90985931710274,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","8","8","RH","F","C","379","3","closed","9/17/2024",2,0,NA,0,0,NA,"","4 aborted ovules",0,0,"Ashley",2,2,2,1,0.666666666666667,1.27323954473516,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","8","8","RH","F","C","377","1","","9/17/2024",3,0,NA,0,14,NA,"","",0,0,"Ashley",2,2,2,1,0.666666666666667,1.27323954473516,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","8","8","RH","F","C","378","2","closed","9/17/2024",3,0,NA,0,0,NA,"","25 aborted ovules",0,0,"Ashley",2,2,2,1,0.666666666666667,1.27323954473516,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","9","9","RC","H","B","33","2","","9/10/2024",3,0,NA,0,0,NA,"","Black dots visible in ovary",0,0,"Ashley",3,4,2,4,0.333333333333333,2.22816920328654,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","9","9","RC","H","B","34","3","","9/10/2024",3,0,NA,0,15,NA,"","",0,0,"Ashley",3,4,2,4,0.333333333333333,2.22816920328654,0,"No Florivory",0,1
+"Niwot","Low Hermaphrodite","9","9","RC","H","C","383","2","closed","9/17/2024",2,0,NA,0,0,NA,"","herbivory, one stigma missing",0,0,"Ashley",3,0,2,0,1,0.954929658551372,0,"No Florivory",0,0
+"Niwot","Low Hermaphrodite","9","9","RC","H","C","382","1","","9/17/2024",5,1,NA,0,18,NA,"","",0,0,"Ashley",3,0,2,0,1,0.954929658551372,0,"No Florivory",1,1
+"Niwot","Low Hermaphrodite","9","9","RC","H","C","384","3","closed","9/17/2024",2,3,NA,1,0,NA,"","26 diminutive aborted ovules",0,0,"Ashley",3,0,2,0,1,0.954929658551372,0,"No Florivory",1,0

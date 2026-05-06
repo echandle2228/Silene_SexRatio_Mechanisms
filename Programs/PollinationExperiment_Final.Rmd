@@ -1,0 +1,1005 @@
+---
+title: "Pollination Experiment in CO"
+author: "Emma"
+date: "2024-11-20"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+remove(list = ls())
+set.seed(459813)
+# setwd(dir = "Programs/")
+```
+
+
+Load Packages
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(ggforce) 
+library(patchwork)
+library(lme4)
+library(car)
+library(forcats)
+library(DHARMa)
+library(MuMIn)
+library(emmeans)
+library(ggpubr)
+library(ggeffects)
+library(performance)
+library(arm)
+```
+
+
+Load data
+```{r}
+meta <- read.csv("Raw_Data/Data/Pollination_Experiment.csv", header = TRUE)
+data <- read.csv("Raw_Data/Data/Pollination_Experiment_Seeds.csv", header = TRUE)
+sex_ratio <- read.csv("Raw_Data/Data/Pollen_Deposition.csv")
+```
+
+Format sex_ratio dataframe to long format
+```{r}
+sex_ratio1 <- sex_ratio %>% 
+  dplyr::select(Site:Sex, SR_Herm_A, SR_Herm_B, SR_Herm_C, SR_Herm_D) %>% 
+  pivot_longer(cols = starts_with(c("SR_Herm")),
+               names_to = c("week"),
+               names_prefix = c("SR_Herm_"),
+               values_to = c("Herm_Count")) 
+  
+sex_ratio2 <- sex_ratio %>% 
+  dplyr::select(c(Site:Sex, SR_Fem_A, SR_Fem_B, SR_Fem_C, SR_Fem_D)) %>% 
+  pivot_longer(cols = starts_with(c("SR_Fem")),
+               names_to = c("week"),
+               names_prefix = c("SR_Fem_"),
+               values_to = c("Fem_Count")) 
+
+sex_ratio_3 <- merge(sex_ratio1,sex_ratio2, by = c("Site", "Population", "Plot",
+                                                     "Plant.ID", "TP", "Sex", "week"), 
+                       all.y = TRUE)
+
+sex_ratio_all <- sex_ratio_3 %>% 
+  mutate(true_HermCount = if_else(Sex == "H", Herm_Count-1, Herm_Count)) %>% 
+  mutate(true_FemCount = if_else(Sex == "F", Fem_Count-1, Fem_Count)) %>% 
+  mutate(micro_SR = true_HermCount/(true_FemCount+true_HermCount),
+         density = (true_HermCount + true_FemCount + 1) / pi) %>% 
+  filter(week == "B") %>% 
+  drop_na()
+
+
+```
+
+
+Combine dataframes
+```{r}
+meta2 <- meta %>% mutate(POP_code = ifelse(Population == "East Krummholz", "EK", "WK"))
+meta2$ID <- toupper(paste0(meta2$POP_code,meta2$Plant.ID))
+
+data$ID <- toupper(data$ID)
+data2<- data %>% 
+  mutate(Treatment = case_when(Color == "G" ~ "Outcrossed",
+                                              Color == "R" ~ "Selfed",
+                                              Color == "B" ~ "No Pollen",
+                                              Color == "O" ~ "Open Pollinated"))
+
+data3 <- merge(meta2, data2, by = "ID", all.y = TRUE)
+
+data_all <- merge(data3, sex_ratio_all, by = c("Plant.ID", "Population", "Site", "Plot", "TP", "Sex"))
+
+```
+
+
+Calculated Variables
+```{r}
+data_all <- data_all %>% 
+  mutate(Germination_rate = data_all$Germinated / data_all$Total_Seeds_end) %>% 
+  mutate(Germination_rate = replace_na(Germination_rate, 0))
+
+data_all$viable_seed <- round(data_all$Fruit * data_all$Seed_number * data_all$Germination_rate)
+
+```
+
+Subset dataframe to just include treatments that fruited and remove mix sex. Remove female flower that set fruit in the no pollen treatment.
+```{r}
+data_all <- data_all %>% 
+  filter(Sex != "mix") %>% 
+  filter(!(Treatment == "No Pollen" & Sex == "F" & Fruit == 1)) %>% 
+  mutate(Fruit_char = case_when(Fruit == 1 ~ "Fruit",
+                                Fruit == 0 ~ "No Fruit"),
+         Population = case_when(Population == "West Knoll" ~ "Low Hermaphrodite",
+                                Population == "East Krummholz" ~ "High Hermaphrodite"))
+
+data_seeds <- data_all %>% 
+  filter(Seed_number != 0) %>% 
+  drop_na(Population)
+
+# Total observations
+meta %>% 
+  group_by(Sex, Population) %>% 
+  summarise(n = n_distinct(Plant.ID))
+
+data_all %>% 
+  group_by(Sex, Population) %>% 
+  summarise(n = n_distinct(Plant.ID))
+
+data_all %>% 
+  filter(Fruit == 1) %>% 
+  summarise(n=n())
+
+data_all %>% 
+  filter(Fruit == 1) %>% 
+  summarise(seeds=sum(Seeds_plated))
+
+```
+
+
+
+## Fruit Production
+```{r}
+data_all$Treatment <- factor(data_all$Treatment, levels = c("Open Pollinated", "Outcrossed", "Selfed", "No Pollen"))
+data_all$Sex <- as.factor(data_all$Sex)
+  
+
+fruit.m <- glm(Fruit ~ Sex * Treatment+ Sex:true_HermCount + Treatment:true_HermCount + true_FemCount + true_HermCount + Population, data = data_all, family = "binomial")
+
+summary(fruit.m)
+Anova(fruit.m)
+r.squaredGLMM(fruit.m)
+
+#Check Overdispersion
+check_overdispersion(fruit.m)
+
+# Model diagnostics
+fruit_res <- simulateResiduals(fruit.m)
+plot(fruit_res)
+
+
+emmeans(fruit.m, specs = pairwise ~ Treatment*Sex, adjust="tukey")
+
+
+fruit_plot <- data_all %>% 
+  mutate(Sex2 = if_else(Sex == "F", "Female", "Hermaphrodite"))
+
+(fruit_plot1 <- ggplot(data = fruit_plot, aes(x = Treatment, fill = fct_rev(Fruit_char))) +
+  geom_bar(position = "fill") +
+  labs(x = "Pollination Treatment", 
+       y = "Fruit Set Proportion") +
+  theme_classic() +
+  scale_fill_manual(values = c("grey", "black")) +
+  facet_wrap(~ Sex2, scales = "free_x") +
+  theme(legend.title = element_blank(),
+        legend.position = "right",
+        axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)))
+
+
+```
+
+Inbreeding Depression Figure
+```{r}
+# Plot effect of micro sex ratio on inbreeding depression
+predict1 <- ggpredict(fruit.m, terms = c("true_HermCount [all]", "Treatment", "Sex")) %>% 
+  filter(facet == "H" & (group == "Outcrossed" | group == "Selfed"))
+
+
+predict_ID <- as.data.frame(predict1) %>% 
+  dplyr::select(-facet, -std.error) %>% 
+  pivot_wider(names_from = group, 
+              values_from = c(predicted, conf.low, conf.high),
+              names_sep = ".") %>% 
+  mutate(ID = (predicted.Outcrossed-predicted.Selfed)/predicted.Outcrossed)
+
+# Getting confidence intervals for inbreeding depression calculated from predictions
+library(arm)
+
+sim_model <- sim(fruit.m, n.sims = 1000)
+
+ID_list <- list()
+
+for (i in c("Outcrossed", "Selfed")) {
+  newdata_low <- data.frame(
+  Sex = factor("H",levels = levels(data_all$Sex)),
+  Treatment = factor(i, levels(data_all$Treatment)),
+  true_HermCount = seq(min(data_all$true_HermCount), max(data_all$true_HermCount), length.out = 100),
+  true_FemCount = median(data_all$true_FemCount),
+  Population = "Low Hermaphrodite")
+
+newdata_high <- newdata_low
+newdata_high$Population <- "High Hermaphrodite"
+
+newdata <- rbind(newdata_high, newdata_low)
+
+df_name <- i
+
+ID_list[[df_name]] <- newdata
+
+}
+
+# Matrix of model coefficients: sims x predictors
+sim_coefs <- coef(sim_model)
+
+# Design matrix for new data
+X_out <- model.matrix(~ Sex * Treatment+ Sex:true_HermCount + Treatment:true_HermCount + true_FemCount + true_HermCount + Population, data = ID_list$Outcrossed)
+
+X_self <- model.matrix(~ Sex * Treatment+ Sex:true_HermCount + Treatment:true_HermCount + true_FemCount + true_HermCount + Population, data = ID_list$Selfed)
+
+
+# Multiply each simulation of coefs by design matrix to get linear predictors
+pred_out_mat <- plogis(sim_coefs %*% t(X_out))
+pred_self_mat <- plogis(sim_coefs %*% t(X_self))
+
+# Now compute inbreeding depression
+id_matrix <- (pred_out_mat - pred_self_mat) / pred_out_mat
+
+id_mean <- apply(id_matrix, 2, mean)
+id_lower <- apply(id_matrix, 2, quantile, probs = 0.025)
+id_upper <- apply(id_matrix, 2, quantile, probs = 0.975)
+
+# Put it into a data frame for plotting
+id_df <- data.frame(
+  true_HermCount = ID_list$Outcrossed$true_HermCount,
+  ID_mean = id_mean,
+  ID_lower = id_lower,
+  ID_upper = id_upper
+)
+
+
+# Make plots with model predictions and ID
+data_ID <- data_all %>% 
+  filter(Sex == "H" & (Treatment == "Outcrossed" | Treatment == "Selfed"))
+
+
+(ID_plot1 <- ggplot(data = predict1) +
+  geom_line(aes(x=x, y=predicted, color = group), linewidth = 1) +
+  geom_ribbon(aes(x=x, ymin = conf.low, ymax = conf.high, group = group), alpha = 0.2) +
+  geom_jitter(data = data_ID, aes(x = true_HermCount, y = Fruit, color = Treatment), 
+              alpha = 0.2, height = 0.05) +
+  labs(x = "Hermaphrodite Number", y = "Fruit Set Proportion",
+       color = "") +
+  scale_color_manual(values = c("#ADFF2F", "#008B00"))+
+  theme_classic()+
+  theme(legend.position = "top",
+        legend.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")))
+  
+(ID_plot2 <- ggplot() +
+  geom_smooth(data = predict_ID, aes(x=x, y=ID), linewidth = 1, se = FALSE, color = "grey50") +
+  geom_ribbon(data = id_df, aes(x=true_HermCount, ymin = ID_lower, ymax = ID_upper), alpha = 0.2) +
+  labs(x = "Hermaphrodite Number", y = "Inbreeding Depression") +
+  theme_classic())
+
+(ID_plot <- ggarrange(ID_plot1, ID_plot2, nrow = 1, ncol = 2, labels = c("A", "B"), widths = c(0.60,0.40)))
+
+ggsave(ID_plot, file = "./Figures/ID_plot.png", width = 8, height = 4, units = "in", dpi = 300)
+```
+
+Pollen Limitation figure
+```{r}
+# Plot of pollen limitation
+predict2 <- ggpredict(fruit.m, terms = c("true_HermCount [all]", "Treatment", "Sex")) %>%
+  filter(group == "Outcrossed" | group == "Open Pollinated")  
+
+
+predict_PL <- as.data.frame(predict2) %>% 
+  dplyr::select(-std.error) %>% 
+  pivot_wider(names_from = group, 
+              values_from = c(predicted, conf.low, conf.high),
+              names_sep = ".") %>% 
+  rename(predicted.Open = 'predicted.Open Pollinated',
+         conf.low.Open = 'conf.low.Open Pollinated',
+         conf.high.Open = 'conf.high.Open Pollinated') %>% 
+  mutate(PL = log(predicted.Outcrossed/predicted.Open))
+
+# Calculate confidence intervals with delta method for pollen limitation
+predict_F <- predict2 %>% 
+  filter(facet == "F")
+
+predict_H <- predict2 %>% 
+  filter(facet == "H")
+
+data_PL_F <- data_all %>% 
+  filter(Sex == "F" & (Treatment == "Outcrossed" | Treatment == "Open Pollinated"))
+
+data_PL_H <- data_all %>% 
+  filter(Sex == "H" & (Treatment == "Outcrossed" | Treatment == "Open Pollinated"))
+
+# Getting confidence intervals for inbreeding depression calculated from predictions
+sim_model <- sim(fruit.m, n.sims = 1000)
+
+PL_list <- list()
+
+for (sex in c("F", "H")) {
+  for (trt in c("Outcrossed", "Open Pollinated")) {
+    newdata <- data.frame(
+    Sex = factor(sex,levels = levels(data_all$Sex)),
+    Treatment = factor(trt, levels(data_all$Treatment)),
+   true_HermCount = seq(min(data_all$true_HermCount), max(data_all$true_HermCount), length.out = 100),
+    true_FemCount = median(data_all$true_FemCount),
+    Population = rep(c("Low Hermaphrodite", "High Hermaphrodite"), times = 50))
+    
+    df_name <- paste0(trt,"_", sex)
+    PL_list[[df_name]] <- newdata
+
+  }
+}
+
+PL_Outcrossed <- rbind(PL_list$Outcrossed_F, PL_list$Outcrossed_H)
+PL_Open <- rbind(PL_list$'Open Pollinated_F', PL_list$'Open Pollinated_H')
+
+# Matrix of model coefficients: sims x predictors
+sim_coefs <- coef(sim_model)
+
+# Design matrix for new data
+X_out <- model.matrix(~ Sex * Treatment+ Sex:true_HermCount + Treatment:true_HermCount + true_FemCount + true_HermCount + Population, data = PL_Outcrossed)
+
+X_open <- model.matrix(~ Sex * Treatment+ Sex:true_HermCount + Treatment:true_HermCount + true_FemCount + true_HermCount + Population, data = PL_Open)
+
+
+# Multiply each simulation of coefs by design matrix to get linear predictors
+pred_out_mat <- plogis(sim_coefs %*% t(X_out))
+pred_open_mat <- plogis(sim_coefs %*% t(X_open))
+
+# Now compute inbreeding depression
+pl_matrix <- log(pred_out_mat/pred_open_mat)
+
+pl_mean <- apply(pl_matrix, 2, mean)
+pl_lower <- apply(pl_matrix, 2, quantile, probs = 0.025)
+pl_upper <- apply(pl_matrix, 2, quantile, probs = 0.975)
+
+
+
+# Put it into a data frame for plotting
+PL_df <- data.frame(
+  true_HermCount = PL_Open$true_HermCount,
+  Sex = PL_Open$Sex,
+  PL_mean = pl_mean,
+  PL_lower = pl_lower,
+  PL_upper = pl_upper)
+
+
+
+(PL_F_plot <- ggplot() +
+  geom_line(data = predict_F, aes(x=x, y=predicted, color = group), size = 1) +
+  geom_ribbon(data = predict_F, 
+              aes(x=x, ymin = conf.low, ymax = conf.high, group = group, fill = group), 
+              alpha = 0.2) +
+  geom_jitter(data = data_PL_F, aes(x = true_HermCount, y = Fruit, color = Treatment), 
+              alpha = 0.6, height = 0.05) +
+  labs(x = "Hermaphrodite Neighbors", y = "Fruit Set \nProportion", 
+       title ="Female") +
+  scale_color_manual(values = c("grey50", "black"))+
+  scale_fill_manual(values = c("grey50", "black"))+
+  theme_classic() +
+  theme(legend.position = "right",
+        legend.title = element_blank(),
+        legend.direction = "horizontal",
+        legend.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")))
+
+(PL_H_plot <- ggplot() +
+  geom_line(data = predict_H, aes(x=x, y=predicted, color = group), size = 1) +
+  geom_ribbon(data = predict_H, 
+              aes(x=x, ymin = conf.low, ymax = conf.high, group = group, fill = group), 
+              alpha = 0.2) +
+  geom_jitter(data = data_PL_H, aes(x = true_HermCount, y = Fruit, color = Treatment), 
+              alpha = 0.6, height = 0.05) +
+  labs(x = "Hermaphrodite Neighbors", y = "",
+       title = "Hermaphrodite") +
+  scale_color_manual(values = c("grey50", "black"))+
+  scale_fill_manual(values = c("grey50", "black"))+
+  theme_classic()+
+  theme(legend.position = "right",
+        legend.title = element_blank(),
+        legend.direction = "horizontal",
+        legend.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")))
+
+
+
+(PL_plot <- ggplot() +
+  geom_smooth(data = predict_PL, aes(x=x, y=PL, color = facet), size = 1, se = FALSE) +
+  geom_ribbon(data = PL_df, aes(x=true_HermCount, ymin = PL_lower, ymax = PL_upper, group = Sex, fill = Sex), alpha = 0.2) +
+  scale_color_manual(values = c("#7A378B", "#66CD00"))+
+  scale_fill_manual(values = c("#7A378B", "#66CD00"))+
+  labs(x = "Hermaphrodite Neighbors", y = "Pollen \nLimitation",
+       color = "Sex") +
+  theme_classic() +
+  theme(legend.position = "bottom"))
+
+(PL_plot_pannel_1 <- ggarrange(ggarrange(PL_F_plot, PL_H_plot, nrow = 1, 
+                               common.legend = TRUE, legend = "bottom", 
+                               labels = c("C", "D")), PL_plot, nrow = 1, labels = c("", "E"), widths = c(0.65, 0.35)))
+
+
+```
+
+## Female advantage in fruitset plot
+```{r}
+# Female advantage - relative fruit set of females to hermaphrodites
+
+predict_FA <- as.data.frame(predict2) %>% 
+  dplyr::select(-std.error) %>% 
+  pivot_wider(names_from = facet, 
+              values_from = c(predicted, conf.low, conf.high),
+              names_sep = ".") %>% 
+  mutate(FA = log(predicted.F/predicted.H))
+
+
+# Getting confidence intervals for female advantage calculated from predictions
+sim_model <- sim(fruit.m, n.sims = 1000)
+
+FA_list <- list()
+
+for (sex in c("F", "H")) {
+  for (trt in c("Outcrossed", "Open Pollinated")) {
+    newdata <- data.frame(
+    Sex = factor(sex,levels = levels(data_all$Sex)),
+    Treatment = factor(trt, levels(data_all$Treatment)),
+   true_HermCount = seq(min(data_all$true_HermCount), max(data_all$true_HermCount), length.out = 100),
+    true_FemCount = median(data_all$true_FemCount),
+    Population = rep(c("Low Hermaphrodite", "High Hermaphrodite"), times = 50))
+    
+    df_name <- paste0(trt,"_", sex)
+    FA_list[[df_name]] <- newdata
+
+  }
+}
+
+FA_F <- rbind(PL_list$Outcrossed_F, PL_list$'Open Pollinated_F')
+FA_H <- rbind(PL_list$Outcrossed_H, PL_list$'Open Pollinated_H')
+
+# Matrix of model coefficients: sims x predictors
+sim_coefs <- coef(sim_model)
+
+# Design matrix for new data
+X_F <- model.matrix(~ Sex * Treatment+ Sex:true_HermCount + Treatment:true_HermCount + true_FemCount + true_HermCount + Population, data = FA_F)
+
+X_H <- model.matrix(~ Sex * Treatment+ Sex:true_HermCount + Treatment:true_HermCount + true_FemCount + true_HermCount + Population, data = FA_H)
+
+
+# Multiply each simulation of coefs by design matrix to get linear predictors
+pred_F_mat <- plogis(sim_coefs %*% t(X_F))
+pred_H_mat <- plogis(sim_coefs %*% t(X_H))
+
+# Now compute inbreeding depression
+FA_matrix <- log(pred_F_mat/pred_H_mat)
+
+FA_mean <- apply(FA_matrix, 2, mean)
+FA_lower <- apply(FA_matrix, 2, quantile, probs = 0.025)
+FA_upper <- apply(FA_matrix, 2, quantile, probs = 0.975)
+
+# Put it into a data frame for plotting
+FA_df <- data.frame(
+  true_HermCount = FA_F$true_HermCount,
+  Treatment = FA_F$Treatment,
+  FA_mean = FA_mean,
+  FA_lower = FA_lower,
+  FA_upper = FA_upper
+)
+
+
+
+(FA_plot <- ggplot() +
+  geom_smooth(data = predict_FA, aes(x=x, y=FA, color = group), size = 1, se = FALSE) +
+  geom_ribbon(data = FA_df, aes(x=true_HermCount, ymin = FA_lower, ymax = FA_upper, group = Treatment, fill = Treatment), alpha = 0.2) +
+  scale_color_manual(values = c("grey50", "black"))+
+  scale_fill_manual(values = c("grey50", "black"))+ 
+  labs(x = "Hermaphrodite Neighbors", y = "Relative \nFemale Advantage",
+       color = "Treatment") +
+  theme_classic() +
+  theme(legend.position = "right",
+        legend.title = element_blank()))
+
+(PL_plot_pannel_2 <- ggarrange(PL_plot_pannel_1, FA_plot, nrow = 2, labels = c("", "F")))
+
+
+```
+
+
+
+## Seed Production
+```{r}
+seeds.m <- glm(Seed_number ~ Sex * Treatment+ Sex:true_HermCount + Treatment:true_HermCount + true_FemCount + true_HermCount + Population, data = data_seeds, family = "poisson")
+
+summary(seeds.m)
+Anova(seeds.m)
+r.squaredGLMM(seeds.m)
+
+
+mean_sd <- data_seeds %>% 
+  group_by(Sex, Treatment, Population) %>% 
+  summarise(seed_mean = mean(Seed_number),
+            n = n(),
+            seed_se = sd(Seed_number) / (sqrt(n)))
+
+(seed_plot <- ggplot(data = mean_sd, aes(x = Treatment, y = seed_mean, fill = Sex)) +
+  geom_bar(stat = "summary", fun = "mean", position = position_dodge()) +
+  geom_errorbar(aes(ymin = seed_mean - seed_se, ymax = seed_mean + seed_se), 
+                position = position_dodge(0.9), width = 0.25) +
+  labs(x = "Pollination Treatment", y = "Seed Number") +
+  theme_classic() +
+  scale_fill_manual(values = c("#7A378B", "#66CD00")) +
+  facet_wrap(~ Population, ncol = 2) +
+  theme(legend.title = element_blank(),
+        axis.title.x = element_blank(),
+        legend.position="top",
+        axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)))
+
+ggsave(seed_plot, filename = "Figures/Seed_Supp.png", dpi = 300, width = 6, height = 4, units = "in")
+
+(seed_plot2 <- ggplot(data = data_all, aes(x = true_HermCount, y = Seed_number, color = Sex)) +
+  geom_point(position = "dodge", alpha = 0.5) +
+  geom_smooth(method = "glm", se = T, 
+        method.args = list(family = "poisson")) +
+  labs(x = "Micro Hermaphrodite Count", y = "Seed Count")+
+  theme_classic()+
+  facet_wrap(vars(Treatment)) +
+  scale_color_manual(values = c("#7A378B", "#66CD00")))
+
+```
+
+
+## Seed Germination
+```{r}
+
+germ.m <- glm(cbind(Germinated, (Total_Seeds_end - Germinated)) ~ Sex * Treatment + Population + Sex:true_HermCount + Treatment:true_HermCount + true_FemCount + true_HermCount, data = data_seeds, family = "binomial")
+
+summary(germ.m)
+Anova(germ.m)
+r.squaredGLMM(germ.m)
+
+
+mean_germ <- data_seeds %>% 
+  group_by(Sex, Treatment, Population) %>% 
+  summarise(germ_mean = mean(Germination_rate),
+            n = n(),
+            germ_se = sd(Germination_rate) / (sqrt(n)))
+
+(germ_plot <- ggplot(data = mean_germ, aes(x = Treatment, y = germ_mean, fill = Sex)) +
+  geom_bar(stat = "summary", fun = "mean", position = position_dodge()) +
+  geom_errorbar(aes(ymin = germ_mean - germ_se, ymax = germ_mean + germ_se), 
+                position = position_dodge(0.9), width = 0.25) +
+  labs(x = "Pollination Treatment", y = "Germination Rate") +
+  theme_classic() +
+  scale_fill_manual(values = c("#7A378B", "#66CD00")) +
+  facet_wrap(~ Population, ncol = 2) +
+  theme(legend.title = element_blank(),
+        legend.position="none",
+        axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)))
+
+ggsave(germ_plot, filename = "Figures/Germ_Supp.png", dpi = 300, width = 6, height = 4, units = "in")
+
+# Average germination rate for each treatment
+data_seeds %>% group_by(Treatment) %>% 
+  summarise(Mean_GermRate = mean(Germination_rate),
+            SD_GermRate = sd(Germination_rate),
+            Mean_Seed = mean(Seed_number),
+            SD_Seed = sd(Seed_number))
+
+```
+
+
+## Cummulative reproductive output
+```{r}
+
+viable_seeds.m <- MASS::glm.nb(viable_seed ~ Sex * Treatment + Population + Sex:true_HermCount + Treatment:true_HermCount + true_FemCount + true_HermCount, data = data_all)
+
+summary(viable_seeds.m)
+Anova(viable_seeds.m)
+r.squaredGLMM(viable_seeds.m)
+
+
+emmeans(viable_seeds.m, specs = pairwise ~ Treatment*Sex, adjust="tukey")
+
+
+fig_germ <- data_all %>% 
+  replace(is.na(.), 0) %>% 
+  mutate(Figure_vs = Fruit * Seed_number * Germination_rate) %>% 
+  mutate(Sex2 = if_else(Sex == "F", "Female", "Hermaphrodite")) %>% 
+  drop_na(Figure_vs) %>% 
+  group_by(Sex2, Treatment) %>% 
+  summarise(viable_mean = mean(Figure_vs),
+            n = n(),
+            viable_se = sd(Figure_vs) / (sqrt(n)))
+
+
+(vs_plot <- ggplot(data = fig_germ, aes(x = Treatment, y = viable_mean, fill = Sex2)) +
+  geom_bar(stat = "summary", fun = "mean", position = position_dodge()) +
+  geom_errorbar(aes(ymin = viable_mean - viable_se, ymax = viable_mean + viable_se), 
+                position = position_dodge(0.9), width = 0.25) +
+  # geom_hline(yintercept = 1.25, linetype = "dotted") +
+  labs(x = "Pollination Treatment", y = "Cumulative \nReproductive Output") +
+  theme_classic() +
+  scale_fill_manual(values = c("#7A378B", "#66CD00")) +
+  facet_wrap(~Sex2, scales = "free_x") +
+  theme(legend.title = element_blank(),
+        legend.position = "none",
+        axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)))
+
+ggsave(vs_plot, filename = "Figures/cumulative_plot.png", height = 5, width = 5)
+
+
+
+```
+
+
+
+Pollen experiment multi-panel figure
+```{r}
+(PolExp_1 <- ggarrange(fruit_plot1, vs_plot, nrow = 1, ncol = 2, labels = c("A", "B")))
+
+(PolExp_plot <- ggarrange(PolExp_1, PL_plot_pannel_2, nrow = 2, heights = c(0.4, 0.6)))
+
+ggsave(PolExp_plot, filename = "Figures/PolExp_MainFigure.png", dpi = 300, width = 7, height = 8, units = "in")
+
+```
+
+
+## Strength of Pollen limitation for fruit set
+```{r}
+# Fruit Set
+PL_fr <- data_all %>%
+  mutate(Fruit_PL = Fruit +0.001) %>% 
+  filter(Treatment == "Outcrossed" | Treatment == "Open Pollinated") %>% 
+  dplyr::select(Population, ID, Treatment, Sex, micro_SR, Fruit_PL) %>% 
+  group_by(ID) %>% 
+  pivot_wider(names_from = Treatment, values_from = Fruit_PL) %>% 
+  rename("Open" = "Open Pollinated") %>% 
+  # na.omit() %>% 
+  mutate(Pollen_Limitation = log(Outcrossed / Open)) 
+
+# Average seed number and calculating raw mean pollen limitation
+# Function for standard error
+se <- function(x) sd(x, na.rm = TRUE) / sqrt(sum(!is.na(x)))
+
+(PL_fr_output <- PL_fr %>% group_by(Sex) %>% 
+  summarise(mean_oc = mean(Outcrossed),
+            sd_oc = se(Outcrossed),
+            mean_op = mean(Open),
+            sd_op = se(Open),
+            n = n(),
+            pollen_limitation = log(mean(Outcrossed) / mean(Open))))
+
+
+# Loop to sample data set to get a distribution and confidence intervals for the mean pollen limitation estimate
+# Loop to sample data set to get a distribution and confidence intervals for the mean pollen limitation estimate
+# Vectors for Low Hermaphrodite Site
+FemOC_fr <- PL_fr %>% filter(Sex == "F") %>% pull(Outcrossed)
+FemOP_fr <- PL_fr %>% filter(Sex == "F") %>% pull(Open)
+HermOC_fr <- PL_fr %>% filter(Sex == "H") %>% pull(Outcrossed)
+HermOP_fr <- PL_fr %>% filter(Sex == "H") %>% pull(Open)
+
+# # Vectors for the high Hermaphrodite group
+# High_FemOC_fr <- PL_fr %>% filter(Sex == "F" & Population == "High Hermaphrodite") %>% pull(Outcrossed)
+# High_FemOP_fr <- PL_fr %>% filter(Sex == "F" & Population == "High Hermaphrodite") %>% pull(Open)
+# High_HermOC_fr <- PL_fr %>% filter(Sex == "H" & Population == "High Hermaphrodite") %>% pull(Outcrossed)
+# High_HermOP_fr <- PL_fr %>% filter(Sex == "H" & Population == "High Hermaphrodite") %>% pull(Open)
+
+# Create new vectors
+Fem_PL_fr <- numeric(0)
+Herm_PL_fr <- numeric(0)
+
+
+nboot <- 1000
+
+for (i in 1:nboot) {
+  New_FemOC_fr <- FemOC_fr[sample(1:NROW(FemOC_fr), replace = TRUE)]
+  New_FemOP_fr <- FemOP_fr[sample(1:NROW(FemOP_fr), replace = TRUE)]
+  New_HermOC_fr <- HermOC_fr[sample(1:NROW(HermOC_fr), replace = TRUE)]
+  New_HermOP_fr <- HermOP_fr[sample(1:NROW(HermOP_fr), replace = TRUE)]
+  
+  Fem_PL_fr[i] <- log(mean(New_FemOC_fr) / mean(New_FemOP_fr))
+  Herm_PL_fr[i] <- log(mean(New_HermOC_fr) / mean(New_HermOP_fr))
+
+  
+}
+
+hist(Herm_PL_fr)
+hist(Fem_PL_fr)
+
+
+
+# Estimated mean and confidence interval from bootstrapping
+mean(Herm_PL_fr)
+quantile(Herm_PL_fr, probs = c(0.025, 0.975))
+
+mean(Fem_PL_fr)
+quantile(Fem_PL_fr, probs = c(0.025, 0.975))
+
+
+# Bias correction because the means are a little different from my estimate using data
+expanded_PL_fem <- PL_fr_output %>% 
+  filter(Sex == "F") %>% 
+  crossing(boots = Fem_PL_fr)
+
+expanded_PL_herm <- PL_fr_output %>% 
+  filter(Sex == "H") %>% 
+  crossing(boots = Herm_PL_fr)
+
+expanded_PL_fr <- rbind(expanded_PL_fem, expanded_PL_herm)
+
+
+(PL_fr_bc <- expanded_PL_fr %>% 
+  group_by(Sex) %>% 
+  summarise(PercLo=quantile(boots,0.025),
+            PercHi=quantile(boots,0.975),
+            P = length(boots[boots < pollen_limitation])/length(boots),
+            Z=qnorm(P,0,1),
+            BiasLo=quantile(boots,pnorm(2*Z-1.96)),
+            BiasHi=quantile(boots,pnorm(2*Z+1.96))))
+  
+
+```
+
+
+
+## Strength of Pollen limitation for Cumulative Reproductive Output
+```{r}
+# Cumulative Reproductive Output
+PL_CO <- data_all %>%
+  mutate(CO_PL = viable_seed +0.001) %>% 
+  filter(Treatment == "Outcrossed" | Treatment == "Open Pollinated") %>% 
+  dplyr::select(ID, Treatment, Sex, true_HermCount, CO_PL) %>% 
+  group_by(ID) %>% 
+  pivot_wider(names_from = Treatment, values_from = CO_PL) %>% 
+  rename("Open" = "Open Pollinated") %>% 
+  na.omit() %>% 
+  mutate(Pollen_Limitation = log(Outcrossed / Open))
+
+# Average seed number
+(PL_CO_output <- PL_CO %>% group_by(Sex) %>% 
+  summarise(mean_oc = mean(Outcrossed),
+            se_oc = se(Outcrossed),
+            mean_op = mean(Open),
+            se_op = se(Open),
+            pollen_limitation = log(mean(Outcrossed) / mean(Open))))
+
+
+
+# Loop to sample data set to get a distribution and confidence intervals for the mean pollen limitation estimate
+# Vectors for Low Hermaphrodite Site
+FemOC_CO <- PL_CO %>% filter(Sex == "F") %>% pull(Outcrossed)
+FemOP_CO <- PL_CO %>% filter(Sex == "F") %>% pull(Open)
+HermOC_CO <- PL_CO %>% filter(Sex == "H") %>% pull(Outcrossed)
+HermOP_CO <- PL_CO %>% filter(Sex == "H") %>% pull(Open)
+
+# Vectors for the high Hermaphrodite group
+# High_FemOC_CO <- PL_CO %>% filter(Sex == "F" & Population == "High Hermaphrodite") %>% pull(Outcrossed)
+# High_FemOP_CO <- PL_CO %>% filter(Sex == "F" & Population == "High Hermaphrodite") %>% pull(Open)
+# High_HermOC_CO <- PL_CO %>% filter(Sex == "H" & Population == "High Hermaphrodite") %>% pull(Outcrossed)
+# High_HermOP_CO <- PL_CO %>% filter(Sex == "H" & Population == "High Hermaphrodite") %>% pull(Open)
+
+# Create new vectors
+Fem_PL_CO <- numeric(0)
+Herm_PL_CO <- numeric(0)
+
+
+nboot <- 1000
+
+for (i in 1:nboot) {
+  New_FemOC_CO <- FemOC_CO[sample(1:NROW(FemOC_CO), replace = TRUE)]
+  New_FemOP_CO <- FemOP_CO[sample(1:NROW(FemOP_CO), replace = TRUE)]
+  New_HermOC_CO <- HermOC_CO[sample(1:NROW(HermOC_CO), replace = TRUE)]
+  New_HermOP_CO <- HermOP_CO[sample(1:NROW(HermOP_CO), replace = TRUE)]
+  
+  Fem_PL_CO[i] <- log(mean(New_FemOC_CO) / mean(New_FemOP_CO))
+  Herm_PL_CO[i] <- log(mean(New_HermOC_CO) / mean(New_HermOP_CO))
+  
+}
+
+hist(Herm_PL_CO)
+hist(Fem_PL_CO)
+
+
+
+
+mean(Herm_PL_CO)
+quantile(Herm_PL_CO, probs = c(0.025, 0.975))
+
+mean(Fem_PL_CO)
+quantile(Fem_PL_CO, probs = c(0.025, 0.975))
+
+
+# Bias correction because the means are a little different from my estimate using data
+expanded_PL_fem_CO <- PL_CO_output %>% 
+  filter(Sex == "F") %>% 
+  crossing(boots = Fem_PL_CO)
+
+expanded_PL_herm_CO <- PL_CO_output %>% 
+  filter(Sex == "H") %>% 
+  crossing(boots = Herm_PL_CO)
+
+expanded_PL_CO <- rbind(expanded_PL_fem_CO, expanded_PL_herm_CO)
+
+
+(PL_CO_bc <- expanded_PL_CO %>% 
+  group_by(Sex) %>% 
+  summarise(PercLo=quantile(boots,0.025),
+            PercHi=quantile(boots,0.975),
+            P = length(boots[boots < pollen_limitation])/length(boots),
+            Z=qnorm(P,0,1),
+            BiasLo=quantile(boots,pnorm(2*Z-1.96)),
+            BiasHi=quantile(boots,pnorm(2*Z+1.96))))
+  
+
+
+
+```
+
+
+## Strength of Inbreeding Depression for fruit set
+```{r}
+# Fruit Set
+ID_fr <- data_all %>%
+  mutate(Fruit_ID = Fruit +0.001) %>% 
+  filter(Sex == "H") %>% 
+  filter(Treatment == "Outcrossed" | Treatment == "Selfed") %>% 
+  dplyr::select(Population, ID, Treatment, micro_SR, Fruit_ID) %>% 
+  group_by(ID) %>% 
+  pivot_wider(names_from = Treatment, values_from = Fruit_ID) %>% 
+  na.omit() %>% 
+  mutate(Inbreeding_Depression = (Outcrossed - Selfed) / Outcrossed)
+
+# Average seed number and calculating raw mean pollen limitation
+(ID_fr_output <- ID_fr %>%  
+    ungroup() %>% 
+    summarize(mean_oc = mean(Outcrossed),
+            se_oc = se(Outcrossed),
+            mean_sf = mean(Selfed),
+            se_sf = se(Selfed),
+            n = n(),
+            Inbreeding_Depression = (mean(Outcrossed) - mean(Selfed)) / mean(Outcrossed)))
+
+
+
+# Loop to sample data set to get a distribution and confidence intervals for the mean inbreeding depression estimate
+# Individual vectors for Low and High Hermaphrodite Site
+ID_fr_OC <- ID_fr %>% pull(Outcrossed)
+ID_fr_SF <- ID_fr %>% pull(Selfed)
+
+# Create new vectors where average inbreeding depression will be stored
+ID_fr_boot <- numeric(0)
+
+# Number of iterations for the bootstrap
+nboot <- 1000
+
+for (i in 1:nboot) {
+  New_ID_fr_OC <- ID_fr_OC[sample(1:NROW(ID_fr_OC), replace = TRUE)]
+  New_ID_fr_SF <- ID_fr_SF[sample(1:NROW(ID_fr_SF), replace = TRUE)]
+
+  ID_fr_boot[i] <- (mean(New_ID_fr_OC) - mean(New_ID_fr_SF)) / mean(New_ID_fr_OC)
+}
+
+# Histograms for the iterations of each group
+hist(ID_fr_boot)
+
+
+# Mean and 95% confidence intervals of iterations
+mean(ID_fr_boot)
+quantile(ID_fr_boot, probs = c(0.025, 0.975))
+
+
+# Bias correction because the means are a little different from my estimate using data
+expanded_ID_fr <- ID_fr_output %>% 
+  crossing(boots = ID_fr_boot)
+
+
+(ID_fr_bc <- expanded_ID_fr %>% 
+  summarise(PercLo=quantile(boots,0.025),
+            PercHi=quantile(boots,0.975),
+            P = length(boots[boots < Inbreeding_Depression])/length(boots),
+            Z=qnorm(P,0,1),
+            BiasLo=quantile(boots,pnorm(2*Z-1.96)),
+            BiasHi=quantile(boots,pnorm(2*Z+1.96))))
+
+
+
+```
+
+## Strength of Inbreeding Depression for Cumulative Reproductive Output
+```{r}
+# Fruit Set
+ID_CO <- data_all %>%
+  mutate(viable_seed = viable_seed +0.001) %>% 
+  filter(Sex == "H") %>% 
+  filter(Treatment == "Outcrossed" | Treatment == "Selfed") %>% 
+  dplyr::select(Population, ID, Treatment, micro_SR, viable_seed) %>% 
+  group_by(ID) %>% 
+  pivot_wider(names_from = Treatment, values_from = viable_seed) %>% 
+  na.omit() %>% 
+  mutate(Inbreeding_Depression = (Outcrossed - Selfed) / Outcrossed)
+
+# Average seed number and calculating raw mean pollen limitation
+(ID_CO_output <- ID_CO %>% ungroup() %>% 
+  summarise(mean_oc = mean(Outcrossed),
+            se_oc = se(Outcrossed),
+            mean_sf = mean(Selfed),
+            se_sf = se(Selfed),
+            n = n(),
+            Inbreeding_Depression = (mean(Outcrossed) - mean(Selfed)) / mean(Outcrossed)))
+
+
+
+# Loop to sample data set to get a distribution and confidence intervals for the mean inbreeding depression estimate
+# Individual vectors 
+ID_CO_OC <- ID_CO %>% pull(Outcrossed)
+ID_CO_SF <- ID_CO %>% pull(Selfed)
+
+
+# Create new vectors where average inbreeding depression will be stored
+ID_CO_boot <- numeric(0)
+
+# Number of iterations for the bootstrap
+nboot <- 1000
+
+for (i in 1:nboot) {
+  New_ID_CO_OC <- ID_CO_OC[sample(1:NROW(ID_CO_OC), replace = TRUE)]
+  New_ID_CO_SF <- ID_CO_SF[sample(1:NROW(ID_CO_SF), replace = TRUE)]
+
+  ID_CO_boot[i] <- (mean(New_ID_CO_OC) - mean(New_ID_CO_SF)) / mean(New_ID_CO_OC)
+}
+
+# Histograms for the iterations of each group
+hist(ID_CO_boot)
+
+
+# Mean and 95% confidence intervals of iterations
+mean(ID_CO_boot)
+quantile(ID_CO_boot, probs = c(0.025, 0.975))
+
+# Bias correction because the means are a little different from my estimate using data
+expanded_ID_CO <- ID_CO_output %>% 
+  crossing(boots = ID_CO_boot)
+
+
+(ID_CO_bc <- expanded_ID_CO %>% 
+  summarise(PercLo=quantile(boots,0.025),
+            PercHi=quantile(boots,0.975),
+            P = length(boots[boots < Inbreeding_Depression])/length(boots),
+            Z=qnorm(P,0,1),
+            BiasLo=quantile(boots,pnorm(2*Z-1.96)),
+            BiasHi=quantile(boots,pnorm(2*Z+1.96))))
+
+
+```
+
+
+#########################################################################################
+## Visualize Data
+```{r}
+hist(data_seeds$Seed_number)
+hist(data_seeds$Germination_rate)
+
+ggplot(data_seeds, aes(x = Treatment, y = Seed_number, fill = Sex)) +
+  geom_boxplot() +
+  theme_classic()+  
+  scale_fill_manual(values = c("#7A378B", "#66CD00"))+
+  facet_wrap(vars(Population))
+
+ggplot(data_seeds, aes(x = Treatment, y = Germination_rate, fill = Sex)) +
+  geom_boxplot() +
+  theme_classic()+  
+  scale_fill_manual(values = c("#7A378B", "#66CD00"))+
+  facet_wrap(vars(Population))
+
+mean_sd <- data_seeds %>% 
+  group_by(Sex, Treatment, Population) %>% 
+  summarise(germ_mean = mean(Germination_rate), 
+            fruit = sum(Fruit),
+            n = n(),
+            seed_mean = mean(Seed_number),
+            germ_sd = sd(Germination_rate),
+            seed_se = sd(Seed_number) / (sqrt(n)))
+
+ggplot(data = mean_sd, aes(x = Treatment, y = seed_mean, fill = Sex)) +
+  geom_bar(stat = "summary", fun = "mean", position = position_dodge()) +
+  geom_errorbar(aes(ymin = seed_mean - seed_se, ymax = seed_mean + seed_se), 
+                position = position_dodge(0.9), width = 0.25) +
+  labs(x = "Pollination Treatment", y = "Mean Number of Viable Seeds") +
+  geom_text(
+    data = distinct(mean_sd, Population, Treatment, fruit),
+    aes(y = -1, label = fruit), position = position_dodge(0.9)) +
+  theme_classic() +
+  scale_fill_manual(values = c("#7A378B", "#66CD00")) +
+  facet_wrap(~ Population)
+
+```

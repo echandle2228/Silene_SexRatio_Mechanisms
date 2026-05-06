@@ -1,0 +1,430 @@
+ID,Plant.ID,Sex,Stigma_Length,Ovule_Number_1,Pollen,Notes,Stigma_Herbivory,Seeds,Duplicates
+1F1A,1F1,F,7,38,0,,0,0,0
+1F1B,1F1,F,7,33,0,,0,0,0
+1F1C,1F1,F,8,32,0,,0,0,0
+1F1D,1F1,F,6,30,1,,0,0,0
+1F1E,1F1,F,8,25,0,,0,0,0
+1F1F,1F1,F,7,32,1,,0,0,0
+1F1G,1F1,F,7,36,0,,0,0,0
+1F1H,1F1,F,6,32,1,,0,0,0
+1F1I,1F1,F,6,33,1,,0,0,0
+1F1J,1F1,F,6,28,0,,0,0,0
+1F1K,1F1,F,6,28,0,,0,0,0
+1F1L,1F1,F,6,21,1,,0,0,0
+1F2A,1F2,F,6,38,0,,0,0,0
+1F2B,1F2,F,7,34,0,small ovules,0,0,0
+1F2C,1F2,F,7,39,1,,0,0,0
+1F2D,1F2,F,7,34,0,,0,0,0
+1F2E,1F2,F,7,27,0,,0,0,0
+1F2F,1F2,F,7,31,1,,0,0,0
+1F2G,1F2,F,6,26,0,,0,0,0
+1F2H,1F2,F,6,32,1,,0,0,0
+1F2I,1F2,F,7,31,1,degraded ovary,0,0,0
+1F2J,1F2,F,7,30,1,,0,0,0
+1F2K,1F2,F,9,35,1,,0,0,0
+1F2L,1F2,F,7,29,1,,0,0,0
+1F3A,1F3,F,5,37,0,,0,0,0
+1F3B,1F3,F,5,30,0,degraded ovary,0,0,0
+1F3C,1F3,F,6,36,1,degraded ovary,0,0,0
+1F3D,1F3,F,5,38,1,degraded ovary,0,0,0
+1F3E,1F3,F,6,32,1,degraded ovary,0,0,0
+1F3F,1F3,F,6,38,1,,0,0,0
+1F3G,1F3,F,5,34,1,,0,0,0
+1F3H,1F3,F,5,38,1,,0,0,0
+1F3I,1F3,F,6,36,1,,0,0,0
+1F3J,1F3,F,5,37,1,,0,0,0
+1F4A,1F4,F,5,29,0,,0,0,0
+1F4B,1F4,F,7,37,0,,0,0,0
+1F4C,1F4,F,5,29,0,,0,0,0
+1F4D,1F4,F,7,26,1,degraded ovary,0,0,0
+1F4E,1F4,F,5,0,1,22 aborted ovules,0,0,0
+1F4F,1F4,F,6,29,0,degraded ovary,0,0,0
+1F4G,1F4,F,7,31,0,,0,0,0
+1F4H,1F4,F,5,25,0,,0,0,0
+1F4I,1F4,F,6,28,0,,0,0,0
+1F4J,1F4,F,6,20,0,degraded ovary,0,0,0
+1F4K,1F4,F,6,27,1,,0,0,0
+1F4L,1F4,F,5,30,0,,0,0,0
+1F5A,1F5,F,6,37,0,,0,0,0
+1F5B,1F5,F,5,35,1,,0,0,0
+1F5C,1F5,F,7,29,1,degraded ovary,0,0,0
+1F5D,1F5,F,5,34,0,smaller ovules,0,0,0
+1F5E,1F5,F,6,30,0,degraded ovary,0,0,0
+1F5F,1F5,F,7,29,0,degraded ovary,0,0,0
+1F5G,1F5,F,5,28,1,,0,0,0
+1F5H,1F5,F,7,27,0,degraded ovary,0,0,0
+1F5I,1F5,F,6,14,0,5 degraded ovules,0,0,0
+1F5J,1F5,F,6,22,0,,0,0,0
+1H1A,1H1,H,3,40,0,,0,0,0
+1H1B,1H1,H,2,0,1,16 aborted ovules,0,0,0
+1H1C,1H1,H,2,0,0,,0,0,0
+1H1D,1H1,H,2,0,0,"faint,small ovules, in the process of aborting? 8 ovules",0,0,0
+1H1E,1H1,H,3,0,1,,0,0,0
+1H1F,1H1,H,5,23,0,degraded ovary,0,0,0
+1H1G,1H1,H,2,0,0,16 aborted ovules,0,0,0
+1H1H,1H1,H,1,0,0,,0,0,0
+1H1I,1H1,H,3,0,1,,0,0,0
+1H1J,1H1,H,2,0,0,,0,0,0
+1H2A,1H2,H,3,36,0,,0,0,0
+1H2B,1H2,H,3,26,1,,0,0,0
+1H2C,1H2,H,4,16,1,,0,0,0
+1H2D,1H2,H,5,38,0,,0,0,0
+1H2E,1H2,H,5,36,0,,0,0,0
+1H2F,1H2,H,5,41,1,,0,0,0
+1H2G,1H2,H,5,26,0,,0,0,0
+1H2H,1H2,H,6,30,0,degraded ovary,0,0,0
+1H2I,1H2,H,5,26,1,,0,0,0
+1H2J,1H2,H,5,29,0,,0,0,0
+1H3A,1H3,H,4,0,1,"small ovules, in the process of aborting? 32 ovules",0,0,0
+1H3B,1H3,H,3,34,0,,0,0,0
+1H3C,1H3,H,3,33,1,,0,0,0
+1H3D,1H3,H,4,37,0,,0,0,0
+1H3E,1H3,H,3,31,0,,0,0,0
+1H3F,1H3,H,3,32,0,,0,0,0
+1H3H,1H3,H,4,39,1,,0,0,0
+1H3I,1H3,H,3,35,1,,0,0,0
+1H3J,1H3,H,4,38,1,,0,0,0
+1H3K,1H3,H,4,35,1,,0,0,0
+1H3L,1H3,H,4,34,0,,0,0,0
+1H4A,1H4,H,3,47,1,,0,0,0
+1H4B,1H4,H,3,26,0,faint ovules,0,0,0
+1H4C,1H4,H,3,42,0,,0,0,0
+1H4D,1H4,H,3,0,0,,0,0,0
+1H4E,1H4,H,3,41,0,,0,0,0
+1H4F,1H4,H,3,39,1,,0,0,0
+1H4G,1H5,H,6,37,1,,0,0,0
+1H4H,1H4,H,4,31,1,,0,0,0
+1H4I,1H4,H,4,34,1,,0,0,0
+1H4J,1H4,H,5,42,1,,0,0,0
+1H4K,1H4,H,3,41,1,,0,0,0
+1H4L,1H4,H,3,38,0,small ovules,0,0,0
+1H5A,1H5,H,3,30,0,,0,0,0
+1H5B,1H5,H,2,29,0,,0,0,0
+1H5C,1H5,H,3,37,0,,0,0,0
+1H5D,1H5,H,3,0,0,"ovary ripped, 23 aborted ovules",0,0,0
+1H5E,1H5,H,2,0,0,"ovary ripped, 5 aborted ovules",0,0,0
+1H5F,1H5,H,4,27,1,,0,0,0
+1H5G,1H5,H,3,0,1,17 aborted ovules,0,0,0
+1H5H,1H5,H,5,33,0,,0,0,0
+1H5I,1H5,H,5,28,0,,0,0,0
+1H5J,1H5,H,1,0,1,,0,0,0
+1H5K,1H5,H,2,0,1,,0,0,0
+1H5L,1H5,H,4,19,0,,0,0,0
+2F1A,2F1,F,5,0,0,"faint ovules, degraded ovaries",0,0,0
+2F1B,2F1,F,5,31,0,faint ovules,0,0,0
+2F1C,2F1,F,6,47,1,,0,0,0
+2F1D,2F1,F,7,41,0,,0,0,0
+2F1E,2F1,F,7,38,0,,0,0,0
+2F1F,2F1,F,5,48,0,,0,0,0
+2F1G,2F1,F,4,40,0,,0,0,0
+2F1H,2F1,F,7,39,0,,0,0,0
+2F1I,2F1,F,7,47,0,,0,0,0
+2F1J,2F1,F,6,26,0,,0,0,0
+2F2A,2F2,F,5,26,0,,0,0,0
+2F2B,2F2,F,6,28,0,faint ovules,0,0,0
+2F2C,2F2,F,5,27,0,,0,0,0
+2F2D,2F2,F,5,31,0,,0,0,0
+2F2E,2F2,F,6,26,0,,0,0,0
+2F2F,2F2,F,5,38,0,,0,0,0
+2F2G,2F2,F,6,32,1,,0,0,0
+2F2H,2F2,F,5,26,0,,0,0,0
+2F2I,2F2,F,5,27,0,,0,0,0
+2F2J,2F2,F,5,31,0,"small ovules, aborted?",0,0,0
+2F3A,2F3,F,5,23,0,faint ovules,0,0,0
+2F3B,2F3,F,6,23,0,faint ovules,0,0,0
+2F3C,2F3,F,5,34,0,,0,0,0
+2F3D,2F3,F,6,27,1,,0,0,0
+2F3E,2F3,F,4,32,0,,0,0,0
+2F3F,2F3,F,7,33,0,degraded ovary,0,0,0
+2F3G,2F3,F,7,39,0,,0,0,0
+2F3H,2F3,F,8,36,0,,0,0,0
+2F3I,2F3,F,2,19,0,,0,0,0
+2F3J,2F3,F,6,37,1,,0,0,0
+2F4A,2F4,F,4,30,0,,0,0,0
+2F4B,2F4,F,4,29,0,small ovules,0,0,0
+2F4C,2F4,F,5,45,0,,0,0,0
+2F4D,2F4,F,4,0,0,,0,0,0
+2F4E,2F4,F,5,30,0,,0,0,0
+2F4F,2F4,F,5,36,0,,0,0,0
+2F4G,2F4,F,5,36,0,small ovules,0,0,0
+2F4H,2F4,F,4,17,0,,0,0,0
+2F4I,2F4,F,4,0,0,,0,0,0
+2F4J,2F4,F,5,,,,0,0,0
+2F5A,2F5,F,7,33,1,,0,0,0
+2F5B,2F5,F,7,35,1,,0,0,0
+2F5C,2F5,F,7,30,1,,0,0,0
+2F5D,2F5,F,7,29,1,,0,0,0
+2F5E,2F5,F,6,29,0,,0,0,0
+2F5F,2F5,F,9,34,0,,0,0,0
+2F5G,2F5,F,5,27,0,,0,0,0
+2F5H,2F5,F,5,18,0,,0,0,0
+2F5I,2F5,F,6,29,1,,0,0,0
+2F5J,2F5,F,5,28,0,,0,0,0
+2F5K,2F5,F,7,27,1,,0,0,0
+2F5L,2F5,F,5,33,1,,0,0,0
+2H1A,2H1,H,2,0,1,"faint, small ovules, in the process of aborting? 26 ovules",0,0,0
+2H1B,2H1,H,3,0,1,"faint, small ovules, in the process of aborting? 23 ovules",0,0,0
+2H1C,2H1,H,6,31,1,variation in ovule size!,0,1,0
+2H1D,2H1,H,6,37,1,,0,0,0
+2H1E,2H1,H,6,28,1,,0,0,0
+2H1F,2H1,H,6,33,1,,0,0,0
+2H1G,2H1,H,7,28,0,,0,0,0
+2H1H,2H1,H,2,36,1,,0,0,0
+2H1I,2H1,H,2,33,0,,0,0,0
+2H1J,2H1,H,6,22,,Ovary too big to mount - counted ovules by eye. Seeds?,0,1,0
+2H2A,2H2,H,3,20,0,faint ovules,0,0,0
+2H2B,2H2,H,5,21,1,smaller ovules,0,0,0
+2H2C,2H2,H,5,27,1,smaller ovules,0,0,0
+2H2D,2H2,H,7,24,0,"degraded ovary, smaller ovules",0,0,0
+2H2E,2H2,H,6,18,1,,0,0,0
+2H2F,2H2,H,6,28,1,,0,0,0
+2H2G,2H2,H,5,27,0,,0,0,0
+2H2H,2H2,H,7,27,1,,0,0,0
+2H2I,2H2,H,6,33,0,,0,0,0
+2H2J,2H2,H,6,23,0,,0,0,0
+2H3A,2H3,H,2,30,0,,0,0,0
+2H3B,2H3,H,3,26,0,,0,0,0
+2H3C,2H3,H,4,28,1,,0,0,0
+2H3D,2H3,H,5,33,1,,0,0,0
+2H3E,2H3,H,6,33,1,,0,0,0
+2H3F,2H3,H,6,30,1,,0,0,0
+2H3G,2H3,H,5,31,1,,0,0,0
+2H3H,2H3,H,5,22,1,,0,0,0
+2H3I,2H3,H,,26,0,,0,0,0
+2H3J,2H3,H,5,21,0,variation in ovule size!,0,1,0
+2H4A,2H4,H,2,0,1,,0,0,0
+2H4B,2H4,H,5,27,0,,0,0,0
+2H4C,2H4,H,3,0,1,,0,0,0
+2H4D,2H4,H,3,34,0,small ovules,0,0,0
+2H4E,2H4,H,5,32,0,,0,0,0
+2H4F,2H4,H,4,31,0,,0,0,0
+2H4G,2H4,H,5,38,1,,0,0,0
+2H4H,2H4,H,4,13,1,,0,0,0
+2H4I,2H4,H,6,28,1,,0,0,0
+2H4J,2H4,H,6,12,1,some much smaller ovules and very large ones,0,0,0
+2H5A,2H5,H,3,0,1,"26 small, faint ovules",0,0,0
+2H5B,2H5,H,3,0,0,"32 small, faint ovules",0,0,0
+2H5C,2H5,H,3,33,1,small ovules,0,0,0
+2H5D,2H5,H,3,0,0,31 small ovules,0,0,0
+2H5E,2H5,H,4,30,0,,0,0,0
+2H5F,2H5,H,3,37,0,small ovules,0,0,0
+2H5G,2H5,H,4,31,1,,0,0,0
+2H5H,2H5,H,2,0,1,,0,0,0
+2H5I,2H5,H,3,0,0,,0,0,0
+2H5J,2H5,H,4,0,1,small ovules,0,0,0
+3F1A,3F1,F,6,30,0,degraded ovary,0,0,0
+3F1B,3F1,F,7,25,1,faint ovules,0,0,0
+3F1C,3F1,F,8,19,0,smaller ovules,0,0,0
+3F1D,3F1,F,7,37,0,smaller ovules,0,0,0
+3F1E,3F1,F,7,26,0,,0,0,0
+3F1F,3F1,F,8,30,1,,0,0,0
+3F1G,3F1,F,9,32,0,degraded ovary,0,0,0
+3F1H,3F1,F,8,32,0,,0,0,0
+3F1I,3F1,F,8,27,1,degrade ovary,0,0,0
+3F1J,3F1,F,8,31,1,,0,0,0
+3F2A,3F2,F,7,49,1,,0,0,0
+3F2B,3F2,F,6,40,0,,0,0,0
+3F2C,3F2,F,7,29,1,degraded ovary,0,0,0
+3F2D,3F2,F,7,37,0,,0,0,0
+3F2E,3F2,F,8,41,1,,0,0,0
+3F2F,3F2,F,7,48,0,,0,0,0
+3F2G,3F2,F,6,15,0,faint ovules,0,0,0
+3F2H,3F2,F,3,0,0,"30 small ovules, aborted?",0,0,0
+3F2I,3F2,F,2,0,0,"32 small ovules, aborted?",0,0,0
+3F2J,3F2,F,2,19,0,herbivory on stigma,1,0,0
+3F3A,3F3,F,7,28,1,,0,0,0
+3F3B,3F3,F,7,26,0,,0,0,0
+3F3C,3F3,F,8,36,0,,0,0,0
+3F3D,3F3,F,6,27,0,degraded ovary,0,0,0
+3F3E,3F3,F,6,29,0,,0,0,0
+3F3F,3F3,F,6,34,0,,0,0,0
+3F3G,3F3,F,6,27,1,,0,0,0
+3F3H,3F3,F,6,23,0,degraded ovary,0,0,0
+3F3I,3F3,F,7,0,0,"degraded ovary, 25 ovules aborted",0,0,0
+3F3J,3F3,F,3,0,1,"herbivory on stigma, TWO OF SAME ID",1,0,1
+3F3J,3F3,F,5,4,0," 13 degraded ovules, TWO OF SAME ID",0,0,1
+3F4A,3F4,F,8,30,0,faint ovules,0,0,0
+3F4B,3F4,F,7,24,0,,0,0,0
+3F4C,3F4,F,8,25,1,,0,0,0
+3F4D,3F4,F,9,22,1,,0,0,0
+3F4E,3F4,F,8,31,1,variation in ovule size!,0,1,0
+3F4G,3F4,F,8,12,0,smaller ovules,0,0,0
+3F4H,3F4,F,8,7,1,9 aborted ovules,0,0,0
+3F4F,3F4,F,8,29,0,,0,0,0
+3F4I,3F4,F,5,3,0,22 aborted ovules,0,0,0
+3F4J,3F4,F,2,33,0,,0,0,0
+3F5J,3F5,F,,0,0,"stigma herbivory, 19 aborted ovules",1,0,0
+3F5A,3F5,F,6,23,0,small ovules,0,0,0
+3F5B,3F5,F,7,37,0,,0,0,0
+3F5C,3F5,F,7,19,0,degraded ovary,0,0,0
+3F5D,3F5,F,7,37,1,variation in ovule size!,0,1,0
+3F5E,3F5,F,7,32,1,,0,0,0
+3F5F,3F5,F,7,37,1,,0,0,0
+3F5G,3F5,F,7,35,0,,0,0,0
+3F5H,3F5,F,3,0,0,22 aborted ovules,0,0,0
+3F5I,3F5,F,7,0,0,"20 small ovules, aborted?",0,0,0
+3H1A,3H1,H,4,0,0,31 aborted ovules,0,0,0
+3H1B,3H1,H,3,37,0,,0,0,0
+3H1C,3H1,H,5,40,1,smaller ovules,0,0,0
+3H1D,3H1,H,6,43,1,,0,0,0
+3H1E,3H1,H,7,39,1,,0,0,0
+3H1F,3H1,H,7,36,0,degraded ovary,0,0,0
+3H1G,3H1,H,6,40,1,,0,0,0
+3H1H,3H1,H,7,41,1,degraded ovary,0,0,0
+3H1I,3H1,H,7,42,1,,0,0,0
+3H1J,3H1,H,6,45,1,,0,0,0
+3H2A,3H2,H,3,33,0,faint ovules,0,0,0
+3H2B,3H2,H,3,28,0,,0,0,0
+3H2C,3H2,H,5,39,1,,0,0,0
+3H2D,3H2,H,4,37,0,,0,0,0
+3H2E,3H2,H,5,27,1,,0,0,0
+3H2F,3H2,H,5,42,1,,0,0,0
+3H2G,3H2,H,4,34,0,,0,0,0
+3H2H,3H2,H,4,6,,Ovary too big to mount - counted ovules by eye. Seeds?,0,1,0
+3H2I,3H2,H,5,3,1,21 aborted ovules,0,0,0
+3H2J,3H2,H,6,7,,Ovary too big to mount - counted ovules by eye. Seeds?,0,1,0
+3H3A,3H3,H,3,42,0,smaller ovules,0,0,0
+3H3B,3H3,H,3,27,1,,0,0,0
+3H3C,3H3,H,3,0,1,,0,0,0
+3H3D,3H3,H,3,29,1,"smaller ovules, elongated ovaries",0,0,0
+3H3E,3H3,H,4,38,1,,0,0,0
+3H3F,3H3,H,4,0,1,,0,0,0
+3H3G,3H3,H,4,0,1,very small ovules,0,0,0
+3H3H,3H3,H,4,0,0,,0,0,0
+3H3I,3H3,H,4,0,1,,0,0,0
+3H3J,3H3,H,4,18,,Ovary too big to mount - counted ovules by eye. Seeds?,0,1,0
+3H4A,3H4,H,3,0,0,degraded pistil,0,0,0
+3H4B,3H4,H,5,30,0,,0,0,0
+3H4C,3H4,H,6,34,0,,0,0,0
+3H4D,3H4,H,6,36,1,,0,0,0
+3H4E,3H4,H,6,37,0,,0,0,0
+3H4F,3H4,H,7,37,0,,0,0,0
+3H4G,3H4,H,6,34,0,,0,0,0
+3H4H,3H4,H,6,40,1,,0,0,0
+3H4I,3H4,H,7,29,1,,0,0,0
+3H4J,3H4,H,6,38,1,,0,0,0
+3H5A,3H5,H,3,25,0,degraded pistil,0,0,0
+3H5B,3H5,H,3,26,0,degraded pistil,0,0,0
+3H5C,3H5,H,4,34,1,,0,0,0
+3H5D,3H5,H,5,31,0,,0,0,0
+3H5E,3H5,H,7,36,1,,0,0,0
+3H5F,3H5,H,7,30,1,,0,0,0
+3H5G,3H5,H,6,24,1,,0,0,0
+3H5H,3H5,H,3,20,0,"8 aborted ovules, herbivory on stigma, others small and maybe aborted?",0,0,0
+3H5I,3H5,H,5,0,0,,0,0,0
+3H5J,3H5,H,6,11,,Ovary too big to mount - counted ovules by eye. Seeds?,0,1,0
+4F1O,4F1,F,6,10,1,,0,0,0
+4F1A,4F1,F,5,33,0,,0,0,0
+4F1B,4F1,F,6,38,0,,0,0,0
+4F1C,4F1,F,6,28,1,degraded ovary,0,0,0
+4F1D,4F1,F,6,37,0,,0,0,0
+4F1E,4F1,F,8,31,0,,0,0,0
+4F1F,4F1,F,6,36,0,,0,0,0
+4F1G,4F1,F,6,38,0,,0,0,0
+4F1H,4F1,F,7,41,0,,0,0,0
+4F1I,4F1,F,7,39,0,,0,0,0
+4F1J,4F1,F,7,37,0,,0,0,0
+4F1K,4F1,F,3,22,0,,0,0,0
+4F1L,4F1,F,5,29,1,,0,0,0
+4F1M,4F1,F,6,28,0,,0,0,0
+4F1N,4F1,F,6,5,1,,0,0,0
+4F2A,4F2,F,6,27,0,,0,0,0
+4F2B,4F2,F,4,0,0,"17 small, faint ovules",0,0,0
+4F2C,4F2,F,6,21,1,,0,0,0
+4F2D,4F2,F,7,41,0,,0,0,0
+4F2E,4F2,F,6,29,0,,0,0,0
+4F2F,4F2,F,5,24,0,,0,0,0
+4F2G,4F2,F,6,22,1,,0,0,0
+4F2H,4F2,F,5,28,0,,0,0,0
+4F2I,4F2,F,6,24,1,,0,0,0
+4F2J,4F2,F,6,11,0,"some smaller, yellow, aborted ovules, variation in ovule size! ",0,1,0
+4F3A,4F3,F,6,34,0,,0,0,0
+4F3B,4F3,F,7,48,0,,0,0,0
+4F3C,4F3,F,6,39,1,,0,0,0
+4F3D,4F3,F,7,,,,,0,0
+4F3E,4F3,F,7,45,0,,0,0,0
+4F3F,4F3,F,5,50,0,,0,0,0
+4F3G,4F3,F,6,56,0,,0,0,0
+4F3H,4F3,F,3,34,0,small ovules,0,0,0
+4F3I,4F3,F,4,35,0,small ovules,0,0,0
+4F3J,4F3,F,4,41,0,degraded ovary,0,0,0
+4F3K,4F3,F,8,42,0,,0,0,0
+4F3L,4F3,F,6,26,0,,0,0,0
+4F4A,4F4,F,4,36,0,,0,0,0
+4F4B,4F4,F,6,40,0,degraded ovary,0,0,0
+4F4C,4F4,F,5,44,0,degraded ovules,0,0,0
+4F4D,4F4,F,5,40,1,,0,0,0
+4F4E,4F4,F,4,0,0,,0,0,0
+4F4F,4F4,F,5,44,0,,0,0,0
+4F4G,4F4,F,5,37,0,degraded ovary,0,0,0
+4F4H,4F4,F,5,40,0,,0,0,0
+4F4I,4F4,F,5,37,0,,0,0,0
+4F4J,4F4,F,6,28,0,,0,0,0
+4F5B,4F5,F,8,39,0,,0,0,0
+4F5C,4F5,F,6,34,0,,0,0,0
+4F5D,4F5,F,7,47,1,,0,0,0
+4F5E,4F5,F,8,14,0,,0,0,0
+4F5F,4F5,F,7,20,0,,0,0,0
+4F5G,4F5,F,5,27,0,,0,0,0
+4F5H,4F5,F,5,35,1,"degraded ovary, small ovules",0,0,0
+4F5I,4F5,F,7,35,1,,0,0,0
+4F5J,4F5,F,4,34,0,,0,0,0
+4H1A,4H1,H,3,0,0,,0,0,0
+4H1B,4H1,H,4,42,1,smaller ovules,0,0,0
+4H1C,4H1,H,5,34,0,smaller ovules,0,0,0
+4H1D,4H1,H,4,0,0,,0,0,0
+4H1E,4H1,H,5,28,1,"degraded ovary, small ovules",0,0,0
+4H1F,4H1,H,4,0,0,,0,0,0
+4H1G,4H1,H,4,34,0,,0,0,0
+4H1H,4H1,H,3,0,0,"16 small, faint ovules",0,0,0
+4H1I,4H1,H,6,33,1,,0,0,0
+4H1J,4H1,H,4,29,0,,0,0,0
+4H1M,4H1,H,4,22,0,"some smaller, yellow, aborted ovules, variation in ovule size! ",0,1,0
+4H2A,4H2,H,3,38,0,,0,0,0
+4H2B,4H2,H,6,38,1,,0,0,0
+4H2C,4H2,H,3,27,0,,0,0,0
+4H2D,4H2,H,5,40,0,,0,0,0
+4H2E,4H2,H,5,30,1,,0,0,0
+4H2F,4H2,H,7,32,1,,0,0,0
+4H2G,4H2,H,4,28,0,,0,0,0
+4H2H,4H2,H,6,40,1,,0,0,0
+4H2I,4H2,H,5,17,0,"some smaller, yellow, aborted ovules, variation in ovule size! ",0,1,0
+4H2J,4H2,H,1,0,0,,0,0,0
+4H2K,4H2,H,2,0,0,"14 aborted ovules, faint and small",0,0,0
+4H2L,4H2,H,3,23,0,"some smaller, yellow, aborted ovules, variation in ovule size! ",0,1,0
+4H3A,4H3,H,4,36,1,,0,0,0
+4H3B,4H3,H,3,31,1,smaller ovules,0,0,0
+4H3C,4H3,H,4,34,0,,0,0,0
+4H3D,4H3,H,3,0,1,,0,0,0
+4H3E,4H3,H,4,0,0,,0,0,0
+4H3F,4H3,H,2,0,0,"31 small, faint ovules",0,0,0
+4H3G,4H3,H,2,22,0,small ovules,0,0,0
+4H3H,4H3,H,1,0,0,,0,0,0
+4H3I,4H3,H,2,0,0,,0,0,0
+4H3J,4H3,H,4,14,0,degraded ovary,0,0,0
+4H4A,4H4,H,4,33,0,,0,0,0
+4H4B,4H4,H,2,0,0,,0,0,0
+4H4C,4H4,H,3,30,0,,0,0,0
+4H4D,4H4,H,6,23,0,,0,0,0
+4H4E,4H4,H,2,0,0,,0,0,0
+4H4F,4H4,H,3,32,0,,0,0,0
+4H4G,4H4,H,6,40,1,,0,0,0
+4H4H,4H4,H,1,0,0,,0,0,0
+4H4I,4H4,H,4,10,1,large ovules,0,0,0
+4H4J,4H4,H,6,27,0,"degraded ovary, small ovules",0,0,0
+4F5A,4F5,F,4,26,1,,0,0,0
+4H5A,4H5,H,2,0,0,,0,0,0
+4H5B,4H5,H,3,0,0,,0,0,0
+4H5C,4H5,H,5,32,0,,0,0,0
+4H5D,4H5,H,3,0,0,,0,0,0
+4H5E,4H5,H,4,0,0,,0,0,0
+4H5F,4H5,H,3,0,0,"25 small, faint ovules",0,0,0
+4H5G,4H5,H,3,0,0,,0,0,0
+4H5H,4H5,H,4,3,1,,0,0,0
+4H5I,4H5,H,3,0,1,9 small ovules,0,0,0
+4H5J,4H5,H,6,36,0,degraded ovary,0,0,0
+4H5K,4H5,H,2,0,1,,0,0,0
+4H5L,4H5,H,3,0,0,,0,0,0
+4H5M,4H5,H,3,0,0,,0,0,0
+4H5N,4H5,H,4,0,0,,0,0,0
+4H5O,4H5,H,3,0,1,,0,0,0

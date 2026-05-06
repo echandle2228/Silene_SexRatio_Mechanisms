@@ -24,10 +24,12 @@ library(patchwork)
 library(lme4)
 library(car)
 library(forcats)
+library(DHARMa)
 library(MuMIn)
 library(emmeans)
 library(ggpubr)
 library(ggeffects)
+library(performance)
 ```
 
 
@@ -118,7 +120,6 @@ data_seeds <- data_all %>%
 
 ## Fruit Production
 ```{r}
-
 data_all$Treatment <- as.factor(data_all$Treatment)
 data_all$Sex <- as.factor(data_all$Sex)
   
@@ -129,6 +130,15 @@ summary(fruit.m)
 Anova(fruit.m)
 r.squaredGLMM(fruit.m)
 
+# Check Residuals
+qqPlot(resid(fruit.m))
+
+#Check Overdispersion
+check_overdispersion(fruit.m)
+
+# Model diagnostics
+fruit_res <- simulateResiduals(fruit.m)
+plot(fruit_res)
 
 
 emmeans(fruit.m, specs = pairwise ~ Treatment*Sex, adjust="tukey")
@@ -149,79 +159,130 @@ mean_fr <- data_all %>%
         axis.title.x = element_blank(),
         axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)))
 
+
+# (fruit_micrHermaphrodite <- ggplot(data = Micro_figure, 
+#                                    aes(x = x, y = predicted, 
+#                                        color = facet, fill = facet)) +
+#   geom_line(size = 1) +
+#   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = 0.2) +
+#   labs(x = "Number of Surrounding Hermaphrodites", y = "Fruit Set\n Proportion") +
+#   theme_classic()+
+#   scale_fill_manual(values = c("#7A378B", "#66CD00")) +
+#   scale_color_manual(values = c("#7A378B", "#66CD00"))+
+#   facet_wrap(~group, nrow = 1)+
+#   theme(legend.title = element_blank()))
+
+
 # ggsave(fruit_plot1, filename = "Figures/FruitSet_plot.png", height = 5, width = 5)
+```
+
+Inbreeding Depression Figure
+```{r}
+# Plot effect of micro sex ratio on inbreeding depression
+predict1 <- ggpredict(fruit.m, terms = c("true_HermCount [all]", "Treatment", "Sex")) %>% 
+  filter(facet == "H" & (group == "Outcrossed" | group == "Selfed"))
 
 
-# Plot effect of micro sex ratio
-predict <- ggpredict(fruit.m, terms = c("true_HermCount [all]", "Treatment", "Sex"))
-# ggpredict- can I make it not plot selfed for females??
+predict_ID <- as.data.frame(predict1) %>% 
+  select(-facet, -std.error) %>% 
+  pivot_wider(names_from = group, 
+              values_from = c(predicted, conf.low, conf.high),
+              names_sep = ".") %>% 
+  mutate(ID = (predicted.Outcrossed-predicted.Selfed)/predicted.Outcrossed)
 
-plot(predict)
+data_ID <- data_all %>% 
+  filter(Sex == "H" & (Treatment == "Outcrossed" | Treatment == "Selfed"))
 
-Micro_figure <- predict %>% 
-  filter(!(facet == "F" & group == "Selfed") & !(facet == "F" & group == "No Pollen"))
 
-(fruit_plot2_test <- ggplot(data = Micro_figure, 
-                       aes(x = x, y = predicted, color = group, fill = group)) +
-  geom_line(size = 1) +
-  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = 0.2) +
-  labs(x = "Number of Surrounding Hermaphrodites", y = "Fruit Production") +
+(ID_plot1 <- ggplot(data = predict1) +
+  geom_line(aes(x=x, y=predicted, color = group), size = 1) +
+  geom_ribbon(aes(x=x, ymin = conf.low, ymax = conf.high, group = group), alpha = 0.2) +
+  geom_jitter(data = data_ID, aes(x = true_HermCount, y = Fruit, color = Treatment), 
+              alpha = 0.2, height = 0.05) +
+  labs(x = "Hermaphrodite Number", y = "Fruit Set Proportion",
+       color = "Treatment") +
+  scale_color_manual(values = c("#ADFF2F", "#008B00"))+
   theme_classic()+
-  scale_fill_manual(values = c("black", "#00008B", "#9ACD32", "#EEC900")) +
-  scale_color_manual(values = c("black", "#00008B", "#9ACD32", "#EEC900"))+
-  theme(legend.title = element_blank()))
+  theme(legend.position = "right"))
+  
+(ID_plot2 <- ggplot() +
+  geom_smooth(data = predict_ID, aes(x=x, y=ID), size = 1, se = FALSE, color = "grey50") +
+  labs(x = "Hermaphrodite Number", y = "Inbreeding Depression") +
+  theme_classic())
+
+(ID_plot <- ggarrange(ID_plot1, ID_plot2, nrow = 1, ncol = 2, labels = c("D", "E"), widths = c(0.60,0.40)))
+
+ggsave(ID_plot, file = "./Figures/ID_plot.png", width = 8, height = 4, units = "in", dpi = 300)
+```
+
+Pollen Limitation figure
+```{r}
+# Plot of pollen limitation
+predict2 <- ggpredict(fruit.m, terms = c("true_HermCount [all]", "Treatment", "Sex")) %>%
+  filter(group == "Outcrossed" | group == "Open Pollinated")  
 
 
-(fruit_microSR <- ggplot(data = Micro_figure, 
-                       aes(x = x, y = predicted, color = facet, fill = facet)) +
-  geom_line(size = 1) +
-  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = 0.2) +
-  labs(x = "Number of Surrounding Hermaphrodites", y = "Fruit Set\n Proportion") +
+predict_PL <- as.data.frame(predict2) %>% 
+  select(-std.error) %>% 
+  pivot_wider(names_from = group, 
+              values_from = c(predicted, conf.low, conf.high),
+              names_sep = ".") %>% 
+  rename(predicted.Open = 'predicted.Open Pollinated',
+         conf.low.Open = 'conf.low.Open Pollinated',
+         conf.high.Open = 'conf.high.Open Pollinated') %>% 
+  mutate(PL = log(predicted.Outcrossed/predicted.Open))
+
+predict_F <- predict2 %>% 
+  filter(facet == "F") 
+
+predict_H <- predict2 %>% 
+  filter(facet == "H")
+
+data_PL_F <- data_all %>% 
+  filter(Sex == "F" & (Treatment == "Outcrossed" | Treatment == "Open Pollinated"))
+data_PL_H <- data_all %>% 
+  filter(Sex == "H" & (Treatment == "Outcrossed" | Treatment == "Open Pollinated"))
+
+(PL_F_plot <- ggplot() +
+  geom_line(data = predict_F, aes(x=x, y=predicted, color = group), size = 1) +
+  geom_ribbon(data = predict_F, 
+              aes(x=x, ymin = conf.low, ymax = conf.high, group = group), alpha = 0.2) +
+  geom_jitter(data = data_PL_F, aes(x = true_HermCount, y = Fruit, color = Treatment), 
+              alpha = 0.6, height = 0.05) +
+  labs(x = "", y = "Fruit Set Proportion", 
+       title ="Female", color = "") +
+  scale_color_manual(values = c("#68228B", "#E066FF")) +
+  theme_classic() +
+  theme(legend.position = "top"))
+
+(PL_H_plot <- ggplot() +
+  geom_line(data = predict_H, aes(x=x, y=predicted, color = group), size = 1) +
+  geom_ribbon(data = predict_H, 
+              aes(x=x, ymin = conf.low, ymax = conf.high, group = group), alpha = 0.2) +
+  geom_jitter(data = data_PL_H, aes(x = true_HermCount, y = Fruit, color = Treatment), 
+              alpha = 0.4, height = 0.05) +
+  labs(x = "", 
+       y = "Fruit Set Proportion",
+       title = "Hermaphrodite", color = "") +
+  scale_color_manual(values = c("#008B00", "#ADFF2F"))+
   theme_classic()+
-  scale_fill_manual(values = c("#7A378B", "#66CD00")) +
+  theme(legend.position = "top"))
+
+
+
+(PL_plot <- ggplot() +
+  geom_smooth(data = predict_PL, aes(x=x, y=PL, color = facet), size = 1, se = FALSE) +
   scale_color_manual(values = c("#7A378B", "#66CD00"))+
-  facet_wrap(~group, nrow = 1)+
-  theme(legend.title = element_blank()))
+  labs(x = "", y = "Pollen Limitation",
+       color = "Sex") +
+  theme_classic() +
+  theme(legend.position = "top"))
 
+(PL_plot_pannel <- ggarrange(PL_F_plot, PL_H_plot, PL_plot, ncol = 3, widths = c(0.3,0.3,0.4), labels = c("A", "B","C")))
 
+(PL_ID_PANNEL <- ggarrange(PL_plot_pannel, ID_plot, nrow = 2))
 
-# Effect of micro sex ratio on pollen limitation
-Pollen_Lim <- predict %>% 
-  filter(group == "Open Pollinated")
-
-
-(fruit_plot2 <- ggplot(data = Pollen_Lim, aes(x = x, y = predicted, color = facet, fill = facet)) +
-  geom_line(size = 1) +
-  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = 0.2) +
-  labs(x = "Number of Surrounding Hermaphrodites", y = "Fruit Production", fill = "Sex", 
-       title = "Fruit Production in the Open Pollinated Treatment")+
-  theme_classic()+
-  scale_fill_manual(values = c("#66CD00", "#7A378B"), guide = "legend") +
-  scale_color_manual(values = c("#66CD00", "#7A378B"), guide = "none"))
-
-
-
-(fruit_plot2 <- ggplot(data = data_all, aes(x = true_HermCount, y = Fruit, color = Sex)) +
-  geom_jitter(width = 0, height = 0.025, alpha = 0.5) +
-  geom_smooth(method = "glm", method.args = list(c("binomial"))) +
-  labs(x = "Number of Surrounding Hermaphrodites", y = "Fruit Production")+
-  theme_classic()+
-  facet_wrap(vars(Treatment)) +
-  scale_color_manual(values = c("#7A378B", "#66CD00")))
-
-
-data_all %>% 
-  group_by(Sex, Population) %>% 
-  summarize(n = n())
-
-data_all %>% 
-  group_by(Sex, Population) %>% 
-  filter(Fruit == 1) %>% 
-  summarize(n = n())
-
-meta %>% 
-  group_by(Sex, Population) %>% 
-  summarize(n = n())
+ggsave(ID_plot, file = "./Figures/PL_ID_Panel.png", width = 8, height = 6, units = "in", dpi = 300)
 
 ```
 
@@ -233,8 +294,6 @@ seeds.m <- glm(Seed_number ~ Sex * Treatment + Sex:(true_FemCount + true_HermCou
 summary(seeds.m)
 Anova(seeds.m)
 r.squaredGLMM(seeds.m)
-
-emmeans(seeds.m, specs = pairwise ~ Treatment*Sex, adjust="tukey")
 
 
 mean_sd <- data_seeds %>% 
@@ -280,9 +339,6 @@ Anova(germ.m)
 r.squaredGLMM(germ.m)
 
 
-emmeans(germ.m, specs = pairwise ~ Treatment*Sex, adjust="tukey")
-
-
 mean_germ <- data_seeds %>% 
   group_by(Sex, Treatment, Population) %>% 
   summarise(germ_mean = mean(Germination_rate),
@@ -316,14 +372,12 @@ data_seeds %>% group_by(Treatment) %>%
 ## Cummulative reproductive output
 ```{r}
 
-viable_seeds.m <- MASS::glm.nb(viable_seed ~ Sex * Treatment + Sex:true_HermCount + Treatment:true_HermCount + true_FemCount + true_HermCount + Population, data = data_all)
+viable_seeds.m <- MASS::glm.nb(viable_seed ~ Sex * Treatment + true_HermCount + true_FemCount + Sex:true_HermCount + Treatment:true_HermCount + Population, data = data_all)
 
 summary(viable_seeds.m)
 Anova(viable_seeds.m)
 r.squaredGLMM(viable_seeds.m)
 
-
-emmeans(viable_seeds.m, specs = pairwise ~ Treatment*Sex, adjust="tukey")
 
 
 fig_germ <- data_all %>% 
@@ -334,15 +388,6 @@ fig_germ <- data_all %>%
   summarise(viable_mean = mean(Figure_vs),
             n = n(),
             viable_se = sd(Figure_vs) / (sqrt(n)))
-
-
-ggplot(data_all, aes(x = true_HermCount, y = viable_seed)) +
-  geom_jitter(width = 0, height = 0.025, alpha = 0.5) +
-  geom_smooth(method = "glm", method.args = list(c("poisson"))) +
-  labs(x = "Micro Sex Ratio", y = "Log Cumulative Reproductive Output")+
-  scale_y_log10() +
-  theme_classic()+
-  facet_wrap(~Sex)
 
 
 (vs_plot <- ggplot(data = fig_germ, aes(x = Treatment, y = viable_mean, fill = Sex)) +
@@ -369,7 +414,6 @@ alpha <- c(1,1,1,1,0.2,1,1,1,1,1,1,1,0.2,1)
   labs(x = "Pollination Treatment", y = "") +
   theme_classic() +
   scale_fill_manual(values = c("#7A378B", "#66CD00")) +
-  facet_wrap(~ Population, ncol = 2) +
   coord_cartesian(ylim = c(0,1.2)) +
   theme(legend.title = element_blank(),
         legend.position="none",
@@ -383,7 +427,7 @@ alpha <- c(1,1,1,1,0.2,1,1,1,1,1,1,1,0.2,1)
 
 Pollen experiment multi-panel figure
 ```{r}
-(PolExp_plot <- ggarrange(fruit_plot1, fruit_microSR, vs_plot, nrow = 3, ncol = 1, labels = c("A", "B", "C")))
+(PolExp_plot <- ggarrange(fruit_plot1, fruit_micrHermaphrodite, vs_plot, nrow = 3, ncol = 1, labels = c("A", "B", "C")))
 
 ggsave(filename = "Figures/PolExp_MainFigure.png", dpi = 300, width = 6, height = 7.5, units = "in")
 
@@ -404,7 +448,7 @@ PL_fr <- data_all %>%
   mutate(Pollen_Limitation = log(Outcrossed / Open))
 
 # Average seed number and calculating raw mean pollen limitation
-PL_fr %>% group_by(Sex) %>% 
+PL_fr %>% group_by(Sex, Population) %>% 
   summarise(mean_oc = mean(Outcrossed),
             sd_oc = sd(Outcrossed),
             mean_op = mean(Open),
@@ -422,63 +466,62 @@ ggplot(PL_fr, aes(x = micro_SR, y = Pollen_Limitation, colour = Sex)) +
   theme(legend.position = "none")
 
 # Loop to sample data set to get a distribution and confidence intervals for the mean pollen limitation estimate
-# Individual vectors for Low OSR Site
-FemOC <- PL_fr %>% filter(Sex == "F") %>% pull(Outcrossed)
-FemOP <- PL_fr %>% filter(Sex == "F") %>% pull(Open)
-HermOC <- PL_fr %>% filter(Sex == "H") %>%  pull(Outcrossed)
-HermOP <- PL_fr %>% filter(Sex == "H") %>% pull(Open)
+# Loop to sample data set to get a distribution and confidence intervals for the mean pollen limitation estimate
+# Vectors for Low Hermaphrodite Site
+Low_FemOC_fr <- PL_fr %>% filter(Sex == "F" & Population == "Low Hermaphrodite") %>% pull(Outcrossed)
+Low_FemOP_fr <- PL_fr %>% filter(Sex == "F" & Population == "Low Hermaphrodite") %>% pull(Open)
+Low_HermOC_fr <- PL_fr %>% filter(Sex == "H" & Population == "Low Hermaphrodite") %>% pull(Outcrossed)
+Low_HermOP_fr <- PL_fr %>% filter(Sex == "H" & Population == "Low Hermaphrodite") %>% pull(Open)
 
-# Individual vectors for the high OSR group
-# High_FemOC <- PL_fr %>% filter(Sex == "F" & Population == "High OSR") %>% pull(Outcrossed)
-# High_FemOP <- PL_fr %>% filter(Sex == "F" & Population == "High OSR") %>% pull(Open)
-# High_HermOC <- PL_fr %>% filter(Sex == "H" & Population == "High OSR") %>% pull(Outcrossed)
-# High_HermOP <- PL_fr %>% filter(Sex == "H" & Population == "High OSR") %>% pull(Open)
+# Vectors for the high Hermaphrodite group
+High_FemOC_fr <- PL_fr %>% filter(Sex == "F" & Population == "High Hermaphrodite") %>% pull(Outcrossed)
+High_FemOP_fr <- PL_fr %>% filter(Sex == "F" & Population == "High Hermaphrodite") %>% pull(Open)
+High_HermOC_fr <- PL_fr %>% filter(Sex == "H" & Population == "High Hermaphrodite") %>% pull(Outcrossed)
+High_HermOP_fr <- PL_fr %>% filter(Sex == "H" & Population == "High Hermaphrodite") %>% pull(Open)
 
-# Create new vectors where average pollen limitation will be stored
-Fem_PL <- numeric(0)
-Herm_PL <- numeric(0)
+# Create new vectors
+High_Fem_PL_fr <- numeric(0)
+High_Herm_PL_fr <- numeric(0)
+Low_Fem_PL_fr <- numeric(0)
+Low_Herm_PL_fr <- numeric(0)
 
-
-# Number of iterations for the bootstrap
 nboot <- 1000
 
 for (i in 1:nboot) {
-  New_FemOC <- FemOC[sample(1:NROW(FemOC), replace = TRUE)]
-  New_FemOP <- FemOP[sample(1:NROW(FemOP), replace = TRUE)]
-  New_HermOC <- HermOC[sample(1:NROW(HermOC), replace = TRUE)]
-  New_HermOP <- HermOP[sample(1:NROW(HermOP), replace = TRUE)]
-  # New_High_FemOC <- High_FemOC[sample(1:NROW(High_FemOC), replace = TRUE)]
-  # New_High_FemOP <- High_FemOP[sample(1:NROW(High_FemOP), replace = TRUE)]
-  # New_High_HermOC <- High_HermOC[sample(1:NROW(High_HermOC), replace = TRUE)]
-  # New_High_HermOP <- High_HermOP[sample(1:NROW(High_HermOP), replace = TRUE)]
+  New_Low_FemOC_fr <- Low_FemOC_fr[sample(1:NROW(Low_FemOC_fr), replace = TRUE)]
+  New_Low_FemOP_fr <- Low_FemOP_fr[sample(1:NROW(Low_FemOP_fr), replace = TRUE)]
+  New_Low_HermOC_fr <- Low_HermOC_fr[sample(1:NROW(Low_HermOC_fr), replace = TRUE)]
+  New_Low_HermOP_fr <- Low_HermOP_fr[sample(1:NROW(Low_HermOP_fr), replace = TRUE)]
+  New_High_FemOC_fr <- High_FemOC_fr[sample(1:NROW(High_FemOC_fr), replace = TRUE)]
+  New_High_FemOP_fr <- High_FemOP_fr[sample(1:NROW(High_FemOP_fr), replace = TRUE)]
+  New_High_HermOC_fr <- High_HermOC_fr[sample(1:NROW(High_HermOC_fr), replace = TRUE)]
+  New_High_HermOP_fr <- High_HermOP_fr[sample(1:NROW(High_HermOP_fr), replace = TRUE)]
   
-  Fem_PL[i] <- log(mean(New_FemOC) / mean(New_FemOP))
-  Herm_PL[i] <- log(mean(New_HermOC) / mean(New_HermOP))
-  # Low_Fem_PL[i] <- log(mean(New_Low_FemOC) / mean(New_Low_FemOP))
-  # Low_Herm_PL[i] <- log(mean(New_Low_HermOC) / mean(New_Low_HermOP))
+  High_Fem_PL_fr[i] <- log(mean(New_High_FemOC_fr) / mean(New_High_FemOP_fr))
+  High_Herm_PL_fr[i] <- log(mean(New_High_HermOC_fr) / mean(New_High_HermOP_fr))
+  Low_Fem_PL_fr[i] <- log(mean(New_Low_FemOC_fr) / mean(New_Low_FemOP_fr))
+  Low_Herm_PL_fr[i] <- log(mean(New_Low_HermOC_fr) / mean(New_Low_HermOP_fr))
   
 }
 
-# Histograms for the iterations of each group
-hist(Herm_PL)
-hist(Fem_PL)
+hist(Low_Herm_PL_fr)
+hist(Low_Fem_PL_fr)
+hist(High_Herm_PL_fr)
+hist(Low_Fem_PL_fr)
 
 
 
-# Mean and 95% confidence intervals of iterations
-mean(Herm_PL)
-quantile(Herm_PL, probs = c(0.025, 0.975))
+mean(Low_Herm_PL_fr)
+quantile(Low_Herm_PL_fr, probs = c(0.025, 0.975))
 
-mean(Fem_PL)
-quantile(Fem_PL, probs = c(0.025, 0.975))
+mean(Low_Fem_PL_fr)
+quantile(Low_Fem_PL_fr, probs = c(0.025, 0.975))
 
-# mean(High_Herm_PL)
-# quantile(High_Herm_PL, probs = c(0.025, 0.975))
-# 
-# mean(High_Fem_PL)
-# quantile(High_Fem_PL, probs = c(0.025, 0.975))
+mean(High_Herm_PL_fr)
+quantile(High_Herm_PL_fr, probs = c(0.025, 0.975))
 
-
+mean(High_Fem_PL_fr)
+quantile(High_Fem_PL_fr, probs = c(0.025, 0.975))
 
 ```
 
@@ -517,17 +560,17 @@ ggplot(PL_sn, aes(x = micro_SR, y = Pollen_Limitation, colour = Sex)) +
 
 
 # Loop to sample data set to get a distribution and confidence intervals for the mean pollen limitation estimate
-# Vectors for Low OSR Site
-Low_FemOC_sn <- PL_sn %>% filter(Sex == "F" & Population == "Low OSR") %>% pull(Outcrossed)
-Low_FemOP_sn <- PL_sn %>% filter(Sex == "F" & Population == "Low OSR") %>% pull(Open)
-Low_HermOC_sn <- PL_sn %>% filter(Sex == "H" & Population == "Low OSR") %>% pull(Outcrossed)
-Low_HermOP_sn <- PL_sn %>% filter(Sex == "H" & Population == "Low OSR") %>% pull(Open)
+# Vectors for Low Hermaphrodite Site
+Low_FemOC_sn <- PL_sn %>% filter(Sex == "F" & Population == "Low Hermaphrodite") %>% pull(Outcrossed)
+Low_FemOP_sn <- PL_sn %>% filter(Sex == "F" & Population == "Low Hermaphrodite") %>% pull(Open)
+Low_HermOC_sn <- PL_sn %>% filter(Sex == "H" & Population == "Low Hermaphrodite") %>% pull(Outcrossed)
+Low_HermOP_sn <- PL_sn %>% filter(Sex == "H" & Population == "Low Hermaphrodite") %>% pull(Open)
 
-# Vectors for the high OSR group
-High_FemOC_sn <- PL_sn %>% filter(Sex == "F" & Population == "High OSR") %>% pull(Outcrossed)
-High_FemOP_sn <- PL_sn %>% filter(Sex == "F" & Population == "High OSR") %>% pull(Open)
-High_HermOC_sn <- PL_sn %>% filter(Sex == "H" & Population == "High OSR") %>% pull(Outcrossed)
-High_HermOP_sn <- PL_sn %>% filter(Sex == "H" & Population == "High OSR") %>% pull(Open)
+# Vectors for the high Hermaphrodite group
+High_FemOC_sn <- PL_sn %>% filter(Sex == "F" & Population == "High Hermaphrodite") %>% pull(Outcrossed)
+High_FemOP_sn <- PL_sn %>% filter(Sex == "F" & Population == "High Hermaphrodite") %>% pull(Open)
+High_HermOC_sn <- PL_sn %>% filter(Sex == "H" & Population == "High Hermaphrodite") %>% pull(Outcrossed)
+High_HermOP_sn <- PL_sn %>% filter(Sex == "H" & Population == "High Hermaphrodite") %>% pull(Open)
 
 # Create new vectors
 High_Fem_PL_sn <- numeric(0)
@@ -601,17 +644,17 @@ PL_CO %>% group_by(Population, Sex) %>%
 
 
 # Loop to sample data set to get a distribution and confidence intervals for the mean pollen limitation estimate
-# Vectors for Low OSR Site
-Low_FemOC_CO <- PL_CO %>% filter(Sex == "F" & Population == "Low OSR") %>% pull(Outcrossed)
-Low_FemOP_CO <- PL_CO %>% filter(Sex == "F" & Population == "Low OSR") %>% pull(Open)
-Low_HermOC_CO <- PL_CO %>% filter(Sex == "H" & Population == "Low OSR") %>% pull(Outcrossed)
-Low_HermOP_CO <- PL_CO %>% filter(Sex == "H" & Population == "Low OSR") %>% pull(Open)
+# Vectors for Low Hermaphrodite Site
+Low_FemOC_CO <- PL_CO %>% filter(Sex == "F" & Population == "Low Hermaphrodite") %>% pull(Outcrossed)
+Low_FemOP_CO <- PL_CO %>% filter(Sex == "F" & Population == "Low Hermaphrodite") %>% pull(Open)
+Low_HermOC_CO <- PL_CO %>% filter(Sex == "H" & Population == "Low Hermaphrodite") %>% pull(Outcrossed)
+Low_HermOP_CO <- PL_CO %>% filter(Sex == "H" & Population == "Low Hermaphrodite") %>% pull(Open)
 
-# Vectors for the high OSR group
-High_FemOC_CO <- PL_CO %>% filter(Sex == "F" & Population == "High OSR") %>% pull(Outcrossed)
-High_FemOP_CO <- PL_CO %>% filter(Sex == "F" & Population == "High OSR") %>% pull(Open)
-High_HermOC_CO <- PL_CO %>% filter(Sex == "H" & Population == "High OSR") %>% pull(Outcrossed)
-High_HermOP_CO <- PL_CO %>% filter(Sex == "H" & Population == "High OSR") %>% pull(Open)
+# Vectors for the high Hermaphrodite group
+High_FemOC_CO <- PL_CO %>% filter(Sex == "F" & Population == "High Hermaphrodite") %>% pull(Outcrossed)
+High_FemOP_CO <- PL_CO %>% filter(Sex == "F" & Population == "High Hermaphrodite") %>% pull(Open)
+High_HermOC_CO <- PL_CO %>% filter(Sex == "H" & Population == "High Hermaphrodite") %>% pull(Outcrossed)
+High_HermOP_CO <- PL_CO %>% filter(Sex == "H" & Population == "High Hermaphrodite") %>% pull(Open)
 
 # Create new vectors
 High_Fem_PL_CO <- numeric(0)
@@ -656,6 +699,99 @@ quantile(High_Herm_PL_CO, probs = c(0.025, 0.975))
 
 mean(High_Fem_PL_CO)
 quantile(High_Fem_PL_CO, probs = c(0.025, 0.975))
+
+
+```
+
+
+## Strength of Inbreeding Depression for fruit set
+```{r}
+# Fruit Set
+ID_fr <- data_all %>%
+  mutate(Fruit_ID = Fruit +0.001) %>% 
+  filter(Sex == "H") %>% 
+  filter(Treatment == "Outcrossed" | Treatment == "Selfed") %>% 
+  select(Population, ID, Treatment, micro_SR, Fruit_ID) %>% 
+  group_by(ID) %>% 
+  pivot_wider(names_from = Treatment, values_from = Fruit_ID) %>% 
+  na.omit() %>% 
+  mutate(Inbreeding_Depression = (Outcrossed - Selfed) / Outcrossed)
+
+# Average seed number and calculating raw mean pollen limitation
+ID_fr %>% group_by(Population)  %>% 
+  summarise(mean_oc = mean(Outcrossed),
+            sd_oc = sd(Outcrossed),
+            mean_sf = mean(Selfed),
+            sd_sf = sd(Selfed),
+            Inbreeding_Depression = (mean(Outcrossed) - mean(Selfed)) / mean(Outcrossed))
+
+
+ggplot(ID_fr, aes(x = micro_SR, y = Inbreeding_Depression)) +
+  geom_jitter(width = 0.3, height = 0.025, alpha = 0.5) +
+  geom_smooth(method = "glm", method.args = list(c("binomial"))) +
+  labs(x = "Micro Sex Ratio", y = "Inbreedng Depression")+
+  theme_classic()+
+  facet_wrap(vars(Population))+
+  scale_color_manual("#66CD00")+
+  theme(legend.position = "none")
+
+# Loop to sample data set to get a distribution and confidence intervals for the mean pollen limitation estimate
+# Individual vectors for Low Hermaphrodite Site
+FemOC <- PL_fr %>% filter(Sex == "F") %>% pull(Outcrossed)
+FemOP <- PL_fr %>% filter(Sex == "F") %>% pull(Open)
+HermOC <- PL_fr %>% filter(Sex == "H") %>%  pull(Outcrossed)
+HermOP <- PL_fr %>% filter(Sex == "H") %>% pull(Open)
+
+# Individual vectors for the high Hermaphrodite group
+# High_FemOC <- PL_fr %>% filter(Sex == "F" & Population == "High Hermaphrodite") %>% pull(Outcrossed)
+# High_FemOP <- PL_fr %>% filter(Sex == "F" & Population == "High Hermaphrodite") %>% pull(Open)
+# High_HermOC <- PL_fr %>% filter(Sex == "H" & Population == "High Hermaphrodite") %>% pull(Outcrossed)
+# High_HermOP <- PL_fr %>% filter(Sex == "H" & Population == "High Hermaphrodite") %>% pull(Open)
+
+# Create new vectors where average pollen limitation will be stored
+Fem_PL <- numeric(0)
+Herm_PL <- numeric(0)
+
+
+# Number of iterations for the bootstrap
+nboot <- 1000
+
+for (i in 1:nboot) {
+  New_FemOC <- FemOC[sample(1:NROW(FemOC), replace = TRUE)]
+  New_FemOP <- FemOP[sample(1:NROW(FemOP), replace = TRUE)]
+  New_HermOC <- HermOC[sample(1:NROW(HermOC), replace = TRUE)]
+  New_HermOP <- HermOP[sample(1:NROW(HermOP), replace = TRUE)]
+  # New_High_FemOC <- High_FemOC[sample(1:NROW(High_FemOC), replace = TRUE)]
+  # New_High_FemOP <- High_FemOP[sample(1:NROW(High_FemOP), replace = TRUE)]
+  # New_High_HermOC <- High_HermOC[sample(1:NROW(High_HermOC), replace = TRUE)]
+  # New_High_HermOP <- High_HermOP[sample(1:NROW(High_HermOP), replace = TRUE)]
+  
+  Fem_PL[i] <- log(mean(New_FemOC) / mean(New_FemOP))
+  Herm_PL[i] <- log(mean(New_HermOC) / mean(New_HermOP))
+  # Low_Fem_PL[i] <- log(mean(New_Low_FemOC) / mean(New_Low_FemOP))
+  # Low_Herm_PL[i] <- log(mean(New_Low_HermOC) / mean(New_Low_HermOP))
+  
+}
+
+# Histograms for the iterations of each group
+hist(Herm_PL)
+hist(Fem_PL)
+
+
+
+# Mean and 95% confidence intervals of iterations
+mean(Herm_PL)
+quantile(Herm_PL, probs = c(0.025, 0.975))
+
+mean(Fem_PL)
+quantile(Fem_PL, probs = c(0.025, 0.975))
+
+# mean(High_Herm_PL)
+# quantile(High_Herm_PL, probs = c(0.025, 0.975))
+# 
+# mean(High_Fem_PL)
+# quantile(High_Fem_PL, probs = c(0.025, 0.975))
+
 
 
 ```

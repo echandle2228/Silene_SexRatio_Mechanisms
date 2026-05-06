@@ -42,6 +42,9 @@ Load data
 meta <- read.csv("Raw Data/Data/Pollen_Deposition.csv", header = TRUE)
 data <- read.csv("Raw Data/Data/Pollen_Deposition_Data_all.csv", header = TRUE)
 
+data_2025 <- read.csv("Raw Data/Data/Ovule_Count_2025.csv")
+meta_2025 <- read.csv("Raw Data/Data/Ovule_Count_2025_meta.csv", header = TRUE)
+
 sex_dat <- read.csv("Raw Data/Data/Sex_Ratio_2023.csv")
 ```
 
@@ -99,6 +102,10 @@ notes <- meta %>%
   separate_wider_position(Week_Flower, c(Week = 1, Flower = 1))
 
 stigma2 <- merge(stigma1, notes, by = c("Plant.ID", "Week", "Flower"), all.x = TRUE)
+
+
+
+
 
 ```
 
@@ -214,32 +221,54 @@ stigma_all <- stigma6 %>% filter(Stigma_Herbivory != 1 | Ovule_Herbivory != 1)
 
 
 
+### Format ovule data from 2025 and merge with ovule data from 2024
+```{r}
+
+data_all_2025 <- merge(meta_2025, data_2025, by = c("Plant.ID", "Sex"))
+
+# Drop observations with stigmas that have a length affected by herbivory and create a variable based on if there is female function or not
+data_all_2025_2 <- data_all_2025 %>% 
+  filter(Stigma_Herbivory != 1,
+         Seeds != 1,
+         Duplicates != 1) %>% 
+  mutate(female_func = if_else(Ovule_Number_1 == 0, 0, 1))
+
+Ovule_data <- bind_rows(stigma_all, data_all_2025_2)
+
+```
+
+
+
+
 ## How do floral traits differ between sexes and individuals?
 ### Stigma Length
 ```{r}
 # Stigma length
-q1_stig.m <- lmer(Stigma_Length ~ Sex + Population + (1|Plant.ID), data = stigma_all)
+q1_stig.m <- lmer(Stigma_Length ~ Sex + (1|Population) + (1|Population:Plant.ID), data = Ovule_data)
 
 summary(q1_stig.m)
 Anova(q1_stig.m)
 ranova(q1_stig.m)
 
 
-(stig_plot <- ggplot(stigma_all, aes(x = Sex, y = Stigma_Length, fill = Sex)) +
+(stig_plot <- ggplot(Ovule_data, aes(x = Sex, y = Stigma_Length, fill = Sex)) +
   geom_violin(alpha = 0.25) +
   geom_boxplot(width = 0.2) +
   ylab("Stigma Length (mm)") +
   theme_classic()+  
   scale_fill_manual(values = c("#7A378B", "#66CD00")) +
+  # facet_wrap(~ Population) +
   theme(legend.position = "none"))
-  
+
+
+# Stigma lengths differ - keep  
 ```
 
 
 ## Female Function
 ### All together
 ```{r}
-qA_ovule_all.m <- glmer.nb(Ovule_Number_1 ~ Sex * Stigma_Length + Population + (1|Plant.ID), data = stigma_all, verbose = TRUE)
+qA_ovule_all.m <- glmer.nb(Ovule_Number_1 ~ Sex * Stigma_Length + (1|Population) + (1|Population:Plant.ID), data = stigma_all, verbose = TRUE)
 
 summary(qA_ovule_all.m)
 Anova(qA_ovule_all.m)
@@ -266,13 +295,13 @@ ggplot(stigma_all, aes(x = Stigma_Length, y = Ovule_Number_1)) +
 ```{r}
 # Female function
 # Ovule production binary
-###### Do I include micro sex ratio considering the pollination experiment results?
-q1_ovule_binom.m <- glmer(female_func ~ Sex * Stigma_Length + Herm_Count + Fem_Count + Population + (1|Plant.ID), data = stigma_all, family = "binomial")
+
+q1_ovule_binom.m <- glmer(female_func ~ Sex * Stigma_Length + (1|Population) + (1|Population:Plant.ID), data = Ovule_data, family = "binomial")
 
 summary(q1_ovule_binom.m)
 Anova(q1_ovule_binom.m)
 
-RE_ovule_binom.m <- glm(female_func ~ Sex * Stigma_Length + Population, data = stigma_all, family = "binomial")
+RE_ovule_binom.m <- glmer(female_func ~ Sex * Stigma_Length + (1|Population:Plant.ID), data = Ovule_data, family = "binomial")
 anova(q1_ovule_binom.m, RE_ovule_binom.m)
 
 
@@ -294,27 +323,26 @@ stigma_all$ovule_binom_predict <- predictInterval(q1_ovule_binom.m,
                                                   ignore.fixed.terms = NULL)
 
 
-(ov_plot1 <- ggplot(stigma_all, aes(x = Stigma_Length, y = female_func)) +  
-  geom_jitter(height = 0.15, color = "black") +
+(ov_plot1 <- ggplot(Ovule_data, aes(x = Stigma_Length, y = female_func)) +  
+  geom_jitter(height = 0.1, color = "black") +
   geom_smooth(method = "glm", se = T, 
         method.args = list(family = "binomial"), 
         color = "black") +
   theme_classic()+  
   ylab("Mean Female Function \n(Likelihood of Ovule Production)") +
   xlab("Stigma Length (mm)")+
-  facet_wrap(vars(Population)) +
   theme(legend.position = "none"))
 
 
 
 # Are there functional males?
-(ov_plot2 <- stigma_all %>% 
+(ov_plot2 <- Ovule_data %>% 
   select(Population, Sex, Plant.ID, female_func) %>% 
   mutate(Sex = if_else(Sex == "F", "Female", "Hermaphrodite")) %>% 
   na.omit(female_func) %>% 
-    group_by(Population, Sex, Plant.ID) %>%  
+    group_by(Sex, Plant.ID) %>%  
   mutate(mean_female_func = mean(female_func, na.rm = TRUE),
-         Number = log(n())) %>%
+         Number = n()) %>%
   ungroup() %>%
   mutate(Plant.ID = factor(Plant.ID, levels = 
                              unique(Plant.ID[order(mean_female_func)]))) %>%
@@ -325,10 +353,10 @@ stigma_all$ovule_binom_predict <- predictInterval(q1_ovule_binom.m,
               size = 0.05,
               xlab="Individual Plants", 
               ylab="Mean Female Function \n(Likelihood of Ovule Production)",
-              facet.by = c("Sex", "Population")) +
+              facet.by = "Sex") +
   geom_point(aes(x=Plant.ID, y=mean_female_func, 
                  size = Number, color = Sex), alpha = 0.1) +
-  labs(size = "Log Sample") +
+  labs(size = "Flower Number") +
   theme(axis.text.x = element_blank(), 
         axis.ticks.x = element_blank(),
         legend.position = "right"))
@@ -341,14 +369,15 @@ stigma_all %>%
   filter(mean_female_func == 0) %>% 
   summarise(n = n())
 
+
 ```
 
 ### Ovule Number
 ```{r}
 # Ovule Number
-ovule1 <- stigma_all %>% filter(female_func == 1)
+ovule1 <- Ovule_data %>% filter(female_func == 1)
 
-q1_ovule_num.m <- glmer.nb(Ovule_Number_1 ~ Sex * Stigma_Length + Population + (1|Plant.ID), data = ovule1, verbose = TRUE)
+q1_ovule_num.m <- glmer.nb(Ovule_Number_1 ~ Sex * Stigma_Length + (1|Population) + (1|Population:Plant.ID), data = ovule1, verbose = TRUE)
 
 summary(q1_ovule_num.m)
 Anova(q1_ovule_num.m)
@@ -369,6 +398,16 @@ ggplot(ovule1, aes(x = Sex, y = Ovule_Number_1, fill = Sex)) +
   scale_fill_manual(values = c("#7A378B", "#66CD00"))+
   facet_wrap(vars(Population)) +
   theme(legend.position = "none")
+
+(ov_plot3 <- ggplot(ovule1, aes(x = Stigma_Length, y = Ovule_Number_1)) +  
+  geom_jitter(height = 0.1, color = "black") +
+  geom_smooth(method = "glm", se = T, 
+        method.args = list(family = "poisson"), 
+        color = "black") +
+  theme_classic()+  
+  ylab("Ovule Number") +
+  xlab("Stigma Length (mm)")+
+  theme(legend.position = "none"))
 
 
 ```

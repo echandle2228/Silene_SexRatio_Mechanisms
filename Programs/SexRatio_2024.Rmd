@@ -18,55 +18,65 @@ Load Packages
 ```{r}
 library(lme4)
 library(plyr)
-library(tidyverse)
 library(car)
 library(statmod)
+library(performance)
 library(ggpubr)
+library(DHARMa)
+library(ggeffects)
 library(MuMIn)
 library(merTools)
 library(rcompanion)
+library(prevalence)
+library(ggfortify)
+library(tidyverse)
+library(sf)
+library(spdep)
+library(glmmTMB)
+library(scatterpie)
+library(ggspatial)
 ```
 
 
 
 Plots outside of demography plots
 ```{r}
-setwd("C:/Users/moin2/OneDrive - University of Georgia/Research/2024/Programs")
+# setwd("C:/Users/moin2/OneDrive - University of Georgia/Research/2024/Programs")
 
-SR_2023 <- read.csv("Raw Data/Data/Sex_Ratio_2023.csv", header = TRUE)
-SR_2024 <- read.csv("Raw Data/Data/Sex_Ratio_2024.csv", header = TRUE)
+SR_2023 <- read.csv("Raw_Data/Data/Sex_Ratio_2023.csv", header = TRUE)
+SR_2024 <- read.csv("Raw_Data/Data/Sex_Ratio_2024.csv", header = TRUE)
+Micro_SR <- read.csv("Output/micro_SR_formatted.csv", header = TRUE)
 
 SR_all <- rbind(SR_2023, SR_2024) %>% 
   mutate(sex_occ = case_when(
     Sex == "F" ~ 0,
     Sex == "H" ~ 1)) %>% 
   mutate(State = if_else(
-    Site == "Latir", "NM", "CO" ))
-
-SR_all_2 <- SR_all %>% 
-  dplyr::select(Population, Sex, Elevation, sex_occ, State) %>% 
-  rename("Site" = "Population")
+    Site == "Latir", "NM", "CO" )) %>%
+  mutate(Population = if_else(
+    Population == "PH5", "East Knob", Population)) %>%
+  dplyr::select(Site, Population, Sex, Elevation, sex_occ, State)
 
 ```
 
 
 Demography plots
 ```{r}
-SL1 <- read.csv("Raw Data/Demography Plots Sex Ratio/SL1-24-Sex.csv") %>% 
+SL1 <- read.csv("Raw_Data/Demography Plots Sex Ratio/SL1-24-Sex.csv") %>% 
   mutate(Site = "SL1")
-SL2 <- read.csv("Raw Data/Demography Plots Sex Ratio/SL2-24-Sex.csv") %>% 
+SL2 <- read.csv("Raw_Data/Demography Plots Sex Ratio/SL2-24-Sex.csv") %>% 
   mutate(Site = "SL2") 
 SL2$Tp <- NULL
-SN1 <- read.csv("Raw Data/Demography Plots Sex Ratio/SN1-24-Sex.csv") %>% 
+SN1 <- read.csv("Raw_Data/Demography Plots Sex Ratio/SN1-24-Sex.csv") %>% 
   mutate(Site = "SN1")
-SN2 <- read.csv("Raw Data/Demography Plots Sex Ratio/SN2-24-Sex.csv") %>% 
+SN2 <- read.csv("Raw_Data/Demography Plots Sex Ratio/SN2-24-Sex.csv") %>% 
   mutate(Site = "SN2")
-SN3 <- read.csv("Raw Data/Demography Plots Sex Ratio/SN3-24-Sex.csv") %>% 
+SN3 <- read.csv("Raw_Data/Demography Plots Sex Ratio/SN3-24-Sex.csv") %>% 
   mutate(Site = "SN3")
-SN4 <- read.csv("Raw Data/Demography Plots Sex Ratio/SN4-24-Sex.csv") %>% 
+SN4 <- read.csv("Raw_Data/Demography Plots Sex Ratio/SN4-24-Sex.csv") %>% 
   mutate(Site = "SN4")
 
-PH <- read.csv("Raw Data/Demography Plots Sex Ratio/PH_sex.csv") %>% 
+PH <- read.csv("Raw_Data/Demography Plots Sex Ratio/PH_sex.csv") %>% 
   mutate(sex_occ = case_when(
     Sex == "F" ~ 0,
     Sex == "H" ~ 1)) %>% 
@@ -89,7 +99,7 @@ SN_ele <- SN_All %>% mutate(Elevation = case_when(Site == "SL1" ~ "12250",
                                                     Site == "SN3" ~ "11795",
                                                     Site == "SN4" ~ "11605")) %>% 
   drop_na(sex_occ) %>% 
-  dplyr::select(Site, Sex, Elevation, sex_occ)
+  dplyr::select(Site, Sex, Elevation, sex_occ) 
 
 Dem_ele <- rbind(PH, SN_ele)
 
@@ -104,31 +114,69 @@ Dem_ele <- Dem_ele %>%
                            Site == "PH2" ~ "CO",
                            Site == "PH3" ~ "CO",
                            Site == "PH4" ~ "CO",
-                           Site == "PH5" ~ "CO"))
+                           Site == "PH5" ~ "CO")) %>% 
+  dplyr::rename("Population" = "Site") %>% 
+  mutate(Site = case_when(State == "CO" ~ "Niwot",
+                          State == "NM" ~ "Latir"))
 
 Dem_ele$Elevation <- as.numeric(Dem_ele$Elevation)
 
-All_Sex <- rbind(Dem_ele, SR_all_2)
+All_Sex <- rbind(Dem_ele, SR_all)
 
 All_Sex$Elevation <- as.numeric(All_Sex$Elevation)
 ```
 
-
-
-### Define model and check model assumptions
+### Examine variation in sex ratio accross populations
 ```{r}
+# Site level sex ratio from surveys and confidence intervals
+OSR <- All_Sex %>% 
+  filter(Site == "Niwot") %>% 
+  group_by(Population, Elevation) %>% 
+  summarise(n = length(Sex), x = sum(str_count(Sex, "H"))) %>% 
+  mutate(OSR = x/n)
+
+lower <- vector("numeric", length = nrow(OSR))
+upper <- vector("numeric", length = nrow(OSR))
+
+for(i in 1:nrow(OSR)) {
+  ci_result <- propCI(x = OSR$x[i], n = OSR$n[i], 
+                      method = "wilson", level = 0.95, sortby = "level")
+  lower[i] <- ci_result$lower
+  upper[i] <- ci_result$upper
+}
+
+OSR$lower <- lower
+OSR$upper <- upper
+
+propCI(x = OSR$x[1], n = OSR$n[1], method = "wilson", level = 0.95, sortby = "level") 
+
+result <- propCI(x = 19, n = 21, method = "wilson", level = 0.95, sortby = "level") #East Krummholz
+
+```
+
+
+
+### Niwot Sex Ratio
+```{r}
+SR_NW <- All_Sex %>% 
+  filter(Site == "Niwot") %>% 
+  mutate(Sex = case_when(Sex == "F" ~ "Female",
+                         Sex == "H" ~ "Hermaphrodite"))
+
+# Scale elevation
+SR_NW$Elevation_scaled <- scale(SR_NW$Elevation)
+Elev_mean <- mean(SR_NW$Elevation)
+Elev_sd <- sd(SR_NW$Elevation)
+
 # Define model
-elev.m <- glmer(sex_occ ~ Elevation  + (1|Population), family = "binomial", data = SR_all)
+elev.m <- glmer(sex_occ ~ Elevation_scaled  + (1|Population), family = "binomial", data = SR_NW)
 
 
-# Check Residuals
-qqPlot(resid(elev.m))
+SR_elev_res <- simulateResiduals(elev.m)
+plot(SR_elev_res)
 
-
-# Check for over dispersion
-resid.ssq <- sum(residuals(elev.m,type="pearson")^2)  
-resid.df <- nrow(subset(SR_all,!is.na(Elevation) & !is.na(sex_occ)))-length(coef(elev.m)) 
-resid.ssq/resid.df 
+#Check Overdispersion
+check_overdispersion(elev.m)
 
 
 summary(elev.m)
@@ -140,226 +188,404 @@ Anova(elev.m)
 ### Plot data
 ```{r}
 # Extract fitted values
-fitted <- predict(elev.m, type = "response", re.form = NA)
+predict <- ggpredict(elev.m, terms = c("Elevation_scaled [all]", "Population"))
+
+predict$Elevation <- (predict$x * Elev_sd) + Elev_mean
 
 
-# Add fitted values to the original data frame
-SR_all_elev <- SR_all %>% mutate(fitted = as.numeric(fitted)) %>% 
-  filter(fitted != "na")
 
-sex_bin <- SR_all %>% 
-  group_by(State, Population) %>% 
+sex_bin <- SR_NW %>% 
+  group_by(Population) %>% 
   dplyr::summarise(mean_sex = mean(sex_occ, na.rm = T),
             mean_ele = mean(Elevation, na.rm = T),
             Count = n())
 
-# Visualize glm
-ggplot() +
-  geom_point(data = SR_all_elev, aes(x = Elevation, y = sex_occ), color = "darkgreen") +
-  geom_count(data = sex_bin, aes(x = mean_ele, y = mean_sex, size = Count, color = State)) +
-  geom_line(data = SR_all_elev, aes(x = Elevation, y = fitted), color = "#9ACD32", linewidth = 1) +
-  scale_color_manual(values = c("grey", "black")) +
-  labs(x = "Elevation", y = "Sex Ratio (Herm:Fem)") +
-  theme_classic()
+(elev_plot1 <- ggplot(data = predict, aes(x=Elevation, y=predicted)) +  
+  geom_smooth(size = 1, se = FALSE, color = "black") +
+  geom_ribbon(data = predict, aes(ymin = conf.low, ymax = conf.high), alpha = 0.2) +
+  geom_jitter(data=SR_NW, aes(x = Elevation, y = sex_occ, color = Sex),
+              height = 0.05, width = 30, alpha = 0.2) +
+  geom_count(data = sex_bin, aes(x = mean_ele, y = mean_sex, size = Count)) +
+  theme_classic()+  
+  scale_color_manual(values = c("#7A378B", "#66CD00"))+
+  ylab("Sex Ratio") +
+  xlab("Elevation"))
+
+
+
+
+ggsave("Figures/Niwot_SR.png", width = 6, height = 4, units = "in")
 
 ```
 
 
-# Latitude has boundary issues for now
+Comparisons with micro sex ratio
 ```{r}
-# Define model
-lat.m <- glmer(sex_occ ~ Latitude + (1|Site), family = "binomial", data = SR_all)
+# Figure to visualize the micro OSR variation relative to the population-wide OSR
+
+# Population-level OSR figure
+# Create a set of name codes that are shorter than the current set
+SR_NW_rename <- SR_NW %>% 
+  mutate(Pop_Code = case_when(Population == "West Knoll"~ "WK",
+                              Population == "East Knob"~ "EKB",
+                              Population == "West Krummholz"~ "WKH",
+                              Population == "East Krummholz"~ "EKH",
+                              Population == "Cabin Clearing"~ "CC",
+                              TRUE ~ Population),
+         Focal_Code = case_when(Population == "West Knoll" ~ "Low Hermaphrodite",
+                                Population == "East Krummholz" ~ "High Hermaphrodite",
+                                TRUE ~ "Nonfocal Site"))
+
+(SR_Pops <- SR_NW_rename %>% 
+  dplyr::select(Pop_Code, sex_occ, Focal_Code) %>% 
+  na.omit(sex_occ) %>% 
+  group_by(Pop_Code, Focal_Code) %>%  
+  dplyr::mutate(mean_sex_occ = mean(sex_occ, na.rm = TRUE),
+         Number = n()) %>% 
+  ungroup() %>%
+  mutate(Pop_Code = factor(Pop_Code, levels = 
+                             unique(Pop_Code[order(mean_sex_occ)]))) %>% 
+  ggerrorplot(x="Pop_Code", y="sex_occ",
+              desc_stat = "mean_se",
+              color = "Focal_Code",
+              size = 0.1,
+              xlab="Sites", 
+              ylab="Sex Ratio") +
+  geom_point(data = . %>% distinct(Pop_Code, Focal_Code, .keep_all = TRUE),
+             aes(x=Pop_Code, y=mean_sex_occ, 
+                 size = Number, color = Focal_Code), alpha = 0.5) +
+  scale_color_manual(values = c("#8BB842", "#B378B2", "#030303"))+
+  scale_size_continuous(breaks = c(50, 100, 200)) +
+  coord_cartesian(ylim = c(0,1)) +
+  labs(size = "Sample\nSize", color = "") +
+  guides(color = guide_legend(title.position = "left"), 
+         size = guide_legend(title.position = "left"))+
+  theme(legend.position = "bottom",
+        legend.direction = "vertical",
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1, size = 10),
+        legend.title = element_text(size = 10)))
 
 
-# Check Residuals
-qqPlot(resid(lat.m))
+# Low Hermaphrodite Population Figure
+# Convert herm and fem counts to occurences
+Micro_occ <- Micro_SR %>% 
+  dplyr::select(Population, Plot, Plant.ID, Week, true_HermCount, true_FemCount) %>%
+  group_by(Population, Plot, Plant.ID) %>% 
+  dplyr::summarise(median_HermCount = median(true_HermCount),
+                   median_FemCount = median(true_FemCount)) %>% 
+  purrr::pmap_dfr(function(Population, Plot, Plant.ID, median_HermCount, median_FemCount) {
+    
+    total_count <- sum(median_HermCount, median_FemCount, na.rm = TRUE)
+    
+    if (total_count > 0) {
+      # Standard expansion for rows with actual flower counts
+      data.frame(
+        Population = Population,
+        Plot = Plot,
+        Plant.ID = Plant.ID,
+        micro_sex_occ = c(rep(1, median_HermCount), rep(0, median_FemCount))
+      )
+    } else {
+      # For rows with 0 flowers (or all NAs), keep the metadata but set outcome to NA
+      data.frame(
+        Population = Population,
+        Plot = Plot,
+        Plant.ID = Plant.ID,
+        micro_sex_occ = NA_real_ # Use NA_real_ to ensure the column stays numeric
+      )
+    }
+  })
 
 
-# Check for over dispersion
-resid.ssq <- sum(residuals(elev.m,type="pearson")^2)  
-resid.df <- nrow(subset(SR_all,!is.na(Latitude) & !is.na(sex_occ)))-length(coef(lat.m)) 
-resid.ssq/resid.df 
-
-
-summary(lat.m)
-Anova(lat.m)
-```
-
-
-
-# Demography Plots
-### Define model and check model assumptions
-```{r}
-# Define model
-dem_elev.m <- glmer(sex_occ ~ Elevation + (1|Site), family = "binomial", data = Dem_ele)
-
-
-# Check Residuals
-qqPlot(resid(dem_elev.m))
-
-
-# Check for over dispersion
-resid.ssq <- sum(residuals(dem_elev.m,type="pearson")^2)  
-resid.df <- nrow(subset(Dem_ele,!is.na(Elevation) & !is.na(sex_occ)))-length(coef(dem_elev.m)) 
-resid.ssq/resid.df 
-
-
-summary(dem_elev.m)
-Anova(dem_elev.m)
-
-```
-
-
-### Plot data
-```{r}
-# Extract fitted values
-fitted <- predict(dem_elev.m, type = "response", re.form = NA)
-
-
-# Add fitted values to the original data frame
-Dem_all_elev <- Dem_ele %>% mutate(fitted = as.numeric(fitted)) %>% 
-  filter(fitted != "na")
-
-
-
-sex_bin2 <- Dem_ele %>% 
-  group_by(State, Site) %>% 
-  dplyr::summarise(mean_sex = mean(sex_occ, na.rm = T),
-            mean_ele = mean(as.numeric(Elevation), na.rm = T),
-            Count = n())
-
-# Visualize glm
-ggplot() +
-  geom_point(data = Dem_all_elev, aes(x = Elevation, y = sex_occ), color = "darkgreen") +
-  geom_count(data = sex_bin2, aes(x = mean_ele, y = mean_sex, size = Count, color = State)) +
-  geom_line(data = Dem_all_elev, aes(x = Elevation, y = fitted), color = "#9ACD32", linewidth = 1) +
-  scale_color_manual(values = c("grey", "black")) +
-  labs(x = "Elevation", y = "Sex Ratio (Herm:Fem)") +
-  theme_classic()
-
-```
-
-
-
-# All Populations
-### Define model and check model assumptions for a generalized linear regression model
-```{r}
-# Define model
-All_ele.m <- glmer(sex_occ ~ Elevation + (1|Site), family = "binomial", data = All_Sex)
-
-
-# Check Residuals
-qqPlot(resid(All_ele.m))
-
-
-# Check for over dispersion
-resid.ssq <- sum(residuals(All_ele.m,type="pearson")^2)  
-resid.df <- nrow(subset(All_Sex,!is.na(Elevation) & !is.na(sex_occ)))-length(coef(All_ele.m)) 
-resid.ssq/resid.df 
-
-
-summary(All_ele.m)
-Anova(All_ele.m)
-
-```
-
-
-### Plot data
-```{r}
-# Extract fitted values
-fitted <- predict(All_ele.m, type = "response", re.form = NA)
-
-
-# Add fitted values to the original data frame
-All_Sex_elev <- All_Sex %>% mutate(fitted = as.numeric(fitted)) %>% 
-  filter(fitted != "na")
-
-
-sex_bin3 <- All_Sex %>% 
-  group_by(State, Site) %>% 
-  dplyr::summarise(mean_sex = mean(sex_occ, na.rm = T),
-            mean_ele = mean(as.numeric(Elevation), na.rm = T),
-            Count = n())
+(SR_FocalPlants <- Micro_occ %>% 
+  group_by(Plant.ID, Population) %>% 
+  dplyr::mutate(mean_sex_occ = mean(micro_sex_occ, na.rm = TRUE),
+         Number = n()) %>% 
+  ungroup() %>% 
+  dplyr::mutate(Plant.ID = reorder(Plant.ID, mean_sex_occ)) %>%
+  ggerrorplot(x="Plant.ID", y="micro_sex_occ",
+              desc_stat = "mean_se",
+              position = position_dodge(0.3),
+              size = 0.05,
+              xlab="Focal Plant", 
+              ylab="Local Sex Ratio",
+              color = "Population",
+              facet.by = "Population") +
+  geom_point(aes(x=Plant.ID, y=mean_sex_occ, 
+                 size = Number, color = Population), alpha = 0.1) +
+  scale_color_manual(values = c("#8BB842", "#B378B2"))+
+  guides(color = "none")+
+  coord_cartesian(ylim = c(0,1)) +
+  labs(size = "Surrounding\nPlant Number", color = "Focal Sites") +
+  theme(axis.text.x = element_blank(), 
+        axis.ticks.x = element_blank(),
+        legend.position = "bottom",
+        legend.title = element_text(size = 10)))
 
 
 
-# Visualize glm
-ggplot() +
-  geom_point(data = All_Sex_elev, aes(x = Elevation, y = sex_occ), color = "darkgreen") +
-  geom_count(data = sex_bin3, aes(x = mean_ele, y = mean_sex, size = Count, color = State)) +
-  geom_line(data = All_Sex_elev, aes(x = Elevation, y = fitted), color = "#9ACD32", linewidth = 1) +
-  scale_color_manual(values = c("grey", "black")) +
-  labs(x = "Elevation", y = "Sex Ratio (Herm:Fem)") +
-  theme_classic()
+
 
 ```
 
-
-Quadratic Model
+Site level sex ratios 
 ```{r}
+# Site level sex ratio from micro sex ratio each time flowers were marked for stigma collection
+Micro_SR %>%
+  group_by(Population, Week) %>%
+  summarise(sex_ratio = sum(true_HermCount) / sum(true_HermCount + true_FemCount))
 
-# Define model
-All_ele_quad.m <- glmer(sex_occ ~ Elevation + I(Elevation^2) + (1|Site), family = "binomial", data = All_Sex)
+# Site level sex ratio from micro sex ratio - all observations
+MeanMicro_SR <- Micro_SR %>% 
+  group_by(Plant.ID, Population) %>% 
+  dplyr::summarise(mean_SR = mean(true_HermCount/ (true_HermCount + true_FemCount))) %>% 
+  group_by(Population) %>% 
+  na.omit() %>% 
+  summarise(sex_ratio = mean(mean_SR))
 
-summary(All_ele_quad.m)
-Anova(All_ele_quad.m)
+# Graph showing the distribution of micro sex ratio
+(na_counts <- Micro_SR %>%
+  filter(is.na(micro_SR)) %>%
+  group_by(Sex, Population) %>%
+  dplyr::summarise(na_count = n(), .groups = "drop") %>%
+  mutate(micro_SR = 1.1)) # Use Inf to place NA bars outside the histogram range
 
-
-# R-squared for both models
-r.squaredGLMM(All_ele.m, null.fit(All_ele.m, RE.keep = TRUE, evaluate = TRUE))
-r.squaredGLMM(All_ele_quad.m, null.fit(All_ele_quad.m, RE.keep = TRUE, evaluate = TRUE))
-
-# R-squared
-### Efron r-squared from rcompanion package
-
-Actual    = All_Sex$sex_occ
-Predicted = predict(All_ele_quad.m, type="response")
-Residuals = residuals(All_ele_quad.m)
-
-efronRSquared(residual = Residuals, 
-              predicted = Predicted, 
-              statistic = "EfronRSquared")
-
-# Extract fitted values
-fitted.quad <- predict(All_ele_quad.m, type = "response", re.form = NA)
-# Add fitted values to the original data frame
-All_Sex <- All_Sex %>% mutate(fitted.quad = as.numeric(fitted.quad)) %>% 
-  filter(fitted.quad != "na")
-
-
-# Find fitted values and 95% confidence interval
-All_Sex$prediction <- predictInterval(All_ele_quad.m, All_Sex, 
-                                          which = c("full"),
-                                          level = 0.95,
-                                          n.sims = 1000,
-                                          stat = c("mean"),
-                                          type = c("probability"),
-                                          include.resid.var = TRUE,
-                                          returnSims = FALSE,
-                                          seed = 2,
-                                          .parallel = FALSE,
-                                          .paropts = NULL,
-                                          fix.intercept.variance = FALSE,
-                                          ignore.fixed.terms = NULL)
-
-
-
-
-
-(ggplot() +
-  geom_point(data = All_Sex, aes(x = Elevation, y = sex_occ), color = "lightgrey") +
-  geom_count(data = sex_bin3, aes(x = mean_ele, y = mean_sex, size = Count, color = State)) +
-  geom_smooth(data = All_Sex, aes(x = Elevation, y = fitted.quad), color = "#9ACD32", linewidth = 1) +
-  scale_color_manual(values = c("black", "darkgrey")) +
-  labs(x = "Elevation", y = "Operational Sex Ratio") +
+Micro_SR %>% group_by(Plant.ID, Population, Sex) %>%  
+  dplyr::summarise(mean_SR = mean(true_HermCount/ (true_HermCount + true_FemCount))) %>% 
+  ggplot(aes(x = mean_SR, fill = Sex)) +
+  geom_vline(data = MeanMicro_SR, aes(xintercept=sex_ratio), 
+             linetype="dashed", size = 1) +
+  geom_histogram(position = "dodge", na.rm = FALSE, binwidth = 0.05) +
+  geom_col(data = na_counts, aes(x = micro_SR, y = na_count, fill = Sex), 
+           position = "dodge", width = 0.05, inherit.aes = FALSE, 
+           alpha = 0.5) +
+  labs(x = "Local Sex Ratio", y = "Count") +
   theme_classic() +
-  theme(axis.title.x = element_text(size = 14),
-        axis.title.y = element_text(size = 14),
-        title = element_text(size = 12)))
+  scale_fill_manual(values = c("#7A378B", "#66CD00"))+
+  facet_wrap(~ Population, ncol = 1) +
+  annotate("text", x = 1.1, y = -2, label = "NA")
 
-
+ggsave("Figures/Local_SR.png", width = 6, height = 4, units = "in")
 
 ```
 
+
+
+Spatial Autocorrelation of sex ratio
+```{r}
+# Read in KMZ files from gaia
+# unzip("Raw_Data/Data/East_Krummholz_FocalPlants.kmz", 
+#       exdir = "Output/East_Krummholz_FocalPlants") 
+# unzip("Raw_Data/Data/West_Knoll_FocalPlants.kmz", 
+#       exdir = "Output/West_Knoll_FocalPlants")
+
+EKH_focal <- st_read("Output/East_Krummholz_FocalPlants/doc.kml")
+WK_focal <- st_read("Output/West_Knoll_FocalPlants/doc.kml")
+
+# Format files to be usable
+
+EKH_focal2 <- EKH_focal %>% 
+  separate_wider_delim(Description, delim = "<br>", 
+                       names = c("location", "elevation", "date", "images"),
+                       too_many = "drop") %>% 
+  mutate(Name2 = str_remove_all(Name, " ")) %>% 
+  separate_wider_delim(Name2, delim = "p",
+                       names = c("Pop", "Plant", "Plant2"),
+                       too_few = "align_start") %>% 
+  mutate(Population = case_when(TRUE ~ "High Hermaphrodite")) %>% 
+  separate_wider_position(location, widths = c(10,Latitude = 8, 2, Longitude = 10)) %>% 
+  mutate(Longitude = as.numeric(Longitude),
+         Latitude = as.numeric(Latitude)) %>% 
+  mutate(Plot = if_else(Plant == "100&", "100", Plant))
+
+EKH_focal3 <- EKH_focal2 %>% 
+  filter(Plant == "100&") %>%  mutate(Plot = "300") %>%  bind_rows(EKH_focal2, .)
+
+
+WK_focal2 <- WK_focal %>% 
+  separate_wider_delim(Description, delim = "<br>", 
+                       names = c("location", "elevation", "date", "images"),
+                       too_many = "drop") %>% 
+  mutate(Name2 = str_remove_all(Name, " ")) %>% 
+  separate_wider_delim(Name2, delim = "p",
+                       names = c("Pop", "Plot"),
+                       too_few = "align_start") %>% 
+  mutate(Population = case_when(TRUE ~ "Low Hermaphrodite")) %>% 
+  separate_wider_position(location, widths = c(10,Latitude = 8, 2, Longitude = 10)) %>% 
+  mutate(Longitude = as.numeric(Longitude),
+         Latitude = as.numeric(Latitude))
+
+common_cols <- intersect(names(EKH_focal3), names(WK_focal2))
+
+Focal_Plants <- rbind(EKH_focal3[, common_cols], WK_focal2[,common_cols]) %>% 
+  select(Plot, Population, Latitude, Longitude)
+
+# Merge certain columns with micro sex ratio data
+Map_SR <- merge(Focal_Plants, Micro_SR, by = c("Plot", "Population"))
+Spatial_binary <- merge(Focal_Plants, Micro_occ, by = c("Plot", "Population"))
+
+# Convert Map_SR to a UTM_based spatial object for plotting
+Map_SR_spatial <- Map_SR %>%
+  filter(!is.na(Longitude), !is.na(Latitude)) %>%
+  st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326) %>%
+  st_transform(32613)
+
+Map_SR_utm <- Map_SR_spatial %>%
+  mutate(X_utm = st_coordinates(.)[,1],
+         Y_utm = st_coordinates(.)[,2]) %>%
+  as.data.frame()
+
+# Make a map showing micro sex ratios
+
+# 1. Define the width and height you want both maps to have
+# (Using the range of the 'High' population as the standard)
+# high_data <- Map_SR %>% filter(Population == "High Hermaphrodite")
+# span_x <- diff(range(high_data$Longitude)) * 1.2 # The 1.2 adds a 20% buffer
+# span_y <- diff(range(high_data$Latitude)) * 1.2
+
+# 2. For each population, find its center and apply the fixed span
+# low_center <- Map_SR %>% filter(Population == "Low Hermaphrodite") %>% 
+#   summarise(mx = mean(Longitude), my = mean(Latitude))
+# 
+# high_center <- Map_SR %>% filter(Population == "High Hermaphrodite") %>% 
+#   summarise(mx = mean(Longitude), my = mean(Latitude))
+
+
+(map_low <- Map_SR_utm %>% 
+  dplyr::filter(Population == "Low Hermaphrodite") %>% 
+  dplyr::rename(Hermaphrodite = true_HermCount, Female = true_FemCount) %>%
+  ggplot() + 
+  geom_point(aes(x = X_utm, y = Y_utm, color = Sex), shape = 1, size = 2)+
+  geom_scatterpie(aes(x = X_utm, y = Y_utm, r=1),
+                  cols = c("Female", "Hermaphrodite"), color = NA) +
+  coord_sf(crs = 32613) + 
+  annotation_scale(location = "br", width_hint = 0.25) +
+  scale_fill_manual(values = c("#7A378B","#66CD00"))+
+  scale_color_manual(values = c("#7A378B", "#66CD00"))+
+  scale_x_continuous(n.breaks = 3)+
+  scale_y_continuous(n.breaks = 5) +
+  labs(x = "Longitude", y = "Latitude", fill = "Sex",
+       title = "Low Hermaphrodite") +
+  theme_classic()+
+    guides(color = "none", fill = guide_legend(title.position = "left"))+
+  theme(legend.position = "bottom"))
+
+
+(map_high <- Map_SR_utm %>% 
+  dplyr::filter(Population == "High Hermaphrodite") %>% 
+  dplyr::rename(Hermaphrodite = true_HermCount, Female = true_FemCount) %>%
+  ggplot() + 
+  geom_point(aes(x = X_utm, y = Y_utm, color = Sex), shape = 1, size = 2)+
+  geom_scatterpie(aes(x = X_utm, y = Y_utm, r=1),
+                  cols = c("Female", "Hermaphrodite"), color = NA) +
+  coord_sf(crs = 32613) + 
+  annotation_scale(location = "br", width_hint = 0.25) +
+  scale_fill_manual(values = c("#7A378B","#66CD00"))+
+  scale_color_manual(values = c("#7A378B", "#66CD00"))+
+  scale_x_continuous(n.breaks = 3)+
+  labs(x = "Longitude", y = "Latitude", fill = "Sex",color = "Focal Plants with\nno Neighbors",
+       title = "High Hemaphrodite") +
+  theme_classic()+
+    guides(color = "none", fill = guide_legend(title.position = "left"))+
+  theme(legend.position = "bottom"))
+
+
+(SR_plot <- ggarrange(SR_Pops, SR_FocalPlants, ncol = 1, nrow = 2, heights = c(1.25,1),labels = c("A", "B")))
+
+(SR_maps <- ggarrange(map_high, map_low, nrow = 2, labels = c("C","D"), 
+          common.legend = TRUE, legend = "bottom"))
+
+(SR_panel <- ggarrange(SR_plot, SR_maps, nrow = 1))
+
+ggsave("Figures/SexRatio_Panel.png", width = 8, height = 7, units = "in")
+
+```
+
+
+Autocorrelation Analysis
+```{r}
+Spatial_SR <- Map_SR %>% 
+  select(Population, Latitude, Longitude, micro_SR) %>% 
+  na.omit(micro_SR) 
+
+
+# Testing for autocorrelation using Moran's I with the micro sex ratio of all focal plants separated out by population
+# Split by Population and run your logic on each group
+moran_results_list <- Spatial_SR %>% 
+  group_split(Population) %>% 
+  map(function(pop_data) {
+        # Identify which population we are working on
+    pop_name <- unique(pop_data$Population)
+        # Create spatial object for this population
+    pts_sf <- st_as_sf(pop_data, coords = c("Longitude", "Latitude"), crs = 4326)
+        # Define 5 nearest neighbors 
+    coords <- st_coordinates(pts_sf)
+        # Add small random noise
+    coords_jittered <- jitter(coords, amount = 0.000005)
+        # Check if we have enough plants to find 5 neighbors
+    if (nrow(pop_data) <= 5) {
+      return(paste("Population", pop_name, "has too few plants for k=5"))
+    }
+    knn_nb <- knn2nb(knearneigh(coords_jittered, k = 15))
+        # Convert to weights list
+    weights_list <- nb2listw(knn_nb, style = "W", zero.policy = TRUE)
+        # Perform Moran's I
+    res <- moran.test(pts_sf$micro_SR, weights_list, zero.policy = TRUE)
+        # Add the population name to the result for clarity
+    res$data.name <- paste("micro_SR in", pop_name)
+    return(res)
+  })
+
+print(moran_results_list)
+
+
+# Test for autocorrelation with Population as a random effect
+Spatial_binary2 <- Spatial_binary %>% 
+  select(Population, Latitude, Longitude, micro_sex_occ) %>% 
+  na.omit(micro_SR) %>% 
+  ungroup()
+
+occ_spatial <- st_as_sf(Spatial_binary2, coords = c("Longitude", "Latitude"), crs = 4326) %>% 
+  st_transform(32613) %>%   # Set's zone for Colorado (UTM = 13)
+  mutate(X = st_coordinates(.)[,1], 
+         Y = st_coordinates(.)[,2]) %>%
+  as.data.frame()
+
+# Numeric factor created using coordinates
+occ_spatial$pos <- numFactor(occ_spatial$X, occ_spatial$Y)
+
+# Use glmmTMB because glmer does not do spatial structure
+# exp(pos + 0|Population) - tells R that there might be spatial patterning and to calculate the variance and range caused by spatial structuring. Incorporates the pattern into the results so the p-value for other things is accurate.
+# Should I be including this in my pollen deposition and pollination experiment models???
+
+# Null model with population as a random effect - without spatial structuring to see if there is spatial autocorrelation
+spatial.mod <- glmer(micro_sex_occ ~ 1 + (1|Population),
+                       data = occ_spatial,
+                       family = binomial)
+
+summary(spatial.mod)
+
+
+# Simulate residuals from the model
+sim_res <- simulateResiduals(spatial.mod)
+
+# Group the residuals by their coordinates
+# This aggregates the information from all plants at the same focal point
+res_grouped <- recalculateResiduals(sim_res, group = occ_spatial$pos)
+
+# Get the unique X and Y coordinates for those groups
+coords_unique <- occ_spatial %>%
+  group_by(pos) %>%
+  summarise(X = mean(X), Y = mean(Y))
+
+# Run the test on the grouped residuals
+# This runs a Moran's I test for distance-based autocorrelation
+testSpatialAutocorrelation(res_grouped, 
+                           x = coords_unique$X, 
+                           y = coords_unique$Y)
+
+# Tests if there is any more variance caused by spatial bias not in the model?
+
+```
 
 
