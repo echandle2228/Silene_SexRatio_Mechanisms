@@ -27,13 +27,13 @@ A. File folder Programs: R scripts for data analysis
 
 B. File folder Raw_Data: folder with all data used in this project
    1. File folder Data: csv files with data for analysis
-      a. Filename  Ovule_Count_2025.csv: floral morphology data added in 2025
-      b. Filename Ovule_Count_2025_meta.csv: meta data for floral morphology added in 2025
-      c. Filename Pollen_Deposition.csv: meta data for floral morphology and pollen deposition data from 2024
-      d. Filename Pollen_Deposition_Data_all.csv: floral morphology and pollen deposition data from 2024
-      e. Filename Pollination_Experiment.csv: meta data for the pollination experiment in 2024
-      f. Filename Pollination_Experiment_Seeds.csv: data from a pollination experiment in 2024
-      g. Filename Sex_Ratio_2023.csv: sex ratio data from 2023
-      h. Filename Sex_Ratio_2024.csv: sex ratio data from 2024
+        - Filename  Ovule_Count_2025.csv: floral morphology data added in 2025
+        - Filename Ovule_Count_2025_meta.csv: meta data for floral morphology added in 2025
+        - Filename Pollen_Deposition.csv: meta data for floral morphology and pollen deposition data from 2024
+        - Filename Pollen_Deposition_Data_all.csv: floral morphology and pollen deposition data from 2024
+        - Filename Pollination_Experiment.csv: meta data for the pollination experiment in 2024
+        - Filename Pollination_Experiment_Seeds.csv: data from a pollination experiment in 2024
+        - Filename Sex_Ratio_2023.csv: sex ratio data from 2023
+        - Filename Sex_Ratio_2024.csv: sex ratio data from 2024
    2. File folder Demography Plots Sex Ratio: Sex ratio data from plots that are a part of a long-term demography study at Niwot Ridge
    3. File folder Scans: scans of paper datasheets used to collect field data
