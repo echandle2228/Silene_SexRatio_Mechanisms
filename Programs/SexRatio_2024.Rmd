@@ -250,7 +250,7 @@ SR_NW_rename <- SR_NW %>%
               color = "Focal_Code",
               size = 0.1,
               xlab="Sites", 
-              ylab="Sex Ratio") +
+              ylab="Proportion\nHermaphrodites") +
   geom_point(data = . %>% distinct(Pop_Code, Focal_Code, .keep_all = TRUE),
              aes(x=Pop_Code, y=mean_sex_occ, 
                  size = Number, color = Focal_Code), alpha = 0.5) +
@@ -308,7 +308,7 @@ Micro_occ <- Micro_SR %>%
               position = position_dodge(0.3),
               size = 0.05,
               xlab="Focal Plant", 
-              ylab="Local Sex Ratio",
+              ylab="Proportion\nHermaphrodites",
               color = "Population",
               facet.by = "Population") +
   geom_point(aes(x=Plant.ID, y=mean_sex_occ, 
@@ -321,8 +321,6 @@ Micro_occ <- Micro_SR %>%
         axis.ticks.x = element_blank(),
         legend.position = "bottom",
         legend.title = element_text(size = 10)))
-
-
 
 
 
