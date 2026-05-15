@@ -416,7 +416,7 @@ WK_focal2 <- WK_focal %>%
 common_cols <- intersect(names(EKH_focal3), names(WK_focal2))
 
 Focal_Plants <- rbind(EKH_focal3[, common_cols], WK_focal2[,common_cols]) %>% 
-  select(Plot, Population, Latitude, Longitude)
+  dplyr::select(Plot, Population, Latitude, Longitude)
 
 # Merge certain columns with micro sex ratio data
 Map_SR <- merge(Focal_Plants, Micro_SR, by = c("Plot", "Population"))
@@ -495,7 +495,7 @@ Map_SR_utm <- Map_SR_spatial %>%
 
 (SR_panel <- ggarrange(SR_plot, SR_maps, nrow = 1))
 
-ggsave("Figures/SexRatio_Panel.png", width = 8, height = 7, units = "in")
+ggsave("Figures/SexRatio_Panel.png", width = 8, height = 7, units = "in", bg = "white", dpi = 300)
 
 ```
 

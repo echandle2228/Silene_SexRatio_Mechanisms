@@ -629,7 +629,7 @@ Pollen experiment multi-panel figure
 
 (PolExp_plot <- ggarrange(PolExp_1, PL_plot_pannel_2, nrow = 2, heights = c(0.4, 0.6)))
 
-ggsave(PolExp_plot, filename = "Figures/PolExp_MainFigure.png", dpi = 300, width = 7, height = 8, units = "in")
+ggsave(PolExp_plot, filename = "Figures/PolExp_MainFigure.png", dpi = 300, width = 7, height = 8, units = "in", bg = "white")
 
 ```
 

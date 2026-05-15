@@ -278,7 +278,6 @@ plot(stig_res)
 
 # Get difference between stigma lengths for females and hermaphrodites
 emmeans(q1_stig.m, "Sex")
-pairs(adj_means)
 
 
 # stigma length plot with model estimates
@@ -514,7 +513,7 @@ Floral Trait multipanel figure
 ```{r}
 (FloralTrait_Panel <- ggarrange(ggarrange(stig_plot, ov_plot1, ncol = 2, nrow = 1, labels = c("A", "B")), ov_plot2, nrow = 2, labels = c("", "C"), heights = c(1, 1.5)))
 
-ggsave("Figures/FloralTrait_Panel.png", width = 8, height = 7, units = "in")
+ggsave("Figures/FloralTrait_Panel.png", width = 8, height = 7, units = "in", bg = "white", dpi = 300)
 ```
 
 
@@ -670,7 +669,7 @@ Pollen Deposition multi-panel figure
                               labels = c("A", "B", "C"), 
                               common.legend = TRUE, legend = "bottom"))
 
-ggsave(pollenDepo_plot, file = "./Figures/Pollen_Depo.png", width = 8, height = 4, units = "in", dpi = 300)
+ggsave(pollenDepo_plot, file = "./Figures/Pollen_Depo.png", width = 8, height = 4, units = "in", dpi = 300, bg = "white")
 ```
 
 
